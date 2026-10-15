@@ -124,6 +124,38 @@ async function main() {
     create: { userId: kitchen.id, outletId: bandra.id },
   })
 
+  const dishes = [
+    { id: "dish_paneer_tikka", name: "Paneer Tikka", isVeg: true, prepTarget: 40 },
+    { id: "dish_dal_makhani", name: "Dal Makhani", isVeg: true, prepTarget: 60 },
+    { id: "dish_veg_biryani", name: "Veg Biryani", isVeg: true, prepTarget: 50 },
+    {
+      id: "dish_chicken_curry",
+      name: "Chicken Curry",
+      isVeg: false,
+      prepTarget: 45,
+    },
+    {
+      id: "dish_mutton_rogan_josh",
+      name: "Mutton Rogan Josh",
+      isVeg: false,
+      prepTarget: 30,
+    },
+    { id: "dish_fish_fry", name: "Fish Fry", isVeg: false, prepTarget: 25 },
+  ]
+
+  for (const dish of dishes) {
+    await prisma.dish.upsert({
+      where: { id: dish.id },
+      update: {
+        name: dish.name,
+        isVeg: dish.isVeg,
+        prepTarget: dish.prepTarget,
+        organizationId: organization.id,
+      },
+      create: { ...dish, organizationId: organization.id },
+    })
+  }
+
   console.log("Seed complete.")
   console.log(`  Organization: ${organization.name} (${organization.plan})`)
   console.log(`  Outlets: Bandra Branch, Andheri Central`)

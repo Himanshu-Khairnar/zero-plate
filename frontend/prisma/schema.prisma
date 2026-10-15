@@ -23,6 +23,11 @@ enum Plan {
   ENTERPRISE
 }
 
+enum Shift {
+  LUNCH
+  DINNER
+}
+
 model Organization {
   id        String   @id @default(cuid())
   name      String
@@ -33,6 +38,7 @@ model Organization {
   outlets     Outlet[]
   users       User[]
   invitations Invitation[]
+  dishes      Dish[]
 
   @@index([plan])
 }
@@ -51,6 +57,7 @@ model Outlet {
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   users        UserOutlet[]
   invitations  Invitation[]
+  kitchenLogs  KitchenLog[]
 
   @@index([organizationId])
 }
@@ -151,4 +158,42 @@ model Invitation {
 
   @@index([organizationId])
   @@index([email])
+}
+
+// ---------------------------------------------------------------------------
+// Module G: Kitchen mode & daily operations
+// ---------------------------------------------------------------------------
+
+model Dish {
+  id             String   @id @default(cuid())
+  name           String
+  isVeg          Boolean  @default(true)
+  prepTarget     Int      @default(0)
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  logs         KitchenLog[]
+
+  @@index([organizationId])
+}
+
+model KitchenLog {
+  id        String   @id @default(cuid())
+  dishId    String
+  outletId  String
+  date      DateTime @db.Date
+  shift     Shift
+  prepared  Int      @default(0)
+  sold      Int      @default(0)
+  isLocked  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dish   Dish   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+
+  @@unique([dishId, outletId, date, shift])
+  @@index([outletId, date])
 }
