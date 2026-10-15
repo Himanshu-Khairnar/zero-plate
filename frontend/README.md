@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WasteLess — Frontend
 
-## Getting Started
+Next.js frontend for **WasteLess** (Zero Plate), a multi-tenant restaurant
+waste-management platform: forecasting, prep planning, kitchen operations, and
+waste analytics.
 
-First, run the development server:
+## Tech stack
+
+- **Next.js 16** (App Router, Server Components, Server Actions, `cacheComponents`)
+- **React 19** + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui** (base-nova style) + **Lucide** icons
+- **Auth.js v5** (`next-auth`) with the **Prisma adapter** (Credentials + JWT sessions)
+- **Prisma 6** + PostgreSQL
+- **Zod** for validation, **bcryptjs** for password hashing, **tsx** to run the seed
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd frontend
+npm install
+cp .env.example .env.local
+npx prisma migrate dev --name init   # or: npx prisma db push
+npx prisma db seed
+npm run dev                          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Environment variables (see `.env.example`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable              | Purpose                                  |
+| --------------------- | ---------------------------------------- |
+| `DATABASE_URL`        | PostgreSQL connection string             |
+| `AUTH_SECRET`         | Auth.js session encryption secret        |
+| `NEXT_PUBLIC_API_URL` | FastAPI backend base URL                 |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo accounts
 
-## Learn More
+All seeded users use the password `Password123!`.
 
-To learn more about Next.js, take a look at the following resources:
+| Email                    | Role            | Notes                    |
+| ------------------------ | --------------- | ------------------------ |
+| `owner@wasteless.local`  | OWNER           | Spice Garden Group       |
+| `manager@wasteless.local`| MANAGER         | Spice Garden Group       |
+| `kitchen@wasteless.local`| KITCHEN_STAFF   | Assigned to Bandra Branch|
+| `admin@wasteless.local`  | PLATFORM_ADMIN  | Cross-tenant             |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Authentication & roles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Auth.js v5 with a `Credentials` provider and `PrismaAdapter`; the JWT callback
+  attaches `id`, `role`, and `organizationId` to the session.
+- `src/middleware.ts` guards routes with `auth()`:
+  - `/dashboard/*`, `/kitchen/*`, `/admin/*`, `/settings/*` require a session
+    (unauthenticated visitors are redirected to `/login?callbackUrl=…`).
+  - `/admin/*` requires `PLATFORM_ADMIN`; `/settings/*` requires `OWNER`;
+    `/kitchen/*` allows `KITCHEN_STAFF`, `MANAGER`, and `OWNER`.
+  - Authenticated users hitting `/login` or `/register` are redirected to their
+    role home (`/kitchen` for kitchen staff, `/dashboard` otherwise).
+- The root page (`/`) redirects based on session and role.
 
-## Deploy on Vercel
+## Modules
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Module A — Auth & Multi-Tenancy**: `Organization`, `Outlet`, `User`,
+  `UserOutlet`, plus Auth.js models. Registration onboarding creates an
+  organization, a default outlet, and an `OWNER` user in one transaction.
+- **Staff invitations**: owners/managers generate a 48-hour token link
+  (`/accept-invite?token=…`); the invitee sets a name and password and is scoped
+  to the organization/outlet.
+- **Dashboard**: role-adaptive shell (sidebar + top header) and per-role home
+  views (OWNER, MANAGER, KITCHEN_STAFF, PLATFORM_ADMIN).
+- **Module G — Kitchen Mode** (`/kitchen`): touch-friendly shift logging
+  (LUNCH/DINNER) with per-dish prepared/sold steppers, leftover calculation, and
+  an end-of-day closing checklist that locks the day (`isLocked`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scripts
+
+| Command                  | Description                          |
+| ------------------------ | ------------------------------------ |
+| `npm run dev`            | Start the dev server                 |
+| `npm run build`          | Production build                     |
+| `npm run start`          | Start the production server          |
+| `npm run lint`           | ESLint                               |
+| `npx tsc --noEmit`       | Type-check                           |
+| `npx prisma migrate dev` | Apply schema migrations              |
+| `npx prisma db seed`     | Seed demo data (via `tsx`)           |
+| `npx prisma studio`      | Browse the database                  |
+
+## Project layout
+
+```
+prisma/                     schema.prisma, seed.ts
+src/
+  actions/                  Server Actions (auth, invite-staff, kitchen)
+  app/
+    (auth)/                 login, register, accept-invite
+    (dashboard)/            dashboard shell + dashboard/, kitchen/
+    api/auth/[...nextauth]/ Auth.js route handler
+  components/
+    auth/                   auth forms
+    dashboard/              shell, nav, KPI cards, role views, kitchen/*
+    ui/                     shadcn/ui primitives
+  lib/                      prisma client, date helpers, utils
+  auth.ts / auth.config.ts  Auth.js setup
+  middleware.ts             route guarding + RBAC
+```
+
+## Changelog
+
+### Module G — Kitchen Mode & daily operations
+
+- Added `Shift` enum plus `Dish` and `KitchenLog` models (unique per
+  dish/outlet/date/shift, `isLocked` flag) and sample dishes to the seed.
+- Added `src/actions/kitchen.ts`: `getTodayKitchenData`, `saveKitchenShiftLog`,
+  and `closeAndLockDay` (role- and organization-scoped, blocked once locked).
+- Added the `/kitchen` tablet UI: shift toggle, high-contrast dish cards with
+  `-` / `+` / `+5` steppers, leftover counts, and a sticky end-of-day closing
+  checklist modal that locks the day.
+
+### Dashboard — streaming fix & UI refresh
+
+- Fixed the Cache Components blocking-render error by moving the session read
+  out of the `(dashboard)` layout's top level into a `<Suspense>` boundary
+  (`dashboard-layout-content.tsx`), with skeleton fallbacks
+  (`dashboard-loading.tsx`, `(dashboard)/loading.tsx`). Redirect-only and
+  `searchParams` pages opt out via `export const instant = false`.
+- Refreshed the dashboard shell (gradient brand mark, grouped nav, user chip,
+  sticky header) and KPI cards (icon tones + trend pills), and restyled the
+  OWNER, MANAGER, and PLATFORM_ADMIN home views.
