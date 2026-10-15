@@ -8,6 +8,12 @@ import {
 
 import { KpiCard } from "@/components/dashboard/kpi-card"
 
+const HEALTH_ROWS = [
+  { label: "API", status: "Healthy" },
+  { label: "Database", status: "Healthy" },
+  { label: "Forecast workers", status: "Healthy" },
+]
+
 export function AdminDashboard({
   name,
   stats,
@@ -21,12 +27,14 @@ export function AdminDashboard({
 }) {
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border bg-gradient-to-br from-primary/5 to-transparent p-6">
-        <p className="text-sm text-muted-foreground">Platform administration</p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">
+      <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-violet-500/10 via-transparent to-emerald-500/5 p-6">
+        <p className="text-sm font-medium text-muted-foreground">
+          Platform administration
+        </p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
           System overview
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 max-w-xl text-sm text-muted-foreground">
           Signed in as {name}. Monitoring all tenants and models.
         </p>
       </section>
@@ -37,54 +45,49 @@ export function AdminDashboard({
           value={stats.totalOrganizations.toLocaleString()}
           hint="All tenants on the platform"
           icon={Building}
+          tone="violet"
         />
         <KpiCard
           label="Active Outlets"
           value={stats.activeOutlets.toLocaleString()}
           hint="Reporting across tenants"
           icon={Store}
+          tone="blue"
         />
         <KpiCard
           label="Forecast Inferences Today"
           value={stats.forecastInferencesToday.toLocaleString()}
           hint="Rolling 24 hours"
           icon={TrendingUp}
+          tone="emerald"
         />
         <KpiCard
           label="Global Health Status"
           value="Operational"
           hint="All services responding"
           icon={ShieldCheck}
+          tone="emerald"
         />
       </section>
 
-      <section className="rounded-xl border bg-background p-5 shadow-sm">
+      <section className="rounded-2xl border bg-background p-5 shadow-sm">
         <div className="flex items-center gap-2">
           <Activity className="size-4 text-muted-foreground" aria-hidden="true" />
-          <h2 className="text-sm font-semibold">System health</h2>
+          <h2 className="text-base font-semibold">System health</h2>
         </div>
-        <ul className="mt-3 space-y-2 text-sm">
-          <li className="flex items-center justify-between">
-            <span className="text-muted-foreground">API</span>
-            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700 dark:text-emerald-300">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              Healthy
-            </span>
-          </li>
-          <li className="flex items-center justify-between">
-            <span className="text-muted-foreground">Database</span>
-            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700 dark:text-emerald-300">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              Healthy
-            </span>
-          </li>
-          <li className="flex items-center justify-between">
-            <span className="text-muted-foreground">Forecast workers</span>
-            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700 dark:text-emerald-300">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              Healthy
-            </span>
-          </li>
+        <ul className="mt-4 space-y-2 text-sm">
+          {HEALTH_ROWS.map((row) => (
+            <li
+              key={row.label}
+              className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2"
+            >
+              <span className="text-muted-foreground">{row.label}</span>
+              <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700 dark:text-emerald-300">
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                {row.status}
+              </span>
+            </li>
+          ))}
         </ul>
       </section>
     </div>

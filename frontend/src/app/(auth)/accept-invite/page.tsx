@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma"
 import { AcceptInviteForm } from "@/components/auth/accept-invite-form"
 import { RoleBadge } from "@/components/dashboard/role-badge"
 
+export const instant = false
+
 function InviteMessage({
   title,
   message,
