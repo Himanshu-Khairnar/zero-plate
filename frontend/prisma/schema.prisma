@@ -1,0 +1,154 @@
+// Zero Plate - Module A: Authentication & Multi-Tenancy
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  MANAGER
+  KITCHEN_STAFF
+  PLATFORM_ADMIN
+}
+
+enum Plan {
+  FREE
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  outlets     Outlet[]
+  users       User[]
+  invitations Invitation[]
+
+  @@index([plan])
+}
+
+model Outlet {
+  id             String   @id @default(cuid())
+  name           String
+  city           String
+  latitude       Float?
+  longitude      Float?
+  timezone       String   @default("UTC")
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  users        UserOutlet[]
+  invitations  Invitation[]
+
+  @@index([organizationId])
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String?
+  email          String   @unique
+  passwordHash   String?
+  role           Role     @default(KITCHEN_STAFF)
+  organizationId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  outlets      UserOutlet[]
+  accounts     Account[]
+  sessions     Session[]
+
+  @@index([organizationId])
+  @@index([email])
+}
+
+model UserOutlet {
+  id        String   @id @default(cuid())
+  userId    String
+  outletId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, outletId])
+  @@index([userId])
+  @@index([outletId])
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js (NextAuth) adapter models
+// ---------------------------------------------------------------------------
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Staff invitations
+// ---------------------------------------------------------------------------
+
+model Invitation {
+  id             String    @id @default(cuid())
+  email          String
+  role           Role
+  token          String    @unique
+  organizationId String
+  outletId       String?
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+  createdAt      DateTime  @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  outlet       Outlet?      @relation(fields: [outletId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId])
+  @@index([email])
+}
