@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server"
 import type { Role } from "@prisma/client"
 
-import { auth } from "@/auth"
+import { auth } from "@/auth.edge"
 
 const PUBLIC_ROUTES = ["/login", "/register", "/accept-invite"]
-const PROTECTED_PREFIXES = ["/dashboard", "/kitchen", "/admin", "/settings"]
+const PROTECTED_PREFIXES = [
+  "/dashboard", "/kitchen", "/admin", "/settings", "/forecasts", "/prep-plan", "/whatif",
+  "/models", "/menu", "/sales", "/inventory", "/waste-log", "/donations", "/analytics",
+  "/waste-heatmap", "/reports", "/assistant", "/staff", "/data", "/alerts",
+]
 
 const ROLE_HOME: Record<Role, string> = {
   OWNER: "/dashboard",

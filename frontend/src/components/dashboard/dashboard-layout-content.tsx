@@ -4,6 +4,8 @@ import type { ReactNode } from "react"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { DashboardShell } from "@/components/dashboard/dashboard-shell"
+import { unreadAlertCount } from "@/lib/alerts"
+import { listOutlets } from "@/lib/outlets"
 
 export async function DashboardLayoutContent({
   children,
@@ -23,8 +25,19 @@ export async function DashboardLayoutContent({
       })
     : null
 
+  const viewer = {
+    id: session.user.id,
+    name: session.user.name ?? session.user.email ?? "User",
+    role: session.user.role,
+    organizationId: session.user.organizationId ?? null,
+  }
+  const outlets = await listOutlets(viewer)
+  const counts = await Promise.all(outlets.map((o) => unreadAlertCount(o.id)))
+  const alertCount = counts.reduce((s, n) => s + n, 0)
+
   return (
     <DashboardShell
+      alertCount={alertCount}
       user={{
         name: session.user.name ?? session.user.email ?? "User",
         role: session.user.role,

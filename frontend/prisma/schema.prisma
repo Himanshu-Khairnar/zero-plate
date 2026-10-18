@@ -1,7 +1,18 @@
-// Zero Plate - Module A: Authentication & Multi-Tenancy
+// Zero Plate / WasteLess shared schema
+//
+// Module A: authentication & multi-tenancy (Organization, Outlet, User, Auth.js)
+// Module G: kitchen mode & daily operations (KitchenLog)
+// Modules E/F/J: forecasting, prep planning, what-if (Ingredient, RecipeItem,
+//                SalesRecord, ExternalDay, ModelRun, Forecast, PrepPlan*)
+//
+// Convention for E/F/J tables: business dates (a sales day, a forecast day, a
+// prep day) are "YYYY-MM-DD" strings — calendar days in the outlet's timezone,
+// not instants. Timestamps (createdAt, approvedAt, ...) are real DateTimes.
+// The Python ML service reads and writes these tables directly.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -58,6 +69,20 @@ model Outlet {
   users        UserOutlet[]
   invitations  Invitation[]
   kitchenLogs  KitchenLog[]
+
+  // Modules E/F/J
+  dishes      Dish[]
+  ingredients Ingredient[]
+  forecasts   Forecast[]
+  prepPlans   PrepPlan[]
+  modelRuns   ModelRun[]
+
+  // Modules D/H/K/M
+  suppliers      Supplier[]
+  purchaseOrders PurchaseOrder[]
+  wasteLogs      WasteLog[]
+  alerts         Alert[]
+  donations      Donation[]
 
   @@index([organizationId])
 }
@@ -161,23 +186,41 @@ model Invitation {
 }
 
 // ---------------------------------------------------------------------------
-// Module G: Kitchen mode & daily operations
+// Menu (shared by Module G kitchen mode and Modules E/F/J forecasting)
 // ---------------------------------------------------------------------------
 
 model Dish {
   id             String   @id @default(cuid())
   name           String
   isVeg          Boolean  @default(true)
-  prepTarget     Int      @default(0)
+  prepTarget     Int      @default(0) // today's approved prep quantity, shown in kitchen mode
   organizationId String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  logs         KitchenLog[]
+  // Forecasting attributes (Module C will own editing these)
+  outletId   String? // the outlet whose sales history this dish is forecast from
+  category   String   @default("Mains")
+  price      Float    @default(0)
+  isActive   Boolean  @default(true)
+  launchedAt String? // YYYY-MM-DD, for the "days since launch" feature
+
+  organization  Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  outlet        Outlet?        @relation(fields: [outletId], references: [id], onDelete: SetNull)
+  logs          KitchenLog[]
+  recipeItems   RecipeItem[]
+  salesRecords  SalesRecord[]
+  forecasts     Forecast[]
+  prepPlanItems PrepPlanItem[]
+  wasteLogs     WasteLog[]
 
   @@index([organizationId])
+  @@index([outletId])
 }
+
+// ---------------------------------------------------------------------------
+// Module G: Kitchen mode & daily operations
+// ---------------------------------------------------------------------------
 
 model KitchenLog {
   id        String   @id @default(cuid())
@@ -196,4 +239,352 @@ model KitchenLog {
 
   @@unique([dishId, outletId, date, shift])
   @@index([outletId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Modules E/F/J: recipes, sales history, external data
+// ---------------------------------------------------------------------------
+
+model Ingredient {
+  id            String @id @default(cuid())
+  name          String
+  unit          String // kg | l | pcs
+  costPerUnit   Float
+  shelfLifeDays Int    @default(3)
+  outletId      String
+
+  outlet         Outlet              @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  recipeItems    RecipeItem[]
+  supplierPrices SupplierPrice[]
+  stockMovements StockMovement[]
+  poItems        PurchaseOrderItem[]
+  wasteLogs      WasteLog[]
+
+  @@index([outletId])
+}
+
+model RecipeItem {
+  id           String @id @default(cuid())
+  dishId       String
+  ingredientId String
+  qtyPerPlate  Float // in the ingredient's unit
+
+  dish       Dish       @relation(fields: [dishId], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([dishId, ingredientId])
+}
+
+// Imported / POS sales. Kitchen-mode "sold" counts (KitchenLog) are merged in
+// by the ML service for days that have no SalesRecord rows.
+model SalesRecord {
+  id      String @id @default(cuid())
+  dishId  String
+  date    String // YYYY-MM-DD
+  shift   String // lunch | dinner | all
+  qtySold Int
+  price   Float
+
+  dish Dish @relation(fields: [dishId], references: [id], onDelete: Cascade)
+
+  @@index([dishId, date])
+}
+
+// Weather and holiday per city and day. Filled by the ML service.
+model ExternalDay {
+  id          String  @id @default(cuid())
+  city        String
+  date        String // YYYY-MM-DD
+  tempMax     Float?
+  tempMin     Float?
+  rainMm      Float?
+  humidity    Float?
+  isHoliday   Boolean @default(false)
+  holidayName String?
+  source      String  @default("open-meteo") // open-meteo | climatology | synthetic
+
+  @@unique([city, date])
+}
+
+// ---------------------------------------------------------------------------
+// Module E: forecasting
+// ---------------------------------------------------------------------------
+
+// One trained model per outlet per version. The active one serves forecasts.
+model ModelRun {
+  id          String    @id @default(cuid())
+  outletId    String
+  version     String // e.g. v20261018-213000
+  modelName   String // lightgbm | naive | seasonal_naive | prophet
+  trainedAt   DateTime  @default(now())
+  trainRows   Int
+  mae         Float
+  mape        Float
+  coverage    Float // share of actuals inside [low, high] on backtest
+  metricsJson String // full comparison table, JSON encoded
+  isActive    Boolean   @default(false)
+  promotedAt  DateTime?
+
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+
+  @@unique([outletId, version])
+  @@index([outletId, isActive])
+}
+
+model Forecast {
+  id           String   @id @default(cuid())
+  outletId     String
+  dishId       String
+  date         String // YYYY-MM-DD, the day being forecast
+  low          Float
+  likely       Float
+  high         Float
+  modelVersion String
+  explanation  String
+  createdAt    DateTime @default(now())
+
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  dish   Dish   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+
+  @@unique([dishId, date])
+  @@index([outletId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Module F: prep planning
+// ---------------------------------------------------------------------------
+
+model PrepPlan {
+  id         String    @id @default(cuid())
+  outletId   String
+  date       String // YYYY-MM-DD
+  status     String    @default("DRAFT") // DRAFT | APPROVED | LOCKED
+  approvedBy String?
+  approvedAt DateTime?
+  notes      String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  outlet      Outlet               @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  items       PrepPlanItem[]
+  adjustments PrepPlanAdjustment[]
+
+  @@unique([outletId, date])
+}
+
+model PrepPlanItem {
+  id             String @id @default(cuid())
+  prepPlanId     String
+  dishId         String
+  forecastLow    Float
+  forecastLikely Float
+  forecastHigh   Float
+  riskWeight     Float // 0 = cook the likely number, 1 = cook the high number
+  costPerPlate   Float
+  suggestedQty   Int // what the system proposed
+  plannedQty     Int // what the manager approved (starts equal to suggestedQty)
+
+  prepPlan PrepPlan @relation(fields: [prepPlanId], references: [id], onDelete: Cascade)
+  dish     Dish     @relation(fields: [dishId], references: [id], onDelete: Cascade)
+
+  @@unique([prepPlanId, dishId])
+}
+
+// Every manual change to a plan is kept, so the model can learn from
+// overrides and owners can audit who changed what.
+model PrepPlanAdjustment {
+  id         String   @id @default(cuid())
+  prepPlanId String
+  dishId     String
+  fromQty    Int
+  toQty      Int
+  reason     String?
+  adjustedBy String
+  createdAt  DateTime @default(now())
+
+  prepPlan PrepPlan @relation(fields: [prepPlanId], references: [id], onDelete: Cascade)
+
+  @@index([prepPlanId])
+}
+
+// ---------------------------------------------------------------------------
+// Module D: inventory, suppliers, purchase orders
+// ---------------------------------------------------------------------------
+
+model Supplier {
+  id           String   @id @default(cuid())
+  name         String
+  contact      String?
+  leadTimeDays Int      @default(2)
+  outletId     String
+  createdAt    DateTime @default(now())
+
+  outlet         Outlet          @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  purchaseOrders PurchaseOrder[]
+  prices         SupplierPrice[]
+
+  @@index([outletId])
+}
+
+model SupplierPrice {
+  id           String @id @default(cuid())
+  supplierId   String
+  ingredientId String
+  price        Float // per ingredient unit
+
+  supplier   Supplier   @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([supplierId, ingredientId])
+}
+
+// Every change to stock: purchases in, usage/waste/expiry out.
+model StockMovement {
+  id           String   @id @default(cuid())
+  ingredientId String
+  type         String // IN | OUT
+  reason       String // purchase | usage | waste | expired | adjustment
+  qty          Float
+  expiryDate   String? // YYYY-MM-DD, for IN batches
+  note         String?
+  createdBy    String?
+  createdAt    DateTime @default(now())
+
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@index([ingredientId, createdAt])
+}
+
+model PurchaseOrder {
+  id           String    @id @default(cuid())
+  outletId     String
+  supplierId   String?
+  status       String    @default("SUGGESTED") // SUGGESTED | ORDERED | RECEIVED | CANCELLED
+  expectedDate String? // YYYY-MM-DD
+  note         String?
+  createdBy    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  receivedAt   DateTime?
+
+  outlet   Outlet              @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  supplier Supplier?           @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  items    PurchaseOrderItem[]
+
+  @@index([outletId, status])
+}
+
+model PurchaseOrderItem {
+  id              String @id @default(cuid())
+  purchaseOrderId String
+  ingredientId    String
+  qty             Float
+  unitPrice       Float
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  ingredient    Ingredient    @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([purchaseOrderId, ingredientId])
+}
+
+// ---------------------------------------------------------------------------
+// Module H: waste tracking
+// ---------------------------------------------------------------------------
+
+model WasteLog {
+  id           String   @id @default(cuid())
+  outletId     String
+  dishId       String?
+  ingredientId String?
+  date         String // YYYY-MM-DD
+  qty          Float // plates for a dish, ingredient units otherwise
+  reason       String // overproduction | spoilage | plate_waste | prep_loss
+  photoUrl     String?
+  aiConfidence Float?
+  aiLabel      String?
+  note         String?
+  loggedBy     String?
+  createdAt    DateTime @default(now())
+
+  outlet     Outlet      @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  dish       Dish?       @relation(fields: [dishId], references: [id], onDelete: SetNull)
+  ingredient Ingredient? @relation(fields: [ingredientId], references: [id], onDelete: SetNull)
+
+  @@index([outletId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Module K: alerts
+// ---------------------------------------------------------------------------
+
+model Alert {
+  id        String    @id @default(cuid())
+  outletId  String
+  type      String // anomaly | low_stock | expiry | shortage | plan_pending
+  severity  String    @default("info") // info | warning | critical
+  message   String
+  dataJson  String?
+  isRead    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+
+  @@index([outletId, isRead, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Module M: surplus redistribution
+// ---------------------------------------------------------------------------
+
+model Ngo {
+  id       String  @id @default(cuid())
+  name     String
+  city     String
+  contact  String?
+  address  String?
+  acceptsCooked Boolean @default(true)
+  pickupNote String?
+
+  donations Donation[]
+
+  @@index([city])
+}
+
+model Donation {
+  id        String   @id @default(cuid())
+  outletId  String
+  ngoId     String?
+  date      String // YYYY-MM-DD
+  meals     Int
+  dishNames String?
+  status    String   @default("PLANNED") // PLANNED | COLLECTED | CANCELLED
+  note      String?
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  outlet Outlet @relation(fields: [outletId], references: [id], onDelete: Cascade)
+  ngo    Ngo?   @relation(fields: [ngoId], references: [id], onDelete: SetNull)
+
+  @@index([outletId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Module N: administration
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String?
+  outletId       String?
+  userId         String?
+  userName       String?
+  action         String // e.g. prep_plan.approve, sales.import
+  entity         String?
+  entityId       String?
+  detail         String?
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, createdAt])
+  @@index([createdAt])
 }

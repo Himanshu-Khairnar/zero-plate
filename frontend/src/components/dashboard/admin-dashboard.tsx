@@ -27,7 +27,7 @@ export function AdminDashboard({
 }) {
   return (
     <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-violet-500/10 via-transparent to-emerald-500/5 p-6">
+      <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/10 via-transparent to-primary/5 p-6">
         <p className="text-sm font-medium text-muted-foreground">
           Platform administration
         </p>
@@ -82,8 +82,8 @@ export function AdminDashboard({
               className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2"
             >
               <span className="text-muted-foreground">{row.label}</span>
-              <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700 dark:text-emerald-300">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
+              <span className="inline-flex items-center gap-1.5 font-medium text-primary">
+                <span className="size-1.5 rounded-full bg-primary" />
                 {row.status}
               </span>
             </li>

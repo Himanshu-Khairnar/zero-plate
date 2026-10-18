@@ -122,7 +122,7 @@ export function KitchenMode({
             </p>
           </div>
           {locked ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-sm font-semibold text-amber-700 dark:text-amber-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary/80">
               <Lock className="size-4" aria-hidden="true" />
               Day Locked
             </span>

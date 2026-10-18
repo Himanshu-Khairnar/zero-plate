@@ -1,0 +1,54 @@
+# Local stack: Postgres + ML service + jobs. The Next.js app runs with `npm run dev`
+# (or add it here once module A's auth is in) and points DATABASE_URL at the db.
+#
+#   docker compose up -d db ml
+#   docker compose run --rm ml python -m app.data.seed
+#   docker compose run --rm ml python -m app.jobs.weekly_retrain
+#   docker compose up -d scheduler            # nightly 02:00 forecast, Monday 03:00 retrain
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: wasteless
+      POSTGRES_PASSWORD: wasteless
+      POSTGRES_DB: wasteless
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wasteless"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  ml:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://wasteless:wasteless@db:5432/wasteless
+      CORS_ORIGINS: '["http://localhost:3000"]'
+      USE_OPEN_METEO: "true"
+    ports:
+      - "8000:8000"
+    volumes:
+      - models:/srv/models
+    depends_on:
+      db:
+        condition: service_healthy
+
+  scheduler:
+    build: ./backend
+    command: python -m app.jobs.scheduler
+    environment:
+      DATABASE_URL: postgresql+psycopg://wasteless:wasteless@db:5432/wasteless
+      USE_OPEN_METEO: "true"
+    volumes:
+      - models:/srv/models
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  models:

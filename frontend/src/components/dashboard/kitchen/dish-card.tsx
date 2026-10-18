@@ -105,14 +105,14 @@ export function DishCard({
             className={cn(
               "inline-flex size-4 shrink-0 items-center justify-center rounded-sm border",
               dish.isVeg
-                ? "border-emerald-600 bg-emerald-600/10"
-                : "border-red-600 bg-red-600/10",
+                ? "border-primary/30 bg-primary/10"
+                : "border-foreground/40 bg-foreground/10",
             )}
           >
             <span
               className={cn(
                 "size-1.5 rounded-full",
-                dish.isVeg ? "bg-emerald-600" : "bg-red-600",
+                dish.isVeg ? "bg-primary" : "bg-foreground",
               )}
             />
           </span>
@@ -124,8 +124,8 @@ export function DishCard({
           className={cn(
             "rounded-full border px-2 py-0.5 text-xs font-semibold whitespace-nowrap",
             dish.isVeg
-              ? "border-emerald-600/30 bg-emerald-600/10 text-emerald-700 dark:text-emerald-400"
-              : "border-red-600/30 bg-red-600/10 text-red-700 dark:text-red-400",
+              ? "border-primary/30 bg-primary/10 text-primary"
+              : "border-foreground/30 bg-foreground/10 text-foreground",
           )}
         >
           {dish.isVeg ? "Veg" : "Non-veg"}
@@ -163,7 +163,7 @@ export function DishCard({
           className={cn(
             "text-2xl font-bold tabular-nums",
             leftover > 0
-              ? "text-amber-600 dark:text-amber-400"
+              ? "text-primary/80"
               : "text-foreground",
           )}
         >

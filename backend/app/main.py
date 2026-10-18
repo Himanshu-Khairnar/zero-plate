@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router
+from app.api.anomaly import router as anomaly_router
+from app.api.vision import router as vision_router
 from app.config import settings
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -26,3 +28,5 @@ app.add_middleware(
 )
 
 app.include_router(router)
+app.include_router(anomaly_router)
+app.include_router(vision_router)

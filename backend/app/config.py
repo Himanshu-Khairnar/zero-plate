@@ -3,7 +3,6 @@ from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_SQLITE = (BACKEND_DIR.parent / "frontend" / "prisma" / "dev.db").resolve()
 
 
 class Settings(BaseSettings):
@@ -12,9 +11,10 @@ class Settings(BaseSettings):
     app_name: str = "WasteLess ML Service"
     cors_origins: list[str] = ["http://localhost:3000"]
 
-    # Same database the Next.js app uses through Prisma.
-    # SQLite for local dev; e.g. postgresql+psycopg://user:pass@host/db in prod.
-    database_url: str = f"sqlite:///{DEFAULT_SQLITE.as_posix()}"
+    # Same database the Next.js app uses through Prisma (PostgreSQL).
+    # Local dev default: the PGlite server started with `npm run db:local`.
+    # SQLite also works for isolated tests: sqlite:///path/to.db
+    database_url: str = "postgresql+psycopg://postgres:postgres@127.0.0.1:5433/postgres"
 
     # Where trained model artifacts are versioned.
     model_dir: Path = BACKEND_DIR / "models"

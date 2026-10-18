@@ -40,7 +40,7 @@ export default function RegisterPage() {
         {state?.success ? (
           <div
             role="status"
-            className="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-400"
+            className="mb-4 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm text-primary"
           >
             Account created. You can now{" "}
             <Link href="/login" className="font-medium underline">

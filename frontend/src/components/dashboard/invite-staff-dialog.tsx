@@ -59,7 +59,7 @@ export function InviteStaffDialog({ outlets }: { outlets: OutletOption[] }) {
             ) : null}
 
             {state?.inviteUrl ? (
-              <div className="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-300">
+              <div className="mb-4 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-sm text-primary">
                 <p className="font-medium">Invitation created</p>
                 <p className="mt-1 break-all text-xs">{state.inviteUrl}</p>
               </div>

@@ -11,3 +11,4 @@ joblib>=1.4
 python-dateutil>=2.9
 psycopg[binary]>=3.2
 pytest>=8
+pillow>=10

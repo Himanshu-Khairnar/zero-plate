@@ -1,31 +1,51 @@
+import Link from "next/link"
 import {
   Bell,
   CircleDollarSign,
+  ClipboardList,
   PackageSearch,
   TriangleAlert,
   TrendingDown,
 } from "lucide-react"
 
 import { KpiCard } from "@/components/dashboard/kpi-card"
+import { Badge } from "@/components/ui/badge"
+import { inr, num, pct } from "@/lib/format"
 
-const STOCK_ALERTS = [
-  { item: "Paneer", detail: "2.1 kg left — below reorder point", level: "high" },
-  { item: "Basmati Rice", detail: "8 kg left — reorder soon", level: "medium" },
-  { item: "Tomatoes", detail: "5 kg left — reorder soon", level: "medium" },
-]
+export type ManagerStats = {
+  revenue7: number
+  revenueChange7: number | null
+  plates7: number
+  wastePct: number
+  wasteCost30: number
+  planPending: boolean
+  planStatus: string
+  forecastMape: number | null
+  unreadAlerts: number
+  stockAlerts: number
+}
+
+export type ManagerAlert = { id: string; type: string; severity: string; message: string }
 
 export function ManagerDashboard({
   name,
   outletName,
   organizationName,
+  outletId,
+  stats,
+  alerts,
 }: {
   name: string
   outletName: string | null
   organizationName: string | null
+  outletId: string | null
+  stats: ManagerStats
+  alerts: ManagerAlert[]
 }) {
+  const q = outletId ? `?outlet=${outletId}` : ""
   return (
     <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/5 p-6">
+      <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-3/10 via-transparent to-primary/5 p-6">
         <p className="text-sm font-medium text-muted-foreground">
           {organizationName ?? "Your organization"} ·{" "}
           {outletName ?? "Your outlet"}
@@ -34,84 +54,94 @@ export function ManagerDashboard({
           Good to see you, {name}
         </h1>
         <p className="mt-1 max-w-xl text-sm text-muted-foreground">
-          Today&apos;s operational summary for your outlet.
+          Last 7 days at a glance, and what needs your attention today.
         </p>
       </section>
 
-      <div
-        role="alert"
-        className="flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-800 dark:text-amber-300"
-      >
-        <TriangleAlert className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-        <div>
-          <p className="font-semibold">Prep Plan Awaiting Approval</p>
-          <p className="text-sm">
-            Tomorrow&apos;s prep plan has been generated and needs your review
-            before service.
-          </p>
-        </div>
-      </div>
+      {stats.planPending ? (
+        <Link
+          href={`/prep-plan${q}`}
+          role="alert"
+          className="flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-primary/80 transition-colors hover:bg-primary/15 dark:text-primary/80"
+        >
+          <TriangleAlert className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          <div>
+            <p className="font-semibold">Prep plan awaiting approval</p>
+            <p className="text-sm">
+              {stats.planStatus === "MISSING"
+                ? "Tomorrow's prep plan has not been opened yet. Open it to draft from the forecast and approve before service."
+                : "Tomorrow's prep plan is drafted from the forecast and needs your review before service."}
+            </p>
+          </div>
+        </Link>
+      ) : null}
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
-          label="Today's Sales"
-          value="₹82,400"
-          hint="62 orders so far"
+          label="Sales · 7 days"
+          value={inr(stats.revenue7)}
+          hint={`${num(stats.plates7)} plates`}
           icon={CircleDollarSign}
           tone="emerald"
+          trend={
+            stats.revenueChange7 != null
+              ? { label: `${Math.abs(stats.revenueChange7)}% vs previous week`, direction: stats.revenueChange7 >= 0 ? "up" : "down", positive: stats.revenueChange7 >= 0 }
+              : undefined
+          }
         />
         <KpiCard
-          label="Waste Today"
-          value="2.8%"
-          hint="Target: under 4%"
+          label="Waste · 30 days"
+          value={pct(stats.wastePct, 1)}
+          hint={`${inr(stats.wasteCost30)} at cost · target under 4%`}
           icon={TrendingDown}
-          tone="amber"
+          tone={stats.wastePct > 5 ? "red" : "amber"}
         />
         <KpiCard
-          label="Prep Tasks"
-          value="12 / 18"
-          hint="6 remaining for service"
-          icon={Bell}
+          label="Forecast accuracy"
+          value={stats.forecastMape != null ? `MAPE ${pct(stats.forecastMape, 1)}` : "—"}
+          hint="last 28 days, per dish"
+          icon={ClipboardList}
           tone="blue"
         />
         <KpiCard
-          label="Low Stock Items"
-          value="3"
-          hint="Needs reordering"
+          label="Stock alerts"
+          value={num(stats.stockAlerts)}
+          hint={`${num(stats.unreadAlerts)} unread alerts in total`}
           icon={PackageSearch}
-          tone="red"
+          tone={stats.stockAlerts ? "red" : "default"}
         />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-base font-semibold">Quick stock alerts</h2>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {STOCK_ALERTS.map((alert) => {
-            const critical = alert.level === "high"
-            return (
-              <div
-                key={alert.item}
-                className="flex items-start justify-between gap-3 rounded-2xl border bg-background p-4 shadow-sm"
-              >
-                <div>
-                  <p className="font-semibold">{alert.item}</p>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    {alert.detail}
-                  </p>
-                </div>
-                <span
-                  className={
-                    critical
-                      ? "inline-flex items-center rounded-full border border-destructive/30 bg-destructive/10 px-2 py-0.5 text-xs font-semibold whitespace-nowrap text-destructive"
-                      : "inline-flex items-center rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-semibold whitespace-nowrap text-amber-700 dark:text-amber-300"
-                  }
-                >
-                  {critical ? "Critical" : "Low"}
-                </span>
-              </div>
-            )
-          })}
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-semibold">Needs attention</h2>
+          <Link href="/alerts" className="text-sm text-primary underline-offset-4 hover:underline">
+            All alerts
+          </Link>
         </div>
+        {alerts.length === 0 ? (
+          <p className="rounded-2xl border border-dashed p-6 text-center text-sm text-muted-foreground">
+            Nothing open. Stock, expiry and forecast checks run when you open Inventory or Alerts.
+          </p>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {alerts.map((alert) => {
+              const critical = alert.severity === "critical"
+              return (
+                <div key={alert.id} className="flex items-start justify-between gap-3 rounded-2xl border bg-background p-4 shadow-sm">
+                  <div className="flex items-start gap-2">
+                    <Bell className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                    <div>
+                      <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">{alert.type.replace("_", " ")}</p>
+                      <p className="mt-0.5 text-sm">{alert.message}</p>
+                    </div>
+                  </div>
+                  <Badge variant={critical ? "destructive" : "secondary"} className="capitalize">{alert.severity}</Badge>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </section>
     </div>
   )

@@ -77,7 +77,11 @@ export async function getTodayKitchenData(
   const date = todayUtcDate()
 
   const dishes = await prisma.dish.findMany({
-    where: { organizationId: outlet.organizationId },
+    where: {
+      organizationId: outlet.organizationId,
+      isActive: true,
+      OR: [{ outletId }, { outletId: null }],
+    },
     orderBy: [{ name: "asc" }],
     include: {
       logs: {

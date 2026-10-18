@@ -1,0 +1,6 @@
+# Cron schedule for the ML jobs (server local time).
+# Install with: crontab deploy/crontab   (inside the container or on the host)
+# Nightly at 02:00: fetch tomorrow's weather + holidays and write 7-day forecasts.
+0 2 * * * cd /srv && python -m app.jobs.nightly_forecast >> /var/log/wasteless-nightly.log 2>&1
+# Monday 03:00: retrain, compare on the last 4 weeks, promote the winner, refresh forecasts.
+0 3 * * 1 cd /srv && python -m app.jobs.weekly_retrain >> /var/log/wasteless-retrain.log 2>&1 && python -m app.jobs.nightly_forecast >> /var/log/wasteless-nightly.log 2>&1
