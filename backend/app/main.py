@@ -1,9 +1,21 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes import router
 from app.config import settings
 
-app = FastAPI(title=settings.app_name)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+
+app = FastAPI(
+    title=settings.app_name,
+    description=(
+        "Demand forecasting, what-if scenarios and model management for WasteLess. "
+        "Forecasts are written to the shared database; the Next.js app reads them from there."
+    ),
+    version="0.1.0",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,7 +25,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.get("/api/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+app.include_router(router)
