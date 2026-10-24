@@ -178,3 +178,17 @@ export async function notify(alert: { id: string; outletId: string; type: AlertT
     console.error("alert email failed", err);
   }
 }
+
+/** Short headline per alert type (mirrors the labels in the web alerts panel). */
+export const ALERT_TITLE: Record<string, string> = {
+  anomaly: "Unusual sales",
+  low_stock: "Low stock",
+  expiry: "Expiry",
+  shortage: "Shortage",
+  plan_pending: "Plan pending",
+};
+
+/** Mark one alert of an outlet as read. Throws if it does not belong to the outlet. */
+export async function setAlertRead(outletId: string, alertId: string) {
+  await prisma.alert.update({ where: { id: alertId, outletId }, data: { isRead: true, readAt: new Date() } });
+}

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { refreshOperationalAlerts } from "@/lib/alerts";
+import { refreshOperationalAlerts, setAlertRead } from "@/lib/alerts";
 import { audit, guarded, GuardError, requireOutletActor } from "@/lib/guard";
 import { prisma } from "@/lib/prisma";
 
@@ -11,7 +11,7 @@ const ML = process.env.ML_SERVICE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "htt
 export async function markAlertRead(outletId: string, alertId: string) {
   return guarded(async () => {
     await requireOutletActor(outletId);
-    await prisma.alert.update({ where: { id: alertId, outletId }, data: { isRead: true, readAt: new Date() } });
+    await setAlertRead(outletId, alertId);
     revalidatePath("/alerts");
     revalidatePath("/dashboard");
   });

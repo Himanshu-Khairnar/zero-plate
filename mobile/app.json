@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "WasteLess",
+    "slug": "wasteless",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E8F0F0",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-secure-store",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#E8F0F0",
+          "dark": {
+            "backgroundColor": "#0A1A20"
+          },
+          "imageWidth": 120,
+          "image": "./assets/splash-icon.png"
+        }
+      ]
+    ],
+    "scheme": "wasteless",
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

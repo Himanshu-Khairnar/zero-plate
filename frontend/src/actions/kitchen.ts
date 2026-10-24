@@ -5,6 +5,7 @@ import { z } from "zod"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { parseIsoDate, todayUtcDate } from "@/lib/date"
+import { upsertKitchenLog } from "@/lib/kitchen"
 
 export type KitchenShift = "LUNCH" | "DINNER"
 
@@ -134,28 +135,7 @@ export async function saveKitchenShiftLog(
     return { ok: false, error: access.error }
   }
 
-  const day = parseIsoDate(date)
-
-  const existing = await prisma.kitchenLog.findUnique({
-    where: {
-      dishId_outletId_date_shift: { dishId, outletId, date: day, shift },
-    },
-    select: { isLocked: true },
-  })
-
-  if (existing?.isLocked) {
-    return { ok: false, error: "This day has been locked." }
-  }
-
-  await prisma.kitchenLog.upsert({
-    where: {
-      dishId_outletId_date_shift: { dishId, outletId, date: day, shift },
-    },
-    update: { prepared, sold },
-    create: { dishId, outletId, date: day, shift, prepared, sold },
-  })
-
-  return { ok: true }
+  return upsertKitchenLog({ dishId, outletId, date, shift, prepared, sold })
 }
 
 export async function closeAndLockDay(
