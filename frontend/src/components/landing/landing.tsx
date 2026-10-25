@@ -125,7 +125,7 @@ export function Landing() {
             <span className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:rotate-[-12deg]">
               <Leaf className="size-4" aria-hidden="true" />
             </span>
-            WasteLess
+            Zero Plate
           </Link>
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
             {[["#how", "How it works"], ["#demo", "Try it"], ["#features", "Features"]].map(([href, label]) => (
@@ -165,7 +165,7 @@ export function Landing() {
                 <span className="lp-shimmer">Waste less.</span>
               </h1>
               <p className="lp-rise mt-6 max-w-xl text-base leading-relaxed text-muted-foreground" style={order(2)}>
-                WasteLess predicts how many plates of each dish you will sell over the next week and turns it into a
+                Zero Plate predicts how many plates of each dish you will sell over the next week and turns it into a
                 prep list your kitchen can follow — so you stop guessing, stop running out, and stop throwing food away.
               </p>
               <div className="lp-rise mt-8 flex flex-wrap gap-3" style={order(3)}>
@@ -313,7 +313,7 @@ export function Landing() {
               <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Not every dish deserves the same safety margin</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 Running out of a ₹30 side loses a sale for almost nothing. Over-cooking a ₹160 biryani throws money away.
-                WasteLess weighs each dish by its cost against the menu median and picks a number between the likely
+                Zero Plate weighs each dish by its cost against the menu median and picks a number between the likely
                 and high forecast.
               </p>
               <p className="mt-3 text-sm text-muted-foreground">This card runs the exact formula the prep planner uses — drag the slider.</p>
@@ -393,9 +393,8 @@ export function Landing() {
       <footer className="border-t">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:px-6">
           <span className="flex items-center gap-1.5">
-            <Leaf className="size-3.5 text-primary" aria-hidden="true" /> WasteLess · AI demand forecasting to cut restaurant food waste
+            <Leaf className="size-3.5 text-primary" aria-hidden="true" /> Zero Plate · AI demand forecasting to cut restaurant food waste
           </span>
-          <span>Mini project · DJSCE AIML · 2026–27</span>
         </div>
       </footer>
     </div>
