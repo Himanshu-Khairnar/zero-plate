@@ -12,3 +12,4 @@ python-dateutil>=2.9
 psycopg[binary]>=3.2
 pytest>=8
 pillow>=10
+opencv-python-headless>=4.10,<6

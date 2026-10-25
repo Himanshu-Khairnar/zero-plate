@@ -21,8 +21,8 @@ def test_recognize_returns_suggestions_shape():
     res = client.post("/api/vision/recognize", files={"image": ("tray.jpg", _jpeg(), "image/jpeg")})
     assert res.status_code == 200, res.text
     body = res.json()
-    assert body["model"] == "heuristic-v0"
-    assert "stand-in" in body["note"].lower()
+    assert body["model"] == "opencv-pipeline-v1"
+    assert "not a trained" in body["note"].lower()
     assert isinstance(body["items"], list) and body["items"]
     item = body["items"][0]
     assert {"label", "estimatedQty", "confidence"} <= set(item)

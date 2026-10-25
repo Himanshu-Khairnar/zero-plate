@@ -1,0 +1,387 @@
+{
+  "generatedAt": "2026-10-25 19:17:11",
+  "model": "opencv-pipeline-v1",
+  "dataset": {
+    "imageSize": "640x480",
+    "devImages": 60,
+    "testImages": 120,
+    "totalImages": 180
+  },
+  "dev": {
+    "seedRange": [
+      2026,
+      2085
+    ],
+    "overall": {
+      "n": 60,
+      "fillRatioMAE": 0.00115,
+      "fillRatioMaxAbsErr": 0.0047,
+      "portionCountAccuracy": 0.9833,
+      "portionCountMAE": 0.0167,
+      "connectedComponentsOnlyAccuracy": 0.6833
+    },
+    "byTable": {
+      "wood": {
+        "n": 20,
+        "fillRatioMAE": 0.0012,
+        "fillRatioMaxAbsErr": 0.00368,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.7
+      },
+      "slate": {
+        "n": 20,
+        "fillRatioMAE": 0.00071,
+        "fillRatioMaxAbsErr": 0.00226,
+        "portionCountAccuracy": 0.95,
+        "portionCountMAE": 0.05,
+        "connectedComponentsOnlyAccuracy": 0.8
+      },
+      "laminate": {
+        "n": 20,
+        "fillRatioMAE": 0.00154,
+        "fillRatioMaxAbsErr": 0.0047,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.55
+      }
+    },
+    "byPlate": {
+      "white": {
+        "n": 20,
+        "fillRatioMAE": 0.00127,
+        "fillRatioMaxAbsErr": 0.00426,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.8
+      },
+      "offwhite": {
+        "n": 21,
+        "fillRatioMAE": 0.00114,
+        "fillRatioMaxAbsErr": 0.0047,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.6667
+      },
+      "grey": {
+        "n": 19,
+        "fillRatioMAE": 0.00105,
+        "fillRatioMaxAbsErr": 0.00268,
+        "portionCountAccuracy": 0.9474,
+        "portionCountMAE": 0.0526,
+        "connectedComponentsOnlyAccuracy": 0.5789
+      }
+    },
+    "touching": {
+      "n": 19,
+      "fillRatioMAE": 0.00158,
+      "fillRatioMaxAbsErr": 0.00426,
+      "portionCountAccuracy": 0.9474,
+      "portionCountMAE": 0.0526,
+      "connectedComponentsOnlyAccuracy": 0.0
+    },
+    "notTouching": {
+      "n": 41,
+      "fillRatioMAE": 0.00095,
+      "fillRatioMaxAbsErr": 0.0047,
+      "portionCountAccuracy": 1.0,
+      "portionCountMAE": 0.0,
+      "connectedComponentsOnlyAccuracy": 1.0
+    },
+    "plateDetection": {
+      "houghRate": 1.0,
+      "radiusRelErrMean": 0.0063,
+      "centreErrMeanFracOfRadius": 0.0079
+    },
+    "rle": {
+      "totalRleBytes": 24222,
+      "ratioVsBitmap": 60.88,
+      "ratioVs8bit": 487.02,
+      "medianRatioVsBitmap": 59.88,
+      "meanRleBytesPerImage": 403.7
+    },
+    "stageMeanMs": {
+      "resize": 2.0,
+      "denoise": 2.78,
+      "enhance": 2.66,
+      "plate": 8.24,
+      "illumination": 33.0,
+      "threshold": 19.92,
+      "morphology": 4.73,
+      "watershed": 17.97,
+      "edges": 8.15,
+      "features": 10.93,
+      "encode": 1.43
+    },
+    "pipelineMeanMs": 111.83,
+    "failures": [
+      {
+        "seed": 2041,
+        "table": "slate",
+        "plate": "grey",
+        "touching": true,
+        "fillGt": 0.0933,
+        "fillEst": 0.0925,
+        "countGt": 3,
+        "countEst": 2,
+        "components": 2,
+        "plateRadiusErr": 0.0032,
+        "plateCentreErr": 0.005,
+        "plateMethod": "hough",
+        "rleBytes": 454,
+        "bitmapBytes": 24576,
+        "rawBytes": 196608,
+        "rleRatio": 54.13
+      }
+    ]
+  },
+  "test": {
+    "seedRange": [
+      5000,
+      5119
+    ],
+    "overall": {
+      "n": 120,
+      "fillRatioMAE": 0.00104,
+      "fillRatioMaxAbsErr": 0.00521,
+      "portionCountAccuracy": 0.9917,
+      "portionCountMAE": 0.0083,
+      "connectedComponentsOnlyAccuracy": 0.6333
+    },
+    "byTable": {
+      "wood": {
+        "n": 40,
+        "fillRatioMAE": 0.00118,
+        "fillRatioMaxAbsErr": 0.0038,
+        "portionCountAccuracy": 0.975,
+        "portionCountMAE": 0.025,
+        "connectedComponentsOnlyAccuracy": 0.65
+      },
+      "slate": {
+        "n": 40,
+        "fillRatioMAE": 0.00104,
+        "fillRatioMaxAbsErr": 0.00521,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.55
+      },
+      "laminate": {
+        "n": 40,
+        "fillRatioMAE": 0.0009,
+        "fillRatioMaxAbsErr": 0.00296,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.7
+      }
+    },
+    "byPlate": {
+      "white": {
+        "n": 39,
+        "fillRatioMAE": 0.00105,
+        "fillRatioMaxAbsErr": 0.00269,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.4872
+      },
+      "offwhite": {
+        "n": 40,
+        "fillRatioMAE": 0.00125,
+        "fillRatioMaxAbsErr": 0.00521,
+        "portionCountAccuracy": 0.975,
+        "portionCountMAE": 0.025,
+        "connectedComponentsOnlyAccuracy": 0.65
+      },
+      "grey": {
+        "n": 41,
+        "fillRatioMAE": 0.00083,
+        "fillRatioMaxAbsErr": 0.00295,
+        "portionCountAccuracy": 1.0,
+        "portionCountMAE": 0.0,
+        "connectedComponentsOnlyAccuracy": 0.7561
+      }
+    },
+    "touching": {
+      "n": 45,
+      "fillRatioMAE": 0.00126,
+      "fillRatioMaxAbsErr": 0.00521,
+      "portionCountAccuracy": 0.9778,
+      "portionCountMAE": 0.0222,
+      "connectedComponentsOnlyAccuracy": 0.0222
+    },
+    "notTouching": {
+      "n": 75,
+      "fillRatioMAE": 0.00091,
+      "fillRatioMaxAbsErr": 0.0038,
+      "portionCountAccuracy": 1.0,
+      "portionCountMAE": 0.0,
+      "connectedComponentsOnlyAccuracy": 1.0
+    },
+    "plateDetection": {
+      "houghRate": 1.0,
+      "radiusRelErrMean": 0.0063,
+      "centreErrMeanFracOfRadius": 0.0079
+    },
+    "rle": {
+      "totalRleBytes": 49889,
+      "ratioVsBitmap": 59.11,
+      "ratioVs8bit": 472.91,
+      "medianRatioVsBitmap": 55.48,
+      "meanRleBytesPerImage": 415.7
+    },
+    "stageMeanMs": {
+      "resize": 0.75,
+      "denoise": 1.31,
+      "enhance": 1.46,
+      "plate": 3.61,
+      "illumination": 7.95,
+      "threshold": 11.13,
+      "morphology": 2.07,
+      "watershed": 6.96,
+      "edges": 3.36,
+      "features": 4.83,
+      "encode": 0.67
+    },
+    "pipelineMeanMs": 44.11,
+    "failures": [
+      {
+        "seed": 5097,
+        "table": "wood",
+        "plate": "offwhite",
+        "touching": true,
+        "fillGt": 0.1292,
+        "fillEst": 0.1286,
+        "countGt": 3,
+        "countEst": 2,
+        "components": 2,
+        "plateRadiusErr": 0.0044,
+        "plateCentreErr": 0.0085,
+        "plateMethod": "hough",
+        "rleBytes": 418,
+        "bitmapBytes": 24576,
+        "rawBytes": 196608,
+        "rleRatio": 58.79
+      }
+    ]
+  },
+  "ablationNoIlluminationFlattening": {
+    "n": 120,
+    "fillRatioMAE": 0.00138,
+    "fillRatioMaxAbsErr": 0.0053,
+    "portionCountAccuracy": 1.0,
+    "portionCountMAE": 0.0,
+    "connectedComponentsOnlyAccuracy": 0.625
+  },
+  "endpoint": {
+    "requests": 20,
+    "format": "JPEG q90, 640x480",
+    "outletId": null,
+    "meanMs": 61.1,
+    "p50Ms": 61.7,
+    "p95Ms": 66.5,
+    "fillRatioMAEviaJpeg": 0.00083,
+    "portionCountAccuracyViaJpeg": 1.0,
+    "largePhoto": {
+      "requests": 10,
+      "format": "JPEG q90, 4000x3000",
+      "bytes": 890378,
+      "p50Ms": 93.0,
+      "p95Ms": 122.1
+    }
+  },
+  "tests": {
+    "fullSuite": {
+      "summary": "41 passed, 1 warning in 37.91s",
+      "passed": 41
+    },
+    "visionTests": {
+      "summary": "29 passed, 1 warning in 33.04s",
+      "passed": 29
+    }
+  },
+  "versions": {
+    "python": "3.13.7",
+    "opencv": "5.0.0",
+    "numpy": "2.5.4",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "figures": {
+    "sample_a": {
+      "01_original": "figures/sample_a/01_original.png",
+      "02_denoise": "figures/sample_a/02_denoise.png",
+      "03_clahe": "figures/sample_a/03_clahe.png",
+      "04_histograms": "figures/sample_a/04_histograms.png",
+      "05_stretch_highboost": "figures/sample_a/05_stretch_highboost.png",
+      "06_sobel": "figures/sample_a/06_sobel.png",
+      "07_canny": "figures/sample_a/07_canny.png",
+      "08_log": "figures/sample_a/08_log.png",
+      "09_dog": "figures/sample_a/09_dog.png",
+      "06-09_edges_grid": "figures/sample_a/06-09_edges_grid.png",
+      "10_plate_detection": "figures/sample_a/10_plate_detection.png",
+      "11_dft_spectrum": "figures/sample_a/11_dft_spectrum.png",
+      "12_illumination_lowpass": "figures/sample_a/12_illumination_lowpass.png",
+      "13_food_cue": "figures/sample_a/13_food_cue.png",
+      "14_otsu_histogram": "figures/sample_a/14_otsu_histogram.png",
+      "15_otsu_mask": "figures/sample_a/15_otsu_mask.png",
+      "16_morphology": "figures/sample_a/16_morphology.png",
+      "17_distance_transform": "figures/sample_a/17_distance_transform.png",
+      "18_watershed": "figures/sample_a/18_watershed.png",
+      "19_hog": "figures/sample_a/19_hog.png",
+      "20_pyramid": "figures/sample_a/20_pyramid.png",
+      "21_rle_mask": "figures/sample_a/21_rle_mask.png",
+      "22_final_annotated": "figures/sample_a/22_final_annotated.png",
+      "00_overview": "figures/sample_a/00_overview.png"
+    },
+    "sample_b": {
+      "01_original": "figures/sample_b/01_original.png",
+      "02_denoise": "figures/sample_b/02_denoise.png",
+      "03_clahe": "figures/sample_b/03_clahe.png",
+      "04_histograms": "figures/sample_b/04_histograms.png",
+      "05_stretch_highboost": "figures/sample_b/05_stretch_highboost.png",
+      "06_sobel": "figures/sample_b/06_sobel.png",
+      "07_canny": "figures/sample_b/07_canny.png",
+      "08_log": "figures/sample_b/08_log.png",
+      "09_dog": "figures/sample_b/09_dog.png",
+      "06-09_edges_grid": "figures/sample_b/06-09_edges_grid.png",
+      "10_plate_detection": "figures/sample_b/10_plate_detection.png",
+      "11_dft_spectrum": "figures/sample_b/11_dft_spectrum.png",
+      "12_illumination_lowpass": "figures/sample_b/12_illumination_lowpass.png",
+      "13_food_cue": "figures/sample_b/13_food_cue.png",
+      "14_otsu_histogram": "figures/sample_b/14_otsu_histogram.png",
+      "15_otsu_mask": "figures/sample_b/15_otsu_mask.png",
+      "16_morphology": "figures/sample_b/16_morphology.png",
+      "17_distance_transform": "figures/sample_b/17_distance_transform.png",
+      "18_watershed": "figures/sample_b/18_watershed.png",
+      "19_hog": "figures/sample_b/19_hog.png",
+      "20_pyramid": "figures/sample_b/20_pyramid.png",
+      "21_rle_mask": "figures/sample_b/21_rle_mask.png",
+      "22_final_annotated": "figures/sample_b/22_final_annotated.png",
+      "00_overview": "figures/sample_b/00_overview.png"
+    },
+    "sample_c": {
+      "01_original": "figures/sample_c/01_original.png",
+      "02_denoise": "figures/sample_c/02_denoise.png",
+      "03_clahe": "figures/sample_c/03_clahe.png",
+      "04_histograms": "figures/sample_c/04_histograms.png",
+      "05_stretch_highboost": "figures/sample_c/05_stretch_highboost.png",
+      "06_sobel": "figures/sample_c/06_sobel.png",
+      "07_canny": "figures/sample_c/07_canny.png",
+      "08_log": "figures/sample_c/08_log.png",
+      "09_dog": "figures/sample_c/09_dog.png",
+      "06-09_edges_grid": "figures/sample_c/06-09_edges_grid.png",
+      "10_plate_detection": "figures/sample_c/10_plate_detection.png",
+      "11_dft_spectrum": "figures/sample_c/11_dft_spectrum.png",
+      "12_illumination_lowpass": "figures/sample_c/12_illumination_lowpass.png",
+      "13_food_cue": "figures/sample_c/13_food_cue.png",
+      "14_otsu_histogram": "figures/sample_c/14_otsu_histogram.png",
+      "15_otsu_mask": "figures/sample_c/15_otsu_mask.png",
+      "16_morphology": "figures/sample_c/16_morphology.png",
+      "17_distance_transform": "figures/sample_c/17_distance_transform.png",
+      "18_watershed": "figures/sample_c/18_watershed.png",
+      "19_hog": "figures/sample_c/19_hog.png",
+      "20_pyramid": "figures/sample_c/20_pyramid.png",
+      "21_rle_mask": "figures/sample_c/21_rle_mask.png",
+      "22_final_annotated": "figures/sample_c/22_final_annotated.png",
+      "00_overview": "figures/sample_c/00_overview.png"
+    }
+  }
+}
