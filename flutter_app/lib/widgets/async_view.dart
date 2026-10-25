@@ -24,6 +24,9 @@ class AsyncView<T> extends StatefulWidget {
 
 class _AsyncViewState<T> extends State<AsyncView<T>> {
   T? _data;
+
+  /// Separate flag so a nullable T (e.g. "no plan yet") still counts as loaded.
+  bool _hasData = false;
   Object? _error;
   bool _loading = true;
   int _generation = 0;
@@ -47,6 +50,7 @@ class _AsyncViewState<T> extends State<AsyncView<T>> {
         _loading = true;
         _error = null;
         _data = null;
+        _hasData = false;
       });
     }
     try {
@@ -54,12 +58,13 @@ class _AsyncViewState<T> extends State<AsyncView<T>> {
       if (!mounted || gen != _generation) return;
       setState(() {
         _data = data;
+        _hasData = true;
         _error = null;
         _loading = false;
       });
     } catch (e) {
       if (!mounted || gen != _generation) return;
-      if (_data != null) {
+      if (_hasData) {
         // Keep showing stale data on a failed refresh; tell the user why.
         setState(() => _loading = false);
         showErrorSnackBar(context, e);
@@ -74,8 +79,7 @@ class _AsyncViewState<T> extends State<AsyncView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final data = _data;
-    if (data != null) return widget.builder(context, data, _fetch);
+    if (_hasData) return widget.builder(context, _data as T, _fetch);
     if (_loading) return const Center(child: CircularProgressIndicator());
     return ErrorView(error: _error, onRetry: () => _fetch(clear: true));
   }

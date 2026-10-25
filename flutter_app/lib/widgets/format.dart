@@ -28,3 +28,14 @@ String fmtShort(String s) {
   final d = parseDate(s);
   return d == null ? s : DateFormat('d/M').format(d);
 }
+
+/// "2026-10-25" for API dates (device-local day).
+String isoDate(DateTime d) => DateFormat('yyyy-MM-dd').format(d);
+String todayIso() => isoDate(DateTime.now());
+String tomorrowIso() => isoDate(DateTime.now().add(const Duration(days: 1)));
+
+/// 1.5 -> "1.5", 2.0 -> "2", 0.333 -> "0.33"
+String fmtQty(num v) {
+  if (v == v.roundToDouble()) return v.toStringAsFixed(0);
+  return v.toStringAsFixed(2).replaceFirst(RegExp(r'0$'), '');
+}

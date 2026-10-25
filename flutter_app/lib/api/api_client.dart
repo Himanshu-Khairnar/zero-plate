@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 import '../config.dart';
 import '../models/models.dart';
@@ -86,6 +87,33 @@ class ApiClient {
   Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? body]) =>
       _send(() => _http.post(_uri(path), headers: _headers, body: jsonEncode(body ?? {})));
 
+  Future<Map<String, dynamic>> delete(String path, [Map<String, String?>? query]) =>
+      _send(() => _http.delete(_uri(path, query), headers: _headers));
+
+  /// multipart/form-data POST with text [fields] and one file part.
+  Future<Map<String, dynamic>> postMultipart(
+    String path, {
+    required Map<String, String> fields,
+    required String fileField,
+    required List<int> bytes,
+    required String filename,
+  }) =>
+      _send(() async {
+        final req = http.MultipartRequest('POST', _uri(path))
+          ..headers.addAll({
+            'Accept': 'application/json',
+            if (token != null) 'Authorization': 'Bearer $token',
+          })
+          ..fields.addAll(fields)
+          ..files.add(http.MultipartFile.fromBytes(
+            fileField,
+            bytes,
+            filename: filename,
+            contentType: MediaType.parse(imageMimeType(filename)),
+          ));
+        return http.Response.fromStream(await _http.send(req));
+      });
+
   // ---- Typed endpoints -------------------------------------------------
 
   Future<LoginResponse> login(String email, String password) async =>
@@ -158,8 +186,114 @@ class ApiClient {
   Future<DonationsResponse> donations(String outletId) async =>
       DonationsResponse.fromJson(await get('/donations', {'outletId': outletId}));
 
+  // ---- v2 (feature parity) ---------------------------------------------
+
+  Future<PlanView?> prepPlanFull(String outletId, {String? date}) async =>
+      planFromResponse(await get('/prep-plan/full', {'outletId': outletId, 'date': date}));
+
+  Future<PlanView> generatePrepPlan(String outletId, String date) async =>
+      planFromResponse(await post('/prep-plan/generate', {'outletId': outletId, 'date': date}))!;
+
+  Future<PlanView> adjustPrepPlan(String planId, List<({String dishId, int plannedQty, String? reason})> changes) async =>
+      planFromResponse(await post('/prep-plan/$planId/adjust', {
+        'changes': [
+          for (final c in changes)
+            {
+              'dishId': c.dishId,
+              'plannedQty': c.plannedQty,
+              if (c.reason != null && c.reason!.isNotEmpty) 'reason': c.reason,
+            },
+        ],
+      }))!;
+
+  Future<void> approvePrepPlanWithNotes(String planId, {String? notes}) =>
+      post('/prep-plan/$planId/approve', {if (notes != null && notes.isNotEmpty) 'notes': notes});
+
+  Future<int> logLeftovers(String outletId, String date) async =>
+      toIntOrZero((await post('/kitchen/leftovers', {'outletId': outletId, 'date': date}))['logged']);
+
+  Future<void> lockDay(String outletId, String date) =>
+      post('/kitchen/lock', {'outletId': outletId, 'date': date});
+
+  Future<VisionResult> recognizeWaste(String outletId, List<int> bytes, String filename) async =>
+      VisionResult.fromJson(await postMultipart(
+        '/waste/recognize',
+        fields: {'outletId': outletId},
+        fileField: 'photo',
+        bytes: bytes,
+        filename: filename,
+      ));
+
+  Future<void> deleteWaste(String outletId, String id) => delete('/waste/$id', {'outletId': outletId});
+
+  Future<int> markAllAlertsRead(String outletId) async =>
+      toIntOrZero((await post('/alerts/read-all', {'outletId': outletId}))['updated']);
+
+  Future<int> scanAnomalies(String outletId) async =>
+      toIntOrZero((await post('/alerts/scan', {'outletId': outletId}))['created']);
+
+  Future<SurplusEstimate> suggestSurplus(String outletId, {String? date}) async =>
+      SurplusEstimate.fromJson(await get('/donations/suggest', {'outletId': outletId, 'date': date}));
+
+  Future<List<Ngo>> ngos(String outletId) async =>
+      ngosFromResponse(await get('/donations/ngos', {'outletId': outletId}));
+
+  Future<String?> createDonation({
+    required String outletId,
+    String? ngoId,
+    required String date,
+    required int meals,
+    String? dishNames,
+    String? note,
+  }) async {
+    final res = await post('/donations', {
+      'outletId': outletId,
+      'ngoId': ?ngoId,
+      'date': date,
+      'meals': meals,
+      if (dishNames != null && dishNames.isNotEmpty) 'dishNames': dishNames,
+      if (note != null && note.isNotEmpty) 'note': note,
+    });
+    return res['id'] as String?;
+  }
+
+  Future<void> setDonationStatus(String outletId, String id, String status) =>
+      post('/donations/$id/status', {'outletId': outletId, 'status': status});
+
+  Future<AnalyticsResponse> analytics(String outletId, {int days = 30}) async =>
+      AnalyticsResponse.fromJson(await get('/analytics', {'outletId': outletId, 'days': '$days'}));
+
+  Future<HeatmapResponse> wasteHeatmap(String outletId, {int days = 56}) async =>
+      HeatmapResponse.fromJson(await get('/waste-heatmap', {'outletId': outletId, 'days': '$days'}));
+
+  Future<InventoryResponse> inventory(String outletId) async =>
+      InventoryResponse.fromJson(await get('/inventory', {'outletId': outletId}));
+
+  Future<WhatIfResult> whatIf(String outletId, String date, WhatIfScenario scenario) async =>
+      WhatIfResult.fromJson(await post('/whatif', {'outletId': outletId, 'date': date, 'scenario': scenario.toJson()}));
+
+  /// Returns the invite link.
+  Future<String> inviteStaff({required String email, required String role, required List<String> outletIds}) async {
+    final res = await post('/staff/invite', {'email': email, 'role': role, 'outletIds': outletIds});
+    return res['inviteUrl'] as String? ?? '';
+  }
+
   Future<String> ask(String outletId, String message) async {
     final res = await post('/assistant', {'outletId': outletId, 'message': message});
     return res['reply'] as String? ?? '';
   }
+}
+
+int toIntOrZero(Object? v) => v is num ? v.round() : 0;
+
+/// MIME type for a photo file name (the server checks the part's type).
+String imageMimeType(String filename) {
+  final ext = filename.toLowerCase().split('.').last;
+  return switch (ext) {
+    'png' => 'image/png',
+    'webp' => 'image/webp',
+    'heic' => 'image/heic',
+    'heif' => 'image/heif',
+    _ => 'image/jpeg',
+  };
 }

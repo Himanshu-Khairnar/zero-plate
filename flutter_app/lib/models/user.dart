@@ -29,6 +29,10 @@ class User {
   /// OWNER and MANAGER may approve prep plans.
   bool get canApprove => role == Role.owner || role == Role.manager;
 
+  /// OWNER and MANAGER: generate/adjust plans, lock the day, delete waste,
+  /// run the anomaly scan, invite staff.
+  bool get canManage => canApprove;
+
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as String,
         name: json['name'] as String? ?? '',

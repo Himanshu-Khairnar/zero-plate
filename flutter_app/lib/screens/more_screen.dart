@@ -12,7 +12,16 @@ class MoreScreen extends StatelessWidget {
     (path: '/alerts', title: 'Alerts', hint: 'Stock, waste and forecast warnings', icon: Icons.notifications_outlined),
     (path: '/forecasts', title: 'Forecasts', hint: 'Next 7 days by dish', icon: Icons.trending_up),
     (path: '/donations', title: 'Donations', hint: 'Surplus meals sent to NGOs', icon: Icons.volunteer_activism_outlined),
+    (path: '/analytics', title: 'Analytics', hint: 'Sales, forecast accuracy, savings', icon: Icons.insights_outlined),
+    (path: '/waste-heatmap', title: 'Waste heatmap', hint: 'Which dishes are wasted on which days', icon: Icons.grid_on),
+    (path: '/inventory', title: 'Inventory', hint: 'Stock levels, expiry and suggested orders', icon: Icons.inventory_2_outlined),
+    (path: '/whatif', title: 'What-if', hint: 'Simulate rain, heat, holidays and discounts', icon: Icons.science_outlined),
     (path: '/assistant', title: 'AI Assistant', hint: 'Ask about waste, prep and sales', icon: Icons.chat_bubble_outline),
+  ];
+
+  /// OWNER/MANAGER only.
+  static const _managerLinks = [
+    (path: '/invite', title: 'Invite staff', hint: 'Send an invitation link', icon: Icons.person_add_alt),
   ];
 
   Future<void> _confirmLogout(BuildContext context) async {
@@ -71,7 +80,7 @@ class MoreScreen extends StatelessWidget {
           Card(
             child: Column(
               children: [
-                for (final (i, l) in _links.indexed) ...[
+                for (final (i, l) in [..._links, if (user?.canManage ?? false) ..._managerLinks].indexed) ...[
                   if (i > 0) const Divider(height: 1),
                   ListTile(
                     leading: Icon(l.icon),

@@ -6,13 +6,17 @@ import '../models/models.dart';
 import '../state/outlet_provider.dart';
 import '../widgets/async_view.dart';
 import '../widgets/empty_state.dart';
+import '../widgets/format.dart';
 
 enum _Kind { dish, ingredient }
 
 /// Form to log a waste entry. Options come from GET waste/options.
-/// Pops with `true` when an entry was saved.
+/// Pops with `true` when an entry was saved. [prefill] (e.g. from a photo
+/// suggestion) preselects the dish and fills quantity and note.
 class WasteLogScreen extends StatelessWidget {
-  const WasteLogScreen({super.key});
+  const WasteLogScreen({super.key, this.prefill});
+
+  final WastePrefill? prefill;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +28,18 @@ class WasteLogScreen extends StatelessWidget {
           : AsyncView<WasteOptions>(
               reloadKey: outletId,
               load: () => context.read<ApiClient>().wasteOptions(outletId),
-              builder: (context, opts, _) => _WasteForm(outletId: outletId, options: opts),
+              builder: (context, opts, _) => _WasteForm(outletId: outletId, options: opts, prefill: prefill),
             ),
     );
   }
 }
 
 class _WasteForm extends StatefulWidget {
-  const _WasteForm({required this.outletId, required this.options});
+  const _WasteForm({required this.outletId, required this.options, this.prefill});
 
   final String outletId;
   final WasteOptions options;
+  final WastePrefill? prefill;
 
   @override
   State<_WasteForm> createState() => _WasteFormState();
@@ -54,6 +59,16 @@ class _WasteFormState extends State<_WasteForm> {
     super.initState();
     if (widget.options.dishes.isEmpty && widget.options.ingredients.isNotEmpty) _kind = _Kind.ingredient;
     if (widget.options.reasons.isNotEmpty) _reason = widget.options.reasons.first;
+    final p = widget.prefill;
+    if (p != null) {
+      if (p.dishId != null && widget.options.dishes.any((d) => d.id == p.dishId)) {
+        _kind = _Kind.dish;
+        _itemId = p.dishId;
+      }
+      if (p.qty != null) _qty.text = fmtQty(p.qty!);
+      if (p.note != null) _note.text = p.note!;
+      if (widget.options.reasons.contains('overproduction')) _reason = 'overproduction';
+    }
   }
 
   @override

@@ -3,23 +3,75 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../models/models.dart';
+import '../state/auth_provider.dart';
 import '../state/outlet_provider.dart';
 import '../widgets/async_view.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/format.dart';
 
-class AlertsScreen extends StatelessWidget {
+class AlertsScreen extends StatefulWidget {
   const AlertsScreen({super.key});
+
+  @override
+  State<AlertsScreen> createState() => _AlertsScreenState();
+}
+
+class _AlertsScreenState extends State<AlertsScreen> {
+  int _version = 0;
+  bool _busy = false;
+
+  Future<void> _run(Future<String> Function() action) async {
+    setState(() => _busy = true);
+    try {
+      final msg = await action();
+      if (!mounted) return;
+      showInfoSnackBar(context, msg);
+      setState(() => _version++);
+    } catch (e) {
+      if (mounted) showErrorSnackBar(context, e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  void _markAll(String outletId) => _run(() async {
+        final n = await context.read<ApiClient>().markAllAlertsRead(outletId);
+        return n == 0 ? 'Nothing to mark' : 'Marked $n alert${n == 1 ? '' : 's'} as read';
+      });
+
+  void _scan(String outletId) => _run(() async {
+        final n = await context.read<ApiClient>().scanAnomalies(outletId);
+        return n == 0 ? 'Scan finished: no new anomalies' : 'Scan finished: $n new alert${n == 1 ? '' : 's'}';
+      });
 
   @override
   Widget build(BuildContext context) {
     final outletId = context.watch<OutletProvider>().outletId;
+    final canManage = context.watch<AuthProvider>().user?.canManage ?? false;
     return Scaffold(
-      appBar: AppBar(title: const Text('Alerts')),
+      appBar: AppBar(
+        title: const Text('Alerts'),
+        actions: [
+          if (outletId != null) ...[
+            if (canManage)
+              IconButton(
+                tooltip: 'Run anomaly scan',
+                onPressed: _busy ? null : () => _scan(outletId),
+                icon: const Icon(Icons.manage_search),
+              ),
+            IconButton(
+              tooltip: 'Mark all read',
+              onPressed: _busy ? null : () => _markAll(outletId),
+              icon: const Icon(Icons.done_all),
+            ),
+          ],
+        ],
+        bottom: _busy ? const PreferredSize(preferredSize: Size.fromHeight(4), child: LinearProgressIndicator()) : null,
+      ),
       body: outletId == null
           ? const EmptyState(title: 'No outlets')
           : AsyncView<AlertsResponse>(
-              reloadKey: outletId,
+              reloadKey: (outletId, _version),
               load: () => context.read<ApiClient>().alerts(outletId),
               builder: (context, res, refresh) => RefreshIndicator(
                 onRefresh: refresh,

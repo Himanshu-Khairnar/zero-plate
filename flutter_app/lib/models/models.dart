@@ -1,8 +1,13 @@
 export 'alert.dart';
+export 'analytics.dart';
 export 'dashboard.dart';
 export 'donation.dart';
 export 'forecast.dart';
+export 'inventory.dart';
 export 'kitchen.dart';
+export 'plan_view.dart';
 export 'prep_plan.dart';
 export 'user.dart';
+export 'vision.dart';
 export 'waste.dart';
+export 'whatif.dart';
