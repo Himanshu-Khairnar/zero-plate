@@ -1,6 +1,6 @@
 # WasteLess — AI demand forecasting to cut restaurant food waste
 
-Implementation of the project plan in `WasteLess AI Demand Forecasting to Cut Restaurant Food Waste.pdf`:
+Implementation of the project plan in `docs/WasteLess AI Demand Forecasting to Cut Restaurant Food Waste.pdf`:
 a multi-tenant web platform that predicts how much of each dish an outlet will sell, turns that into a
 daily prep and purchase plan, tracks what was sold and wasted, and learns from every logged day.
 
