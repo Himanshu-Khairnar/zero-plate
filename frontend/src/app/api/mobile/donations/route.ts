@@ -1,4 +1,6 @@
+import { ApiError, readJson } from "@/lib/api";
 import { mealsDonated } from "@/lib/analytics";
+import { donationSchema, recordDonation } from "@/lib/donations";
 import { mobileRoute, preflight, requireMobileOutlet } from "@/lib/mobile-auth";
 import { prisma } from "@/lib/prisma";
 
@@ -19,6 +21,21 @@ export const GET = mobileRoute(async (req: Request) => {
     mealsDonated: donated.all,
     items: rows.map((d) => ({ id: d.id, date: d.date, ngoName: d.ngo?.name ?? null, meals: d.meals, status: d.status })),
   });
+});
+
+/**
+ * POST /api/mobile/donations { outletId, ngoId?, date, meals, dishNames?, note? }
+ * OWNER/MANAGER/KITCHEN_STAFF. Same validation as the web form; unknown NGO gives 404.
+ */
+export const POST = mobileRoute(async (req: Request) => {
+  const raw = await readJson(req);
+  // Treat JSON nulls as "not given" so clients can send optional fields as null.
+  const body = Object.fromEntries(Object.entries(raw).filter(([, v]) => v !== null));
+  const { viewer, outlet } = await requireMobileOutlet(req, body.outletId, "OWNER", "MANAGER", "KITCHEN_STAFF");
+  const parsed = donationSchema.safeParse({ ...body, outletId: outlet.id });
+  if (!parsed.success) throw new ApiError("Please check the donation values (date YYYY-MM-DD, meals a positive whole number).");
+  const { id } = await recordDonation(viewer, parsed.data);
+  return Response.json({ ok: true, id });
 });
 
 export const OPTIONS = preflight;

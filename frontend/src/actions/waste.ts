@@ -6,14 +6,15 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { audit, guarded, GuardError, requireOutletActor } from "@/lib/guard";
+import { guarded, GuardError, requireOutletActor } from "@/lib/guard";
 import { prisma } from "@/lib/prisma";
 import { WASTE_REASONS } from "@/lib/waste";
-import { recordWaste } from "@/lib/waste-log";
+import { deleteWasteEntry, logKitchenLeftovers, recognizeWaste, recordWaste, type VisionResult } from "@/lib/waste-log";
+import { MAX_PHOTO_BYTES, PHOTO_SIZE_ERROR, PHOTO_TYPE_ERROR, PHOTO_TYPES } from "@/lib/waste-photo";
+
+export type { VisionResult, VisionSuggestion } from "@/lib/waste-log";
 
 const WASTE_ROLES = ["OWNER", "MANAGER", "KITCHEN_STAFF"] as const;
-const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
-const PHOTO_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/heic": "heic" };
 
 const logSchema = z.object({
   outletId: z.string().min(1),
@@ -34,8 +35,8 @@ const logSchema = z.object({
  */
 async function storePhoto(file: File): Promise<string> {
   const ext = PHOTO_TYPES[file.type];
-  if (!ext) throw new GuardError("Photo must be a JPEG, PNG, WEBP or HEIC image.");
-  if (file.size > MAX_PHOTO_BYTES) throw new GuardError("Photo must be 5 MB or smaller.");
+  if (!ext) throw new GuardError(PHOTO_TYPE_ERROR);
+  if (file.size > MAX_PHOTO_BYTES) throw new GuardError(PHOTO_SIZE_ERROR);
   const name = `${randomUUID()}.${ext}`;
   const dir = path.join(process.cwd(), "public", "uploads", "waste");
   await mkdir(dir, { recursive: true });
@@ -97,61 +98,25 @@ export async function logWaste(input: FormData | z.input<typeof logSchema>) {
 export async function deleteWasteLog(outletId: string, id: string) {
   return guarded(async () => {
     const viewer = await requireOutletActor(outletId, "OWNER", "MANAGER");
-    const row = await prisma.wasteLog.findFirst({ where: { id, outletId } });
-    if (!row) throw new GuardError("Entry not found.");
-    await prisma.wasteLog.delete({ where: { id } });
-    await audit(viewer, "waste.delete", { outletId, entity: "WasteLog", entityId: id });
+    await deleteWasteEntry(viewer, outletId, id);
     revalidatePath("/waste-log");
   });
 }
 
-const LEFTOVER_MARKER = "auto:kitchen-leftover";
-
 /**
- * Turn the day's kitchen-mode leftovers (prepared − sold, summed over shifts)
- * into overproduction waste rows. Safe to call repeatedly: dishes that already
- * have an auto row for that date are skipped.
+ * Turn the day's kitchen-mode leftovers into overproduction waste rows
+ * (see `logKitchenLeftovers`). Safe to call repeatedly.
  */
 export async function logLeftoversFromKitchen(outletId: string, date: string) {
   return guarded(async () => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new GuardError("Bad date.");
     const viewer = await requireOutletActor(outletId, ...WASTE_ROLES);
-    const day = new Date(`${date}T00:00:00.000Z`);
-    const logs = await prisma.kitchenLog.groupBy({
-      by: ["dishId"],
-      where: { outletId, date: day },
-      _sum: { prepared: true, sold: true },
-    });
-    const existing = await prisma.wasteLog.findMany({
-      where: { outletId, date, reason: "overproduction", note: LEFTOVER_MARKER },
-      select: { dishId: true },
-    });
-    const done = new Set(existing.map((e) => e.dishId));
-    const rows = logs
-      .map((l) => ({ dishId: l.dishId, leftover: (l._sum.prepared ?? 0) - (l._sum.sold ?? 0) }))
-      .filter((l) => l.leftover > 0 && !done.has(l.dishId));
-    if (rows.length) {
-      await prisma.wasteLog.createMany({
-        data: rows.map((r) => ({
-          outletId,
-          dishId: r.dishId,
-          date,
-          qty: r.leftover,
-          reason: "overproduction",
-          note: LEFTOVER_MARKER,
-          loggedBy: viewer.name,
-        })),
-      });
-      await audit(viewer, "waste.leftovers", { outletId, entity: "WasteLog", detail: `${rows.length} dishes for ${date}` });
-    }
+    const result = await logKitchenLeftovers(viewer, outletId, date);
     revalidatePath("/waste-log");
     revalidatePath("/donations");
-    return { created: rows.length, skipped: done.size };
+    return result;
   });
 }
-
-export type VisionSuggestion = { label: string; dishName?: string | null; dishId?: string | null; estimatedQty: number; confidence: number };
-export type VisionResult = { items: VisionSuggestion[]; model: string; note: string };
 
 /** Send a photo to the ML service's recognition endpoint. */
 export async function recognizeWastePhoto(fd: FormData): Promise<{ ok: true; data: VisionResult } | { ok: false; error: string }> {
@@ -159,28 +124,7 @@ export async function recognizeWastePhoto(fd: FormData): Promise<{ ok: true; dat
     const outletId = String(fd.get("outletId") ?? "");
     if (!outletId) throw new GuardError("outletId missing.");
     await requireOutletActor(outletId, ...WASTE_ROLES);
-    const photo = fd.get("photo");
-    if (!(photo instanceof File) || photo.size === 0) throw new GuardError("Attach a photo first.");
-    if (!PHOTO_TYPES[photo.type]) throw new GuardError("Photo must be a JPEG, PNG, WEBP or HEIC image.");
-    if (photo.size > MAX_PHOTO_BYTES) throw new GuardError("Photo must be 5 MB or smaller.");
-
-    const base = process.env.ML_SERVICE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-    const body = new FormData();
-    body.set("image", photo, photo.name || "photo.jpg");
-    body.set("outletId", outletId);
-    let res: Response;
-    try {
-      res = await fetch(`${base}/api/vision/recognize`, { method: "POST", body, cache: "no-store" });
-    } catch {
-      throw new GuardError("The recognition service is offline. Pick the dish by hand below.");
-    }
-    if (!res.ok) throw new GuardError(`Recognition failed (${res.status}). Pick the dish by hand below.`);
-    const data = (await res.json()) as VisionResult;
-    // Attach dish ids for names the service recognised so the UI can preselect them.
-    const names = data.items.map((i) => i.dishName).filter((n): n is string => !!n);
-    const dishes = names.length ? await prisma.dish.findMany({ where: { outletId, name: { in: names } }, select: { id: true, name: true } }) : [];
-    const idByName = new Map(dishes.map((d) => [d.name, d.id]));
-    return { ...data, items: data.items.map((i) => ({ ...i, dishId: i.dishName ? (idByName.get(i.dishName) ?? null) : null })) };
+    return recognizeWaste(outletId, fd.get("photo"));
   });
   if (!r.ok) return r;
   return { ok: true, data: r.data as VisionResult };

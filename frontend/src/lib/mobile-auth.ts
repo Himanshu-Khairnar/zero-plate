@@ -1,6 +1,8 @@
 import "server-only";
 
 import { ApiError, handle } from "@/lib/api";
+import { isIsoDate } from "@/lib/dates";
+import { GuardError } from "@/lib/guard";
 import { listOutlets, type OutletSummary, type Viewer } from "@/lib/outlets";
 import { prisma } from "@/lib/prisma";
 import { bearerToken, hasRole, pickOutlet, signMobileToken, verifyMobileToken, type MobileRole } from "@/lib/mobile-token";
@@ -11,11 +13,11 @@ import { bearerToken, hasRole, pickOutlet, signMobileToken, verifyMobileToken, t
  * that signs its own HS256 JWT with AUTH_SECRET.
  */
 
-export { bearerToken, pickOutlet, signMobileToken, verifyMobileToken } from "@/lib/mobile-token";
+export { bearerToken, clampInt, pickOutlet, signMobileToken, verifyMobileToken } from "@/lib/mobile-token";
 
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Authorization, Content-Type",
   "Access-Control-Max-Age": "86400",
 };
@@ -25,9 +27,19 @@ function withCors(res: Response): Response {
   return res;
 }
 
-/** Route wrapper: JSON errors (via `handle`) plus CORS headers on every response. */
+/**
+ * Route wrapper: JSON errors (via `handle`) plus CORS headers on every response.
+ * GuardError from shared server logic (`src/lib/*`) keeps its message and status.
+ */
 export function mobileRoute<A extends unknown[]>(fn: (...args: A) => Promise<Response>) {
-  const inner = handle(fn);
+  const inner = handle(async (...args: A) => {
+    try {
+      return await fn(...args);
+    } catch (err) {
+      if (err instanceof GuardError) throw new ApiError(err.message, err.status);
+      throw err;
+    }
+  });
   return async (...args: A): Promise<Response> => withCors(await inner(...args));
 }
 
@@ -117,4 +129,24 @@ export async function requireMobileOutlet(req: Request, outletId: unknown, ...ro
   if (roles.length) requireMobileRole(session.viewer, ...roles);
   const outlet = await resolveMobileOutlet(session.viewer, typeof outletId === "string" ? outletId : null);
   return { ...session, outlet };
+}
+
+/** A YYYY-MM-DD date from the request, `fallback` when absent (400 when malformed). */
+export function mobileDate(raw: unknown, fallback?: string): string {
+  const value = typeof raw === "string" && raw.trim() !== "" ? raw.trim() : fallback;
+  if (!value) throw new ApiError("date is required (YYYY-MM-DD).");
+  if (!isIsoDate(value)) throw new ApiError("date must be YYYY-MM-DD.");
+  return value;
+}
+
+/** JSON body that may be empty (`{}`); malformed JSON is a 400. */
+export async function readOptionalJson(req: Request): Promise<Record<string, unknown>> {
+  const text = await req.text().catch(() => "");
+  if (!text.trim()) return {};
+  try {
+    const value: unknown = JSON.parse(text);
+    return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+  } catch {
+    throw new ApiError("Request body must be JSON.");
+  }
 }

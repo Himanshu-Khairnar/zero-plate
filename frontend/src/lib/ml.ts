@@ -8,6 +8,9 @@ import "server-only";
 
 const BASE = process.env.ML_SERVICE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+/** Long enough for a free-tier cold start (~50 s), short enough that a dead service fails instead of hanging. */
+export const ML_TIMEOUT_MS = 60_000;
+
 export class MlServiceError extends Error {
   constructor(
     message: string,
@@ -24,8 +27,12 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
       ...init,
       headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
       cache: "no-store",
+      signal: init?.signal ?? AbortSignal.timeout(ML_TIMEOUT_MS),
     });
   } catch (err) {
+    if ((err as Error).name === "TimeoutError") {
+      throw new MlServiceError("The forecasting service did not respond in time. It may be waking up; try again in a minute.", 503);
+    }
     throw new MlServiceError(
       `ML service unreachable at ${BASE}. Start it with "fastapi dev app/main.py" in backend/. (${(err as Error).message})`,
       503,

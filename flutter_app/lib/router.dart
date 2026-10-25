@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'models/models.dart';
 import 'screens/alerts_screen.dart';
+import 'screens/analytics_screen.dart';
+import 'screens/heatmap_screen.dart';
+import 'screens/inventory_screen.dart';
+import 'screens/invite_screen.dart';
+import 'screens/whatif_screen.dart';
 import 'screens/assistant_screen.dart';
 import 'screens/donations_screen.dart';
 import 'screens/forecasts_screen.dart';
@@ -55,11 +61,16 @@ GoRouter buildRouter(AuthProvider auth) {
         ],
       ),
       // Full-screen pages pushed on top of the tabs.
-      GoRoute(path: '/waste-log', builder: (c, s) => const WasteLogScreen()),
+      GoRoute(path: '/waste-log', builder: (c, s) => WasteLogScreen(prefill: s.extra as WastePrefill?)),
       GoRoute(path: '/alerts', builder: (c, s) => const AlertsScreen()),
       GoRoute(path: '/forecasts', builder: (c, s) => const ForecastsScreen()),
       GoRoute(path: '/donations', builder: (c, s) => const DonationsScreen()),
       GoRoute(path: '/assistant', builder: (c, s) => const AssistantScreen()),
+      GoRoute(path: '/analytics', builder: (c, s) => const AnalyticsScreen()),
+      GoRoute(path: '/waste-heatmap', builder: (c, s) => const HeatmapScreen()),
+      GoRoute(path: '/inventory', builder: (c, s) => const InventoryScreen()),
+      GoRoute(path: '/whatif', builder: (c, s) => const WhatIfScreen()),
+      GoRoute(path: '/invite', builder: (c, s) => const InviteScreen()),
     ],
   );
 }

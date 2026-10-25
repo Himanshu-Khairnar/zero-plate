@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../models/models.dart';
+import '../state/auth_provider.dart';
 import '../state/outlet_provider.dart';
 import '../widgets/async_view.dart';
+import '../widgets/confirm_dialog.dart';
 import '../widgets/count_stepper.dart';
 import '../widgets/empty_state.dart';
 import '../widgets/format.dart';
@@ -100,12 +102,67 @@ class _KitchenBodyState extends State<_KitchenBody> {
     }
   }
 
+  bool _busy = false;
+
+  Future<void> _logLeftovers() async {
+    final data = widget.data;
+    final left = data.dishes.fold<int>(0, (s, d) => s + d.leftover);
+    final ok = await confirmAction(
+      context,
+      title: 'Log leftovers as waste?',
+      message: 'Prepared − sold for ${fmtDay(data.date)} ($left plates) is logged as overproduction waste. '
+          'Dishes already logged are skipped.',
+      confirmLabel: 'Log leftovers',
+    );
+    if (!ok || !mounted) return;
+    setState(() => _busy = true);
+    try {
+      final n = await context.read<ApiClient>().logLeftovers(widget.outletId, data.date);
+      if (!mounted) return;
+      showInfoSnackBar(context, n == 0 ? 'No new leftovers to log' : 'Logged leftovers for $n dish${n == 1 ? '' : 'es'}');
+      await widget.refresh();
+    } catch (e) {
+      if (mounted) showErrorSnackBar(context, e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _lockDay() async {
+    final data = widget.data;
+    final prepared = data.dishes.fold<int>(0, (s, d) => s + d.prepared);
+    final sold = data.dishes.fold<int>(0, (s, d) => s + d.sold);
+    final left = data.dishes.fold<int>(0, (s, d) => s + d.leftover);
+    final ok = await confirmAction(
+      context,
+      title: 'Close & lock ${fmtDay(data.date)}?',
+      message: 'Prepared $prepared · sold $sold · leftover $left.' '\n\n'
+          'Verify both shifts first. After locking, counts and the prep plan can no longer be changed.',
+      confirmLabel: 'Lock day',
+      destructive: true,
+    );
+    if (!ok || !mounted) return;
+    setState(() => _busy = true);
+    try {
+      await context.read<ApiClient>().lockDay(widget.outletId, data.date);
+      if (!mounted) return;
+      _edits.clear();
+      showInfoSnackBar(context, 'Day closed and locked');
+      await widget.refresh();
+    } catch (e) {
+      if (mounted) showErrorSnackBar(context, e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final data = widget.data;
     final locked = data.locked;
     final dirty = _edits.length;
+    final canManage = context.watch<AuthProvider>().user?.canManage ?? false;
 
     return Column(
       children: [
@@ -129,6 +186,25 @@ class _KitchenBodyState extends State<_KitchenBody> {
                 if (locked)
                   Text('This day is locked. Counts are read-only.',
                       style: TextStyle(color: theme.colorScheme.error)),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: _busy || dirty > 0 ? null : _logLeftovers,
+                      icon: const Icon(Icons.delete_sweep_outlined),
+                      label: const Text('Log leftovers as waste'),
+                    ),
+                    if (canManage && !locked)
+                      OutlinedButton.icon(
+                        onPressed: _busy || dirty > 0 ? null : _lockDay,
+                        icon: const Icon(Icons.lock_outline),
+                        label: const Text('Close & lock day'),
+                      ),
+                  ],
+                ),
+                if (_busy) const Padding(padding: EdgeInsets.only(top: 8), child: LinearProgressIndicator()),
                 const SizedBox(height: 12),
                 SegmentedButton<Shift>(
                   segments: const [

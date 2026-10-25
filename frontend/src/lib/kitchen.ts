@@ -99,3 +99,48 @@ export async function kitchenDaySummary(outletId: string, date: string): Promise
     }),
   }
 }
+
+/**
+ * Close the day: lock every kitchen row of the outlet for `date` (YYYY-MM-DD).
+ * Refuses when there is nothing to lock or a count is invalid (sold > prepared).
+ * Callers check access first.
+ */
+export async function lockKitchenDay(outletId: string, date: string): Promise<KitchenLogResult> {
+  const day = parseIsoDate(date)
+
+  const logs = await prisma.kitchenLog.findMany({
+    where: { outletId, date: day },
+    include: { dish: { select: { name: true } } },
+  })
+
+  if (logs.length === 0) {
+    return { ok: false, error: "There are no entries to lock for this day." }
+  }
+
+  const invalid = logs.find(
+    (log) => log.prepared < 0 || log.sold < 0 || log.sold > log.prepared,
+  )
+
+  if (invalid) {
+    return {
+      ok: false,
+      error: `"${invalid.dish.name}" has an invalid count (sold cannot exceed prepared).`,
+    }
+  }
+
+  await prisma.kitchenLog.updateMany({
+    where: { outletId, date: day },
+    data: { isLocked: true },
+  })
+
+  return { ok: true }
+}
+
+/** True when any kitchen row of the outlet for that day is locked (same rule as kitchen mode). */
+export async function isKitchenDayLocked(outletId: string, date: string): Promise<boolean> {
+  const row = await prisma.kitchenLog.findFirst({
+    where: { outletId, date: parseIsoDate(date), isLocked: true },
+    select: { id: true },
+  })
+  return row !== null
+}
