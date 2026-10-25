@@ -90,8 +90,6 @@ class MoreScreen extends StatelessWidget {
             icon: Icon(Icons.logout, color: theme.colorScheme.error),
             label: Text('Sign out', style: TextStyle(color: theme.colorScheme.error)),
           ),
-          const SizedBox(height: 16),
-          Text('Server: ${context.read<AuthProvider>().api.baseUrl}', textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
         ],
       ),
     );

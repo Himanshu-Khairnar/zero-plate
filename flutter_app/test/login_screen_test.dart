@@ -90,33 +90,4 @@ void main() {
     expect(api.token, 't0k3n');
     expect(auth.outlets.single.name, 'Main');
   });
-
-  testWidgets('uses and saves the server URL entered on the login screen', (tester) async {
-    final client = MockClient((req) async {
-      expect(req.url.toString(), 'https://my.server/api/mobile/auth/login');
-      return http.Response(jsonEncode({'error': 'Invalid email or password'}), 401);
-    });
-    final api = ApiClient(httpClient: client, baseUrl: 'http://test');
-    await tester.pumpWidget(wrap(AuthProvider(api)));
-
-    await tester.tap(find.byKey(const Key('serverToggle')));
-    await tester.pump();
-    final server = tester.widget<TextFormField>(find.byKey(const Key('server')));
-    expect(server.controller!.text, 'http://test');
-
-    await tester.enterText(find.byKey(const Key('server')), 'my.server/');
-    await tester.enterText(find.byKey(const Key('email')), 'x@y.z');
-    await tester.enterText(find.byKey(const Key('password')), 'pw');
-    await tester.ensureVisible(find.text('Sign in'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Sign in'));
-    await tester.pumpAndSettle();
-
-    expect(api.baseUrl, 'https://my.server');
-    expect((await SharedPreferences.getInstance()).getString('server_url'), 'https://my.server');
-
-    final fresh = ApiClient(baseUrl: 'http://other');
-    await fresh.loadSavedBaseUrl();
-    expect(fresh.baseUrl, 'https://my.server');
-  });
 }

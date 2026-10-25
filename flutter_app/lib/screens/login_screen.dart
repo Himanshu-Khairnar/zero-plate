@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../api/api_client.dart';
 import '../config.dart';
 import '../state/auth_provider.dart';
 import '../widgets/async_view.dart';
@@ -17,23 +16,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
-  final _server = TextEditingController();
-  bool _showServer = false;
   bool _busy = false;
   bool _obscure = true;
   String? _error;
 
   @override
-  void initState() {
-    super.initState();
-    _server.text = context.read<AuthProvider>().api.baseUrl;
-  }
-
-  @override
   void dispose() {
     _email.dispose();
     _password.dispose();
-    _server.dispose();
     super.dispose();
   }
 
@@ -50,10 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     try {
       final auth = context.read<AuthProvider>();
-      if (ApiClient.normalizeUrl(_server.text) != auth.api.baseUrl) {
-        await auth.api.saveBaseUrl(_server.text);
-        if (mounted) _server.text = auth.api.baseUrl;
-      }
       // On success the router redirects to Home.
       await auth.login(_email.text, _password.text);
     } catch (e) {
@@ -135,40 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         trailing: TextButton(onPressed: _fillDemo, child: const Text('Use')),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    TextButton.icon(
-                      key: const Key('serverToggle'),
-                      onPressed: () => setState(() => _showServer = !_showServer),
-                      icon: const Icon(Icons.dns_outlined, size: 18),
-                      label: Text(_showServer ? 'Hide server settings' : 'Server: ${_server.text}',
-                          overflow: TextOverflow.ellipsis),
-                      style: TextButton.styleFrom(foregroundColor: muted),
-                    ),
-                    if (_showServer) ...[
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        key: const Key('server'),
-                        controller: _server,
-                        keyboardType: TextInputType.url,
-                        autocorrect: false,
-                        decoration: InputDecoration(
-                          labelText: 'Server',
-                          helperText: 'Saved on this device. Clear it to use the default.',
-                          prefixIcon: const Icon(Icons.dns_outlined),
-                          suffixIcon: IconButton(
-                            tooltip: 'Reset to default',
-                            icon: const Icon(Icons.restart_alt),
-                            onPressed: () => setState(() => _server.text = AppConfig.apiUrl),
-                          ),
-                        ),
-                        validator: (v) {
-                          final u = ApiClient.normalizeUrl(v ?? '');
-                          if (u.isEmpty) return null;
-                          final uri = Uri.tryParse(u);
-                          return (uri == null || !uri.hasAuthority) ? 'Enter a URL like https://example.com' : null;
-                        },
-                      ),
-                    ],
                   ],
                 ),
               ),

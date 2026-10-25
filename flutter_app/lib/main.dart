@@ -11,7 +11,6 @@ import 'theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final api = ApiClient();
-  await api.loadSavedBaseUrl();
   final auth = AuthProvider(api)..bootstrap();
   runApp(WasteLessApp(api: api, auth: auth));
 }

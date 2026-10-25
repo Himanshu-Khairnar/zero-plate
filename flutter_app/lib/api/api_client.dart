@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config.dart';
 import '../models/models.dart';
@@ -32,45 +31,8 @@ class ApiClient {
   final http.Client _http;
 
   /// Server base URL, e.g. `https://wasteless-web.onrender.com`. Defaults to
-  /// [AppConfig.apiUrl]; a value saved on the login screen overrides it.
+  /// [AppConfig.apiUrl].
   String baseUrl;
-
-  static const _serverKey = 'server_url';
-
-  /// Trims whitespace and trailing slashes, and adds `https://` when no
-  /// scheme was given.
-  static String normalizeUrl(String url) {
-    var u = url.trim().replaceAll(RegExp(r'/+$'), '');
-    if (u.isNotEmpty && !u.contains('://')) u = 'https://$u';
-    return u;
-  }
-
-  /// Loads the server URL saved by [saveBaseUrl], if any.
-  Future<void> loadSavedBaseUrl() async {
-    try {
-      final saved = (await SharedPreferences.getInstance()).getString(_serverKey);
-      if (saved != null && saved.isNotEmpty) baseUrl = saved;
-    } catch (_) {
-      // No storage available; keep the default.
-    }
-  }
-
-  /// Switches to [url] and remembers it across app restarts. An empty value
-  /// resets to the build-time default.
-  Future<void> saveBaseUrl(String url) async {
-    final u = normalizeUrl(url);
-    baseUrl = u.isEmpty ? AppConfig.apiUrl : u;
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      if (u.isEmpty) {
-        await prefs.remove(_serverKey);
-      } else {
-        await prefs.setString(_serverKey, u);
-      }
-    } catch (_) {
-      // Not persisted, but still used for this session.
-    }
-  }
 
   String? token;
   void Function()? onUnauthorized;
