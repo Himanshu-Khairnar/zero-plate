@@ -1,0 +1,482 @@
+{"text": "which dish did we waste most [this week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 0, "split": "train"}
+{"text": "which dish did we waste most [past 3 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 0, "split": "train"}
+{"text": "which dish did we waste most [last week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 0, "split": "train"}
+{"text": "how much [thali|DISH] was wasted [last month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 1, "split": "train"}
+{"text": "how much [pav bhaji|DISH] was wasted [last month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 1, "split": "train"}
+{"text": "how much [thali|DISH] was wasted [last week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 1, "split": "train"}
+{"text": "show me the waste report for [last week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 2, "split": "train"}
+{"text": "show me the waste report for [today|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 2, "split": "train"}
+{"text": "show me the waste report for [this month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 2, "split": "train"}
+{"text": "what was our total wastage [last month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 3, "split": "test"}
+{"text": "what was our total wastage [this week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 3, "split": "test"}
+{"text": "what was our total wastage [yesterday|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 3, "split": "test"}
+{"text": "how much food did we throw away [last 14 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 4, "split": "train"}
+{"text": "how much food did we throw away [last week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 4, "split": "train"}
+{"text": "how much food did we throw away [past 3 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 4, "split": "train"}
+{"text": "why are we wasting so much [dosa|DISH]", "intent": "waste", "lang": "en", "source": "template", "template": 5, "split": "train"}
+{"text": "why are we wasting so much [paneer butter masala|DISH]", "intent": "waste", "lang": "en", "source": "template", "template": 5, "split": "train"}
+{"text": "why are we wasting so much [veg pulao|DISH]", "intent": "waste", "lang": "en", "source": "template", "template": 5, "split": "train"}
+{"text": "how many plates of [pav bhaji|DISH] went in the bin [today|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 6, "split": "train"}
+{"text": "how many plates of [veg pulao|DISH] went in the bin on [monday|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 6, "split": "train"}
+{"text": "how many plates of [dal makhani|DISH] went in the bin [last week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 6, "split": "train"}
+{"text": "what is the biggest reason for waste [this week|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 7, "split": "test"}
+{"text": "what is the biggest reason for waste [past 7 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 7, "split": "test"}
+{"text": "what is the biggest reason for waste [last month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 7, "split": "test"}
+{"text": "how much [pav bread|ING] spoiled [this month|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 8, "split": "train"}
+{"text": "how much [dosa batter|ING] spoiled [last 14 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 8, "split": "train"}
+{"text": "how much [tea|ING] spoiled [past 7 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 8, "split": "train"}
+{"text": "top wasted items [last 14 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 9, "split": "train"}
+{"text": "top wasted items [past 3 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 9, "split": "train"}
+{"text": "top wasted items [past 7 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 9, "split": "train"}
+{"text": "what did the waste cost us [past 3 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 10, "split": "train"}
+{"text": "what did the waste cost us [today|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 10, "split": "train"}
+{"text": "what did the waste cost us [past 7 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 10, "split": "train"}
+{"text": "how much leftover [dosa|DISH] did we bin [past 3 days|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 11, "split": "test"}
+{"text": "how much leftover [veg pulao|DISH] did we bin on [monday|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 11, "split": "test"}
+{"text": "how much leftover [masala chai|DISH] did we bin [last weekend|DATE]", "intent": "waste", "lang": "en", "source": "template", "template": 11, "split": "test"}
+{"text": "[pichle hafte|DATE] kitna waste hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 12, "split": "train"}
+{"text": "[somvar|DATE] ko kitna waste hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 12, "split": "train"}
+{"text": "[pichle 10 din|DATE] kitna waste hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 12, "split": "train"}
+{"text": "[pichle hafte|DATE] kitna khana phenka", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 13, "split": "train"}
+{"text": "[is hafte|DATE] kitna khana phenka", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 13, "split": "train"}
+{"text": "[pichle mahine|DATE] kitna khana phenka", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 13, "split": "train"}
+{"text": "[vada pav|DISH] kitna waste hua [pichle 10 din|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 14, "split": "train"}
+{"text": "[veg thali|DISH] kitna waste hua [is hafte|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 14, "split": "train"}
+{"text": "[veg thali|DISH] kitna waste hua [somvar|DATE] ko", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 14, "split": "train"}
+{"text": "sabse zyada waste kis dish ka hua [is hafte|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 15, "split": "test"}
+{"text": "sabse zyada waste kis dish ka hua [is mahine|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 15, "split": "test"}
+{"text": "sabse zyada waste kis dish ka hua [pichle hafte|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 15, "split": "test"}
+{"text": "[somvar|DATE] ko kitna [chicken|ING] kharab hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 16, "split": "train"}
+{"text": "[pichle mahine|DATE] kitna [dahi|ING] kharab hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 16, "split": "train"}
+{"text": "[pichle mahine|DATE] kitna [chicken|ING] kharab hua", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 16, "split": "train"}
+{"text": "waste ka kharcha kitna hua [pichle mahine|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 17, "split": "train"}
+{"text": "waste ka kharcha kitna hua [pichle 7 din|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 17, "split": "train"}
+{"text": "waste ka kharcha kitna hua [pichle hafte|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 17, "split": "train"}
+{"text": "[butter chicken|DISH] kyun itna bach raha hai", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 18, "split": "train"}
+{"text": "[dal makhani|DISH] kyun itna bach raha hai", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 18, "split": "train"}
+{"text": "[thali|DISH] kyun itna bach raha hai", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 18, "split": "train"}
+{"text": "barbaadi kitni hui [somvar|DATE] ko", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 19, "split": "test"}
+{"text": "barbaadi kitni hui [is mahine|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 19, "split": "test"}
+{"text": "barbaadi kitni hui [kal|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 19, "split": "test"}
+{"text": "[is mahine|DATE] ka waste report dikhao", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 20, "split": "train"}
+{"text": "[kal|DATE] ka waste report dikhao", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 20, "split": "train"}
+{"text": "[pichle mahine|DATE] ka waste report dikhao", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 20, "split": "train"}
+{"text": "[somvar|DATE] ko kitni plate [pav bhaji|DISH] phenki", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 21, "split": "train"}
+{"text": "[is hafte|DATE] kitni plate [veg biryani|DISH] phenki", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 21, "split": "train"}
+{"text": "[is mahine|DATE] kitni plate [vada pav|DISH] phenki", "intent": "waste", "lang": "hi-Latn", "source": "template", "template": 21, "split": "train"}
+{"text": "what do we expect to sell [day after tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 22, "split": "train"}
+{"text": "what do we expect to sell on [saturday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 22, "split": "train"}
+{"text": "what do we expect to sell [next week|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 22, "split": "train"}
+{"text": "how many [thali|DISH] will we sell on [saturday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 23, "split": "train"}
+{"text": "how many [fish fry|DISH] will we sell [this weekend|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 23, "split": "train"}
+{"text": "how many [dosa|DISH] will we sell [next week|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 23, "split": "train"}
+{"text": "forecast for [next 3 days|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 24, "split": "train"}
+{"text": "forecast for [next week|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 24, "split": "train"}
+{"text": "forecast for [next monday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 24, "split": "train"}
+{"text": "what is the demand for [chicken biryani|DISH] [next monday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 25, "split": "test"}
+{"text": "what is the demand for [biryani|DISH] [tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 25, "split": "test"}
+{"text": "what is the demand for [veg thali|DISH] [next monday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 25, "split": "test"}
+{"text": "predict sales of [biryani|DISH] for on [saturday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 26, "split": "train"}
+{"text": "predict sales of [vada pav|DISH] for [day after tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 26, "split": "train"}
+{"text": "predict sales of [dal khichdi|DISH] for [this weekend|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 26, "split": "train"}
+{"text": "how busy will we be [today|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 27, "split": "train"}
+{"text": "how busy will we be [next friday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 27, "split": "train"}
+{"text": "how busy will we be [next week|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 27, "split": "train"}
+{"text": "expected plates [this weekend|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 28, "split": "train"}
+{"text": "expected plates [next friday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 28, "split": "train"}
+{"text": "expected plates [tomorrow night|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 28, "split": "train"}
+{"text": "how many customers are we expecting [next monday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 29, "split": "test"}
+{"text": "how many customers are we expecting [today|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 29, "split": "test"}
+{"text": "how many customers are we expecting [tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 29, "split": "test"}
+{"text": "what will demand look like [next 3 days|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 30, "split": "train"}
+{"text": "what will demand look like on [saturday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 30, "split": "train"}
+{"text": "what will demand look like [next friday|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 30, "split": "train"}
+{"text": "projected demand for [fish fry|DISH] [tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 31, "split": "train"}
+{"text": "projected demand for [pav bhaji|DISH] [day after tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 31, "split": "train"}
+{"text": "projected demand for [masala dosa|DISH] [tomorrow night|DATE]", "intent": "forecast", "lang": "en", "source": "template", "template": 31, "split": "train"}
+{"text": "[shukravar|DATE] ko kitna bikega", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 32, "split": "train"}
+{"text": "[parso|DATE] kitna bikega", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 32, "split": "train"}
+{"text": "[kal subah|DATE] kitna bikega", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 32, "split": "train"}
+{"text": "[aaj raat|DATE] kitni [fish fry|DISH] bikegi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 33, "split": "train"}
+{"text": "[kal|DATE] kitni [chicken biryani|DISH] bikegi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 33, "split": "train"}
+{"text": "[aaj raat|DATE] kitni [gulab jamun|DISH] bikegi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 33, "split": "train"}
+{"text": "[agle hafte|DATE] ka forecast batao", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 34, "split": "train"}
+{"text": "[kal subah|DATE] ka forecast batao", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 34, "split": "train"}
+{"text": "[is weekend|DATE] ka forecast batao", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 34, "split": "train"}
+{"text": "[dal khichdi|DISH] ki demand kitni hogi [shukravar|DATE] ko", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 35, "split": "test"}
+{"text": "[chicken biryani|DISH] ki demand kitni hogi [agle 3 din|DATE]", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 35, "split": "test"}
+{"text": "[fish fry|DISH] ki demand kitni hogi [agle hafte|DATE]", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 35, "split": "test"}
+{"text": "[agle hafte|DATE] kitne customer aayenge", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 36, "split": "train"}
+{"text": "[shukravar|DATE] ko kitne customer aayenge", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 36, "split": "train"}
+{"text": "[agle 3 din|DATE] kitne customer aayenge", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 36, "split": "train"}
+{"text": "[is weekend|DATE] kitni plate jayengi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 37, "split": "train"}
+{"text": "[shukravar|DATE] ko kitni plate jayengi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 37, "split": "train"}
+{"text": "[agle 3 din|DATE] kitni plate jayengi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 37, "split": "train"}
+{"text": "[is weekend|DATE] ka anumaan kya hai", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 38, "split": "train"}
+{"text": "[aaj raat|DATE] ka anumaan kya hai", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 38, "split": "train"}
+{"text": "[shukravar|DATE] ko ka anumaan kya hai", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 38, "split": "train"}
+{"text": "[agle 3 din|DATE] bheed kitni hogi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 39, "split": "test"}
+{"text": "[is weekend|DATE] bheed kitni hogi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 39, "split": "test"}
+{"text": "[aaj raat|DATE] bheed kitni hogi", "intent": "forecast", "lang": "hi-Latn", "source": "template", "template": 39, "split": "test"}
+{"text": "what should we prep [tomorrow night|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 40, "split": "train"}
+{"text": "what should we prep [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 40, "split": "train"}
+{"text": "what should we prep on [saturday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 40, "split": "train"}
+{"text": "show the prep plan for [tomorrow night|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 41, "split": "train"}
+{"text": "show the prep plan for [next 3 days|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 41, "split": "train"}
+{"text": "show the prep plan for [next friday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 41, "split": "train"}
+{"text": "how many plates of [butter chicken|DISH] should we cook [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 42, "split": "train"}
+{"text": "how many plates of [dosa|DISH] should we cook [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 42, "split": "train"}
+{"text": "how many plates of [thali|DISH] should we cook [day after tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 42, "split": "train"}
+{"text": "is the prep plan for [next week|DATE] approved", "intent": "prep", "lang": "en", "source": "template", "template": 43, "split": "test"}
+{"text": "is the prep plan for [next 3 days|DATE] approved", "intent": "prep", "lang": "en", "source": "template", "template": 43, "split": "test"}
+{"text": "is the prep plan for [today|DATE] approved", "intent": "prep", "lang": "en", "source": "template", "template": 43, "split": "test"}
+{"text": "what is on the prep list [tomorrow night|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 44, "split": "train"}
+{"text": "what is on the prep list on [saturday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 44, "split": "train"}
+{"text": "what is on the prep list [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 44, "split": "train"}
+{"text": "how much [filter coffee|DISH] should the kitchen make [today|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 45, "split": "train"}
+{"text": "how much [dal makhani|DISH] should the kitchen make [this weekend|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 45, "split": "train"}
+{"text": "how much [pav bhaji|DISH] should the kitchen make [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 45, "split": "train"}
+{"text": "prep sheet for [next friday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 46, "split": "train"}
+{"text": "prep sheet for on [saturday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 46, "split": "train"}
+{"text": "prep sheet for [this weekend|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 46, "split": "train"}
+{"text": "what do we need to prepare [next week|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 47, "split": "test"}
+{"text": "what do we need to prepare [day after tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 47, "split": "test"}
+{"text": "what do we need to prepare [next monday|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 47, "split": "test"}
+{"text": "kitchen production plan [tomorrow night|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 48, "split": "train"}
+{"text": "kitchen production plan [day after tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 48, "split": "train"}
+{"text": "kitchen production plan [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "template", "template": 48, "split": "train"}
+{"text": "[aaj raat|DATE] kya banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 49, "split": "train"}
+{"text": "[agle hafte|DATE] kya banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 49, "split": "train"}
+{"text": "[parso|DATE] kya banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 49, "split": "train"}
+{"text": "[kal subah|DATE] kitna [veg thali|DISH] banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 50, "split": "train"}
+{"text": "[agle 3 din|DATE] kitna [veg biryani|DISH] banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 50, "split": "train"}
+{"text": "[aaj raat|DATE] kitna [chicken biryani|DISH] banana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 50, "split": "train"}
+{"text": "[shukravar|DATE] ko ka prep plan dikhao", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 51, "split": "train"}
+{"text": "[agle hafte|DATE] ka prep plan dikhao", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 51, "split": "train"}
+{"text": "[kal|DATE] ka prep plan dikhao", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 51, "split": "train"}
+{"text": "[agle hafte|DATE] kitni plate [gulab jamun|DISH] pakani hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 52, "split": "test"}
+{"text": "[agle hafte|DATE] kitni plate [masala chai|DISH] pakani hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 52, "split": "test"}
+{"text": "[is weekend|DATE] kitni plate [paneer butter masala|DISH] pakani hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 52, "split": "test"}
+{"text": "kitchen ko [agle hafte|DATE] kya tayyar karna hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 53, "split": "train"}
+{"text": "kitchen ko [parso|DATE] kya tayyar karna hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 53, "split": "train"}
+{"text": "kitchen ko [kal subah|DATE] kya tayyar karna hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 53, "split": "train"}
+{"text": "[aaj raat|DATE] ki taiyari kya hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 54, "split": "train"}
+{"text": "[parso|DATE] ki taiyari kya hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 54, "split": "train"}
+{"text": "[shukravar|DATE] ko ki taiyari kya hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 54, "split": "train"}
+{"text": "[is weekend|DATE] ka prep plan approve hua kya", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 55, "split": "train"}
+{"text": "[kal|DATE] ka prep plan approve hua kya", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 55, "split": "train"}
+{"text": "[kal subah|DATE] ka prep plan approve hua kya", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 55, "split": "train"}
+{"text": "rasoi mein [is weekend|DATE] kya pakana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 56, "split": "test"}
+{"text": "rasoi mein [agle 3 din|DATE] kya pakana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 56, "split": "test"}
+{"text": "rasoi mein [kal|DATE] kya pakana hai", "intent": "prep", "lang": "hi-Latn", "source": "template", "template": 56, "split": "test"}
+{"text": "how much [fresh cream|ING] do we have", "intent": "stock", "lang": "en", "source": "template", "template": 57, "split": "train"}
+{"text": "how much [chicken|ING] do we have", "intent": "stock", "lang": "en", "source": "template", "template": 57, "split": "train"}
+{"text": "how much [onions|ING] do we have", "intent": "stock", "lang": "en", "source": "template", "template": 57, "split": "train"}
+{"text": "how much [tea leaves|ING] is left", "intent": "stock", "lang": "en", "source": "template", "template": 58, "split": "train"}
+{"text": "how much [tomatoes|ING] is left", "intent": "stock", "lang": "en", "source": "template", "template": 58, "split": "train"}
+{"text": "how much [fresh cream|ING] is left", "intent": "stock", "lang": "en", "source": "template", "template": 58, "split": "train"}
+{"text": "what is in stock right now", "intent": "stock", "lang": "en", "source": "template", "template": 59, "split": "train"}
+{"text": "current inventory of [sugar|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 60, "split": "test"}
+{"text": "current inventory of [fresh cream|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 60, "split": "test"}
+{"text": "current inventory of [chickpeas|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 60, "split": "test"}
+{"text": "is [butter|ING] running low", "intent": "stock", "lang": "en", "source": "template", "template": 61, "split": "train"}
+{"text": "is [tomatoes|ING] running low", "intent": "stock", "lang": "en", "source": "template", "template": 61, "split": "train"}
+{"text": "is [fresh cream|ING] running low", "intent": "stock", "lang": "en", "source": "template", "template": 61, "split": "train"}
+{"text": "which items expire [day after tomorrow|DATE]", "intent": "stock", "lang": "en", "source": "template", "template": 62, "split": "train"}
+{"text": "which items expire [next friday|DATE]", "intent": "stock", "lang": "en", "source": "template", "template": 62, "split": "train"}
+{"text": "which items expire on [saturday|DATE]", "intent": "stock", "lang": "en", "source": "template", "template": 62, "split": "train"}
+{"text": "do we have [2.5|QTY] [kg|UNIT] of [chicken|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 63, "split": "train"}
+{"text": "do we have [2.5|QTY] [kg|UNIT] of [rice|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 63, "split": "train"}
+{"text": "do we have [two|QTY] [kg|UNIT] of [onions|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 63, "split": "train"}
+{"text": "check stock levels of [eggs|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 64, "split": "test"}
+{"text": "check stock levels of [cooking oil|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 64, "split": "test"}
+{"text": "check stock levels of [potatoes|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 64, "split": "test"}
+{"text": "what is our stock of [milk|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 65, "split": "train"}
+{"text": "what is our stock of [vegetables|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 65, "split": "train"}
+{"text": "what is our stock of [toor dal|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 65, "split": "train"}
+{"text": "are we out of [rice|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 66, "split": "train"}
+{"text": "are we out of [tea leaves|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 66, "split": "train"}
+{"text": "are we out of [tea|ING]", "intent": "stock", "lang": "en", "source": "template", "template": 66, "split": "train"}
+{"text": "[makhan|ING] kitna bacha hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 67, "split": "train"}
+{"text": "[aloo|ING] kitna bacha hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 67, "split": "train"}
+{"text": "[tamatar|ING] kitna bacha hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 67, "split": "train"}
+{"text": "[tamatar|ING] kitna hai store mein", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 68, "split": "train"}
+{"text": "[makhan|ING] kitna hai store mein", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 68, "split": "train"}
+{"text": "[dal|ING] kitna hai store mein", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 68, "split": "train"}
+{"text": "stock mein kya kya hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 69, "split": "train"}
+{"text": "[dal|ING] khatam ho gaya kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 70, "split": "test"}
+{"text": "[chai patti|ING] khatam ho gaya kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 70, "split": "test"}
+{"text": "[tel|ING] khatam ho gaya kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 70, "split": "test"}
+{"text": "[agle hafte|DATE] kya expire hoga", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 71, "split": "train"}
+{"text": "[kal subah|DATE] kya expire hoga", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 71, "split": "train"}
+{"text": "[shukravar|DATE] ko kya expire hoga", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 71, "split": "train"}
+{"text": "[paneer|ING] ka stock kitna hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 72, "split": "train"}
+{"text": "[anda|ING] ka stock kitna hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 72, "split": "train"}
+{"text": "[dahi|ING] ka stock kitna hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 72, "split": "train"}
+{"text": "godown mein kitna [tel|ING] pada hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 73, "split": "train"}
+{"text": "godown mein kitna [malai|ING] pada hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 73, "split": "train"}
+{"text": "godown mein kitna [atta|ING] pada hai", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 73, "split": "train"}
+{"text": "[dhai|QTY] [kilo|UNIT] [atta|ING] hai kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 74, "split": "test"}
+{"text": "[5|QTY] [kilo|UNIT] [murgi|ING] hai kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 74, "split": "test"}
+{"text": "[2|QTY] [kg|UNIT] [chai patti|ING] hai kya", "intent": "stock", "lang": "hi-Latn", "source": "template", "template": 74, "split": "test"}
+{"text": "how much did we sell [this week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 75, "split": "train"}
+{"text": "how much did we sell [last week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 75, "split": "train"}
+{"text": "how much did we sell on [monday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 75, "split": "train"}
+{"text": "what were the sales [last weekend|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 76, "split": "train"}
+{"text": "what were the sales [this month|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 76, "split": "train"}
+{"text": "what were the sales on [monday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 76, "split": "train"}
+{"text": "how many [dal khichdi|DISH] did we sell [last 14 days|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 77, "split": "train"}
+{"text": "how many [chicken curry|DISH] did we sell [last month|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 77, "split": "train"}
+{"text": "how many [paneer butter masala|DISH] did we sell [last weekend|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 77, "split": "train"}
+{"text": "what is our best seller [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 78, "split": "test"}
+{"text": "what is our best seller on [monday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 78, "split": "test"}
+{"text": "what is our best seller [this month|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 78, "split": "test"}
+{"text": "total revenue [last week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 79, "split": "train"}
+{"text": "total revenue [today|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 79, "split": "train"}
+{"text": "total revenue [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 79, "split": "train"}
+{"text": "how much money did we make [last weekend|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 80, "split": "train"}
+{"text": "how much money did we make [last week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 80, "split": "train"}
+{"text": "how much money did we make [this week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 80, "split": "train"}
+{"text": "which dish was most popular [today|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 81, "split": "train"}
+{"text": "which dish was most popular on [monday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 81, "split": "train"}
+{"text": "which dish was most popular [last weekend|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 81, "split": "train"}
+{"text": "how many customer orders did we get [this month|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 82, "split": "test"}
+{"text": "how many customer orders did we get [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 82, "split": "test"}
+{"text": "how many customer orders did we get [last month|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 82, "split": "test"}
+{"text": "sales report for [past 3 days|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 83, "split": "train"}
+{"text": "sales report for [last 14 days|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 83, "split": "train"}
+{"text": "sales report for [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 83, "split": "train"}
+{"text": "how many plates of [masala chai|DISH] were sold [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 84, "split": "train"}
+{"text": "how many plates of [pav bhaji|DISH] were sold [this week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 84, "split": "train"}
+{"text": "how many plates of [dosa|DISH] were sold [last week|DATE]", "intent": "sales", "lang": "en", "source": "template", "template": 84, "split": "train"}
+{"text": "[kal|DATE] kitna bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 85, "split": "train"}
+{"text": "[pichle 10 din|DATE] kitna bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 85, "split": "train"}
+{"text": "[is mahine|DATE] kitna bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 85, "split": "train"}
+{"text": "[pichle mahine|DATE] kitni [veg pulao|DISH] biki", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 86, "split": "train"}
+{"text": "[kal|DATE] kitni [chicken curry|DISH] biki", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 86, "split": "train"}
+{"text": "[aaj|DATE] kitni [dosa|DISH] biki", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 86, "split": "train"}
+{"text": "[pichle mahine|DATE] kitni kamai hui", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 87, "split": "train"}
+{"text": "[pichle 7 din|DATE] kitni kamai hui", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 87, "split": "train"}
+{"text": "[pichle 10 din|DATE] kitni kamai hui", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 87, "split": "train"}
+{"text": "[pichle 10 din|DATE] sabse zyada kya bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 88, "split": "test"}
+{"text": "[kal|DATE] sabse zyada kya bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 88, "split": "test"}
+{"text": "[somvar|DATE] ko sabse zyada kya bika", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 88, "split": "test"}
+{"text": "[pichle 7 din|DATE] ki sales kitni thi", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 89, "split": "train"}
+{"text": "[pichle mahine|DATE] ki sales kitni thi", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 89, "split": "train"}
+{"text": "[kal|DATE] ki sales kitni thi", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 89, "split": "train"}
+{"text": "[pichle 10 din|DATE] kitne order aaye", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 90, "split": "train"}
+{"text": "[is mahine|DATE] kitne order aaye", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 90, "split": "train"}
+{"text": "[pichle mahine|DATE] kitne order aaye", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 90, "split": "train"}
+{"text": "[pichle 10 din|DATE] ka galla kitna hua", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 91, "split": "train"}
+{"text": "[kal|DATE] ka galla kitna hua", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 91, "split": "train"}
+{"text": "[aaj|DATE] ka galla kitna hua", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 91, "split": "train"}
+{"text": "[veg thali|DISH] kitni bikti hai", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 92, "split": "test"}
+{"text": "[pav bhaji|DISH] kitni bikti hai", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 92, "split": "test"}
+{"text": "[veg biryani|DISH] kitni bikti hai", "intent": "sales", "lang": "hi-Latn", "source": "template", "template": 92, "split": "test"}
+{"text": "how much [sugar|ING] should i order [this weekend|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 93, "split": "train"}
+{"text": "how much [tea|ING] should i order on [saturday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 93, "split": "train"}
+{"text": "how much [curd|ING] should i order [next week|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 93, "split": "train"}
+{"text": "how much [tea|ING] should we buy for [day after tomorrow|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 94, "split": "train"}
+{"text": "how much [dosa batter|ING] should we buy for [next friday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 94, "split": "train"}
+{"text": "how much [cooking oil|ING] should we buy for [this weekend|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 94, "split": "train"}
+{"text": "place a purchase order for [5|QTY] [litres|UNIT] of [tomatoes|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 95, "split": "train"}
+{"text": "place a purchase order for [10|QTY] [kg|UNIT] of [tea leaves|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 95, "split": "train"}
+{"text": "place a purchase order for [two|QTY] [kg|UNIT] of [chicken|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 95, "split": "train"}
+{"text": "do we need to order [vegetables|ING] [this weekend|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 96, "split": "test"}
+{"text": "do we need to order [tea leaves|ING] [today|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 96, "split": "test"}
+{"text": "do we need to order [paneer|ING] [next 3 days|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 96, "split": "test"}
+{"text": "what should we buy from the supplier on [saturday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 97, "split": "train"}
+{"text": "what should we buy from the supplier [tomorrow night|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 97, "split": "train"}
+{"text": "what should we buy from the supplier [next monday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 97, "split": "train"}
+{"text": "order [12|QTY] [litres|UNIT] [dosa batter|ING] [next monday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 98, "split": "train"}
+{"text": "order [3|QTY] [kg|UNIT] [coffee powder|ING] [next friday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 98, "split": "train"}
+{"text": "order [two|QTY] [kg|UNIT] [spice mix|ING] [day after tomorrow|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 98, "split": "train"}
+{"text": "suggest an order for [milk|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 99, "split": "train"}
+{"text": "suggest an order for [chickpeas|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 99, "split": "train"}
+{"text": "suggest an order for [tea|ING]", "intent": "purchase", "lang": "en", "source": "template", "template": 99, "split": "train"}
+{"text": "how much [onions|ING] to purchase for [next week|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 100, "split": "test"}
+{"text": "how much [tea|ING] to purchase for on [saturday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 100, "split": "test"}
+{"text": "how much [chickpeas|ING] to purchase for [next monday|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 100, "split": "test"}
+{"text": "restock [potatoes|ING] for [next 3 days|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 101, "split": "train"}
+{"text": "restock [toor dal|ING] for [day after tomorrow|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 101, "split": "train"}
+{"text": "restock [paneer|ING] for [next 3 days|DATE]", "intent": "purchase", "lang": "en", "source": "template", "template": 101, "split": "train"}
+{"text": "[agle 3 din|DATE] kitna [dal|ING] mangwana hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 102, "split": "train"}
+{"text": "[kal|DATE] kitna [chai patti|ING] mangwana hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 102, "split": "train"}
+{"text": "[shukravar|DATE] ko kitna [pyaaz|ING] mangwana hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 102, "split": "train"}
+{"text": "[kal|DATE] ke liye kitna [chawal|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 103, "split": "train"}
+{"text": "[aaj raat|DATE] ke liye kitna [doodh|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 103, "split": "train"}
+{"text": "[is weekend|DATE] ke liye kitna [makhan|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 103, "split": "train"}
+{"text": "[murgi|ING] kitna kharidna hai [shukravar|DATE] ko", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 104, "split": "train"}
+{"text": "[paneer|ING] kitna kharidna hai [is weekend|DATE]", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 104, "split": "train"}
+{"text": "[basmati chawal|ING] kitna kharidna hai [parso|DATE]", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 104, "split": "train"}
+{"text": "supplier se [5|QTY] [kilo|UNIT] [tamatar|ING] mangao", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 105, "split": "test"}
+{"text": "supplier se [2|QTY] [kg|UNIT] [pyaaz|ING] mangao", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 105, "split": "test"}
+{"text": "supplier se [10|QTY] [litre|UNIT] [basmati chawal|ING] mangao", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 105, "split": "test"}
+{"text": "[agle hafte|DATE] [malai|ING] order karna padega kya", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 106, "split": "train"}
+{"text": "[agle hafte|DATE] [paneer|ING] order karna padega kya", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 106, "split": "train"}
+{"text": "[kal|DATE] [cheeni|ING] order karna padega kya", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 106, "split": "train"}
+{"text": "[aloo|ING] ka order kitna dena hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 107, "split": "train"}
+{"text": "[atta|ING] ka order kitna dena hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 107, "split": "train"}
+{"text": "[murgi|ING] ka order kitna dena hai", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 107, "split": "train"}
+{"text": "[agle hafte|DATE] kitna [chicken|ING] lena padega", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 108, "split": "train"}
+{"text": "[parso|DATE] kitna [murgi|ING] lena padega", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 108, "split": "train"}
+{"text": "[agle hafte|DATE] kitna [chai patti|ING] lena padega", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 108, "split": "train"}
+{"text": "[kal|DATE] kitna [tamatar|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 109, "split": "test"}
+{"text": "[kal|DATE] kitna [chana|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 109, "split": "test"}
+{"text": "[agle hafte|DATE] kitna [anda|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "template", "template": 109, "split": "test"}
+{"text": "[pichle mahine|DATE] barbaadi kitni hui", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "did we bin a lot of [rice|ING] [this week|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "wastage kitna hai [is mahine|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "which dish did we waste most [last month|DATE]?", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "what are we throwing away the most", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "what got thrown out [last night|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "cost of spoilage [last month|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "give me a wastage summary", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "kitna maal kharab ho gaya [is hafte|DATE]", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "customers left a lot on the plate [today|DATE], how much was it", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "overproduction losses [past 7 days|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[biryani|DISH] itni waste kyun ho rahi hai", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[aaj|DATE] kitna waste hua", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "sabse zyada kya waste ho raha hai", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "where is our food waste coming from", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how many kilos of food did we lose [last week|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "plate mein kitna khana chhoda customers ne", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] [paneer|ING] kitna sad gaya", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "was [gulab jamun|DISH] wasted [yesterday|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] kitna khana bacha aur phenka", "intent": "waste", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "how bad was plate waste [yesterday|DATE]", "intent": "waste", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] kitne log aayenge", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "what will the rain do to demand [tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "expected covers for [saturday|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "how many orders should we expect [tonight|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "[aaj raat|DATE] kitne order aayenge", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "[kal|DATE] kitni bikri hogi", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "baarish mein [kal|DATE] kitna bikega", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[parso|DATE] [dosa|DISH] kitna bikega", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[agle hafte|DATE] ka forecast kya hai", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "give me the demand outlook for [next week|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "will [butter chicken|DISH] sell well [on friday|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "is it going to be a busy day [tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how many people will come [this weekend|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[weekend|DATE] pe kitna rush hoga", "intent": "forecast", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what do we expect to sell [tomorrow|DATE]?", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "predicted footfall [day after tomorrow|DATE]", "intent": "forecast", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "has the prep plan been approved", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "batch cooking plan for [saturday|DATE]", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "prep plan approve hua kya", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "[kal|DATE] ka prep plan dikhao", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "[kal|DATE] kitni plate [biryani|DISH] banani hai", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "prep quantities for [next monday|DATE]", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "what should we prep [tomorrow|DATE]?", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] kya kya banana hai", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "how much [biryani|DISH] should the chef make [tonight|DATE]", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal subah|DATE] kitna [masala dosa|DISH] pakana hai", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what's on the prep list for [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "make the stock for the curry base [tomorrow|DATE] morning, what else to prep", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "chef ko [kal|DATE] ke liye kya tayyar karna hai", "intent": "prep", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "how many portions of [dal makhani|DISH] do we cook [tomorrow|DATE]", "intent": "prep", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "kya kya expire hone wala hai", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "how many kilos of [onions|ING] are in the store", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "[paneer|ING] kitna bacha hai", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "show inventory levels", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "which ingredients are out of stock", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "what's in the stock room", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "stock check please", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "anything expiring [tomorrow|DATE]", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "store mein kitna [aloo|ING] hai", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[tel|ING] kitna bacha", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "abhi stock mein kya hai", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[doodh|ING] khatam ho gaya kya", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what is about to expire", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "is there enough [milk|ING] for [today|DATE]", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how much [paneer|ING] do we have left?", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[chawal|ING] kitne kilo pade hain", "intent": "stock", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "do we still have [fresh cream|ING]", "intent": "stock", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "what is popular with customers", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "[pav bhaji|DISH] kitni biki [is hafte|DATE]", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "how did [vada pav|DISH] do [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "how many plates did we sell [yesterday|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "how much did we sell [last week|DATE]?", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "[kal|DATE] kitne order aaye the", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[pichle hafte|DATE] ka galla kitna tha", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "earnings for [past 30 days|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how many orders did the dining room serve [today|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "revenue [this month|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "what's our best selling dish", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how many customer orders came in [today|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "dhandha kaisa chal raha hai [is mahine|DATE]", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what were the takings [last weekend|DATE]", "intent": "sales", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "sabse zyada kaunsi dish bikti hai", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] kitna bika", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[aaj|DATE] kitni kamai hui", "intent": "sales", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what should i buy [tomorrow|DATE]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "buy [veg stock|ING] cubes for [tomorrow|DATE]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "we are short on [tomatoes|ING], how much to buy", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "[kal|DATE] ke liye kitna [doodh|ING] mangwana hai", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "[do|QTY] [kilo|UNIT] [tamatar|ING] mangao [kal|DATE] ke liye", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "supplier order for [pav bread|ING] [tomorrow morning|DATE]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "do i need to restock [milk|ING]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "order [rice|ING] from the supplier for [next week|DATE]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "supplier ko kya order dena hai", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[pyaaz|ING] kitna kharidna padega", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "how much [paneer|ING] should i order for the [weekend|DATE]?", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[aloo|ING] ka order lagana hai", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "[kal|DATE] kitna [paneer|ING] chahiye", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "raise a purchase order for [onions|ING]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[agle hafte|DATE] ke liye [chawal|ING] kitna mangwaye", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "how many kilos of [chicken|ING] to buy for [saturday|DATE]", "intent": "purchase", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "[weekend|DATE] ke liye [chicken|ING] kitna lena hai", "intent": "purchase", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "namaste", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "mujhe madad karo", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "helo bhai", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "hey there", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "how do i use this", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "who are you", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "what questions can i ask you", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "thank you so much", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "what can i ask about", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "dhanyavaad", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "are you there", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "hi", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "thanks", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "suprabhat", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "isko kaise use karu", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what can you do", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "aap kaun ho", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "kya kar sakte ho", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "kya haal hai", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "good morning", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "kya pooch sakta hu", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "ok great thanks", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "hello", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "madad chahiye", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "shukriya", "intent": "help", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "help", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "good evening", "intent": "help", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "book a cab to the airport", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "tell me a joke", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "who won the cricket match", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "set an alarm for 6", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "kaunsa phone lu", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "who is the prime minister", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "koi movie batao", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "test"}
+{"text": "write me a poem about love", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "test"}
+{"text": "mausam kaisa hai", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "train kab aayegi", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what movie should i watch", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "what is the capital of france", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "ek joke sunao", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "cricket score kya hai", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what is the weather in delhi", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "mera laptop kharab hai", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "what is two plus two", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "bijli ka bill kitna aaya", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "pradhan mantri kaun hai", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "play some music", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "gaana bajao", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "recommend a good phone", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "send an email to my boss", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "cab book karo airport ke liye", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}
+{"text": "translate this to french", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "how do i fix my laptop", "intent": "unknown", "lang": "en", "source": "hand", "template": null, "split": "train"}
+{"text": "ek kavita likho", "intent": "unknown", "lang": "hi-Latn", "source": "hand", "template": null, "split": "train"}

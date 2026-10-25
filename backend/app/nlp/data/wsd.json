@@ -1,0 +1,71 @@
+{
+  "glosses": {
+    "plate": {
+      "dish": "a serving of food a menu item or dish that customers eat and that the kitchen cooks sells or wastes plate of biryani",
+      "portion": "a unit of quantity counting servings how many plates portions count number covers cooked sold per day",
+      "crockery": "the physical dish crockery utensil to wash clean break stack dishwasher steel ceramic plates broken"
+    },
+    "order": {
+      "purchase": "a purchase order to a supplier vendor to buy restock ingredients raw material kg litre deliver mangwana kharidna",
+      "customer": "a customer order guest table diner places for food delivery dine-in takeaway sold served sales revenue aaye",
+      "sequence": "arrangement in a sequence sort rank list in order of highest lowest descending ascending"
+    },
+    "stock": {
+      "inventory": "inventory of ingredients on hand in the store godown left remaining quantity expire running low out of kitna bacha",
+      "broth": "a liquid broth made by simmering bones vegetables used as base for soup curry gravy cook make boil veg chicken stock cubes"
+    },
+    "kal": {
+      "yesterday": "the day before today past already happened was were sold wasted hua tha biki bika gaya phenka",
+      "tomorrow": "the day after today future will be expect need chahiye hoga bikega banana mangwana forecast plan prep"
+    },
+    "left": {
+      "remaining": "remaining quantity still available in stock on hand how much is left over bacha",
+      "uneaten": "food customers left on the plate uneaten plate waste leftover thrown away",
+      "direction": "the left side direction turn go opposite of right"
+    }
+  },
+  "first_sense": {"plate": "portion", "order": "purchase", "stock": "inventory", "kal": "tomorrow", "left": "remaining"},
+  "test": [
+    {"text": "how many plates of biryani did we sell", "word": "plate", "sense": "portion"},
+    {"text": "plate waste from customers is high", "word": "plate", "sense": "dish"},
+    {"text": "which plate did customers waste the most", "word": "plate", "sense": "dish"},
+    {"text": "the dishwasher broke ten steel plates", "word": "plate", "sense": "crockery"},
+    {"text": "how many plates should we cook tomorrow", "word": "plate", "sense": "portion"},
+    {"text": "kitni plate biryani banani hai", "word": "plate", "sense": "portion"},
+    {"text": "we need to buy new ceramic plates for the tables", "word": "plate", "sense": "crockery"},
+    {"text": "which plate on the menu is wasted most", "word": "plate", "sense": "dish"},
+    {"text": "expected plates per day next week", "word": "plate", "sense": "portion"},
+    {"text": "wash and stack the plates", "word": "plate", "sense": "crockery"},
+    {"text": "place a purchase order for onions with the supplier", "word": "order", "sense": "purchase"},
+    {"text": "how many customer orders did we get yesterday", "word": "order", "sense": "customer"},
+    {"text": "how much paneer should i order", "word": "order", "sense": "purchase"},
+    {"text": "kal kitne order aaye", "word": "order", "sense": "customer"},
+    {"text": "list dishes in order of waste", "word": "order", "sense": "sequence"},
+    {"text": "the delivery orders from guests were late", "word": "order", "sense": "customer"},
+    {"text": "order 10 kg rice from the vendor", "word": "order", "sense": "purchase"},
+    {"text": "sort in order of highest sales", "word": "order", "sense": "sequence"},
+    {"text": "how many dine-in orders were served tonight", "word": "order", "sense": "customer"},
+    {"text": "aloo ka order lagana hai supplier ko", "word": "order", "sense": "purchase"},
+    {"text": "how much paneer is in stock", "word": "stock", "sense": "inventory"},
+    {"text": "make the veg stock for the curry base", "word": "stock", "sense": "broth"},
+    {"text": "stock mein kitna aloo bacha hai", "word": "stock", "sense": "inventory"},
+    {"text": "simmer chicken stock for the soup", "word": "stock", "sense": "broth"},
+    {"text": "what is running low in stock", "word": "stock", "sense": "inventory"},
+    {"text": "buy stock cubes for the gravy", "word": "stock", "sense": "broth"},
+    {"text": "which stock items expire tomorrow", "word": "stock", "sense": "inventory"},
+    {"text": "boil bones to make stock", "word": "stock", "sense": "broth"},
+    {"text": "kal kitna waste hua", "word": "kal", "sense": "yesterday"},
+    {"text": "kal kitna paneer chahiye", "word": "kal", "sense": "tomorrow"},
+    {"text": "kal kitni biryani biki", "word": "kal", "sense": "yesterday"},
+    {"text": "kal kitna bikega", "word": "kal", "sense": "tomorrow"},
+    {"text": "kal ka prep plan dikhao", "word": "kal", "sense": "tomorrow"},
+    {"text": "kal kitne order aaye the", "word": "kal", "sense": "yesterday"},
+    {"text": "kal ke liye kitna doodh mangwana hai", "word": "kal", "sense": "tomorrow"},
+    {"text": "kal kitna khana phenka gaya", "word": "kal", "sense": "yesterday"},
+    {"text": "how much paneer is left", "word": "left", "sense": "remaining"},
+    {"text": "customers left a lot of rice on the plate", "word": "left", "sense": "uneaten"},
+    {"text": "turn left at the cold store", "word": "left", "sense": "direction"},
+    {"text": "how much milk do we have left", "word": "left", "sense": "remaining"},
+    {"text": "food left uneaten by guests went in the bin", "word": "left", "sense": "uneaten"}
+  ]
+}

@@ -1,0 +1,2688 @@
+{
+ "versions": {
+  "python": "3.13.7",
+  "numpy": "2.5.4",
+  "sklearn": "1.9.1",
+  "fastapi": "0.143.0",
+  "matplotlib": "3.11.2"
+ },
+ "dataset": {
+  "total": 482,
+  "by_split": {
+   "train": 361,
+   "test": 121
+  },
+  "by_language": {
+   "en": 266,
+   "hi-Latn": 216
+  },
+  "detail": {
+   "train": {
+    "en": 197,
+    "template": 251,
+    "hi-Latn": 164,
+    "hand": 110
+   },
+   "test": {
+    "en": 69,
+    "template": 75,
+    "hi-Latn": 52,
+    "hand": 46
+   }
+  },
+  "by_intent": {
+   "waste": [
+    66,
+    21
+   ],
+   "forecast": [
+    53,
+    17
+   ],
+   "prep": [
+    49,
+    16
+   ],
+   "stock": [
+    50,
+    17
+   ],
+   "sales": [
+    54,
+    17
+   ],
+   "purchase": [
+    51,
+    17
+   ],
+   "help": [
+    19,
+    8
+   ],
+   "unknown": [
+    19,
+    8
+   ]
+  }
+ },
+ "intents": {
+  "classifiers": {
+   "naive_bayes": {
+    "accuracy": 0.7769,
+    "macro_f1": 0.7627,
+    "per_class": {
+     "waste": {
+      "precision": 0.7368,
+      "recall": 0.6667,
+      "f1": 0.7,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.6429,
+      "recall": 0.5294,
+      "f1": 0.5806,
+      "support": 17
+     },
+     "prep": {
+      "precision": 0.8667,
+      "recall": 0.8125,
+      "f1": 0.8387,
+      "support": 16
+     },
+     "stock": {
+      "precision": 1.0,
+      "recall": 0.9412,
+      "f1": 0.9697,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.5714,
+      "recall": 0.9412,
+      "f1": 0.7111,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8947,
+      "recall": 1.0,
+      "f1": 0.9444,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.75,
+      "recall": 0.375,
+      "f1": 0.5,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.7681,
+     "hi-Latn": 0.7885
+    }
+   },
+   "maxent": {
+    "accuracy": 0.9008,
+    "macro_f1": 0.8751,
+    "per_class": {
+     "waste": {
+      "precision": 0.84,
+      "recall": 1.0,
+      "f1": 0.913,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.7895,
+      "recall": 0.8824,
+      "f1": 0.8333,
+      "support": 17
+     },
+     "prep": {
+      "precision": 1.0,
+      "recall": 0.8125,
+      "f1": 0.8966,
+      "support": 16
+     },
+     "stock": {
+      "precision": 1.0,
+      "recall": 0.9412,
+      "f1": 0.9697,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.9444,
+      "recall": 1.0,
+      "f1": 0.9714,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8947,
+      "recall": 1.0,
+      "f1": 0.9444,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.8,
+      "recall": 0.5,
+      "f1": 0.6154,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.8696,
+     "hi-Latn": 0.9423
+    }
+   },
+   "tfidf_centroid": {
+    "accuracy": 0.7769,
+    "macro_f1": 0.7731,
+    "per_class": {
+     "waste": {
+      "precision": 0.85,
+      "recall": 0.8095,
+      "f1": 0.8293,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.5263,
+      "recall": 0.5882,
+      "f1": 0.5556,
+      "support": 17
+     },
+     "prep": {
+      "precision": 0.8333,
+      "recall": 0.625,
+      "f1": 0.7143,
+      "support": 16
+     },
+     "stock": {
+      "precision": 0.8889,
+      "recall": 0.9412,
+      "f1": 0.9143,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.65,
+      "recall": 0.7647,
+      "f1": 0.7027,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8947,
+      "recall": 1.0,
+      "f1": 0.9444,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.7143,
+      "recall": 0.625,
+      "f1": 0.6667,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.7826,
+     "hi-Latn": 0.7692
+    }
+   },
+   "tfidf_knn": {
+    "accuracy": 0.6033,
+    "macro_f1": 0.6011,
+    "per_class": {
+     "waste": {
+      "precision": 0.5556,
+      "recall": 0.4762,
+      "f1": 0.5128,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.4706,
+      "recall": 0.4706,
+      "f1": 0.4706,
+      "support": 17
+     },
+     "prep": {
+      "precision": 0.7692,
+      "recall": 0.625,
+      "f1": 0.6897,
+      "support": 16
+     },
+     "stock": {
+      "precision": 0.5714,
+      "recall": 0.7059,
+      "f1": 0.6316,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.44,
+      "recall": 0.6471,
+      "f1": 0.5238,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.75,
+      "recall": 0.8824,
+      "f1": 0.8108,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.625,
+      "f1": 0.7692,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1": 0.4,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.5942,
+     "hi-Latn": 0.6154
+    }
+   },
+   "ppmi_centroid": {
+    "accuracy": 0.5785,
+    "macro_f1": 0.5898,
+    "per_class": {
+     "waste": {
+      "precision": 0.5833,
+      "recall": 0.3333,
+      "f1": 0.4242,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.6154,
+      "recall": 0.4706,
+      "f1": 0.5333,
+      "support": 17
+     },
+     "prep": {
+      "precision": 0.6111,
+      "recall": 0.6875,
+      "f1": 0.6471,
+      "support": 16
+     },
+     "stock": {
+      "precision": 0.5,
+      "recall": 0.7647,
+      "f1": 0.6047,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.4545,
+      "recall": 0.5882,
+      "f1": 0.5128,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.6316,
+      "recall": 0.7059,
+      "f1": 0.6667,
+      "support": 17
+     },
+     "help": {
+      "precision": 0.8333,
+      "recall": 0.625,
+      "f1": 0.7143,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.8,
+      "recall": 0.5,
+      "f1": 0.6154,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.5652,
+     "hi-Latn": 0.5962
+    }
+   },
+   "ensemble": {
+    "accuracy": 0.8264,
+    "macro_f1": 0.8102,
+    "per_class": {
+     "waste": {
+      "precision": 0.76,
+      "recall": 0.9048,
+      "f1": 0.8261,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.6429,
+      "recall": 0.5294,
+      "f1": 0.5806,
+      "support": 17
+     },
+     "prep": {
+      "precision": 1.0,
+      "recall": 0.8125,
+      "f1": 0.8966,
+      "support": 16
+     },
+     "stock": {
+      "precision": 0.9412,
+      "recall": 0.9412,
+      "f1": 0.9412,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.7273,
+      "recall": 0.9412,
+      "f1": 0.8205,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8947,
+      "recall": 1.0,
+      "f1": 0.9444,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.8,
+      "recall": 0.5,
+      "f1": 0.6154,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.8551,
+     "hi-Latn": 0.7885
+    }
+   },
+   "regex_baseline": {
+    "accuracy": 0.5868,
+    "macro_f1": 0.6544,
+    "per_class": {
+     "waste": {
+      "precision": 1.0,
+      "recall": 0.5714,
+      "f1": 0.7273,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.9231,
+      "recall": 0.7059,
+      "f1": 0.8,
+      "support": 17
+     },
+     "prep": {
+      "precision": 1.0,
+      "recall": 0.625,
+      "f1": 0.7692,
+      "support": 16
+     },
+     "stock": {
+      "precision": 1.0,
+      "recall": 0.5294,
+      "f1": 0.6923,
+      "support": 17
+     },
+     "sales": {
+      "precision": 1.0,
+      "recall": 0.2353,
+      "f1": 0.381,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8889,
+      "recall": 0.4706,
+      "f1": 0.6154,
+      "support": 17
+     },
+     "help": {
+      "precision": 0.1429,
+      "recall": 1.0,
+      "f1": 0.25,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.8261,
+     "hi-Latn": 0.2692
+    }
+   },
+   "sklearn_logreg_baseline": {
+    "accuracy": 0.9174,
+    "macro_f1": 0.9001,
+    "per_class": {
+     "waste": {
+      "precision": 0.913,
+      "recall": 1.0,
+      "f1": 0.9545,
+      "support": 21
+     },
+     "forecast": {
+      "precision": 0.8333,
+      "recall": 0.8824,
+      "f1": 0.8571,
+      "support": 17
+     },
+     "prep": {
+      "precision": 1.0,
+      "recall": 0.8125,
+      "f1": 0.8966,
+      "support": 16
+     },
+     "stock": {
+      "precision": 1.0,
+      "recall": 0.9412,
+      "f1": 0.9697,
+      "support": 17
+     },
+     "sales": {
+      "precision": 0.9444,
+      "recall": 1.0,
+      "f1": 0.9714,
+      "support": 17
+     },
+     "purchase": {
+      "precision": 0.8947,
+      "recall": 1.0,
+      "f1": 0.9444,
+      "support": 17
+     },
+     "help": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571,
+      "support": 8
+     },
+     "unknown": {
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1": 0.75,
+      "support": 8
+     }
+    },
+    "by_language": {
+     "en": 0.8841,
+     "hi-Latn": 0.9615
+    }
+   }
+  },
+  "selected": "maxent",
+  "dev_accuracy": {
+   "naive_bayes": 0.863,
+   "maxent": 0.9315,
+   "tfidf_centroid": 0.8356,
+   "tfidf_knn": 0.8082,
+   "ppmi_centroid": 0.5479,
+   "ensemble": 0.8767
+  },
+  "confusion": {
+   "labels": [
+    "waste",
+    "forecast",
+    "prep",
+    "stock",
+    "sales",
+    "purchase",
+    "help",
+    "unknown"
+   ],
+   "matrix": [
+    [
+     21,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     15,
+     0,
+     0,
+     1,
+     1,
+     0,
+     0
+    ],
+    [
+     0,
+     3,
+     13,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     0,
+     0,
+     16,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     17,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     17,
+     0,
+     0
+    ],
+    [
+     1,
+     0,
+     0,
+     0,
+     0,
+     0,
+     6,
+     1
+    ],
+    [
+     2,
+     1,
+     0,
+     0,
+     0,
+     1,
+     0,
+     4
+    ]
+   ]
+  },
+  "errors": [
+   {
+    "text": "what do we need to prepare next week",
+    "gold": "prep",
+    "pred": "forecast"
+   },
+   {
+    "text": "what do we need to prepare day after tomorrow",
+    "gold": "prep",
+    "pred": "forecast"
+   },
+   {
+    "text": "what do we need to prepare next monday",
+    "gold": "prep",
+    "pred": "forecast"
+   },
+   {
+    "text": "how many orders should we expect tonight",
+    "gold": "forecast",
+    "pred": "purchase"
+   },
+   {
+    "text": "aaj raat kitne order aayenge",
+    "gold": "forecast",
+    "pred": "sales"
+   },
+   {
+    "text": "show inventory levels",
+    "gold": "stock",
+    "pred": "waste"
+   },
+   {
+    "text": "namaste",
+    "gold": "help",
+    "pred": "waste"
+   },
+   {
+    "text": "how do i use this",
+    "gold": "help",
+    "pred": "unknown"
+   },
+   {
+    "text": "tell me a joke",
+    "gold": "unknown",
+    "pred": "waste"
+   },
+   {
+    "text": "set an alarm for 6",
+    "gold": "unknown",
+    "pred": "purchase"
+   },
+   {
+    "text": "koi movie batao",
+    "gold": "unknown",
+    "pred": "forecast"
+   },
+   {
+    "text": "write me a poem about love",
+    "gold": "unknown",
+    "pred": "waste"
+   }
+  ]
+ },
+ "tagging": {
+  "test": {
+   "rule_baseline": {
+    "token_accuracy": 0.9961,
+    "entity_precision": 0.9928,
+    "entity_recall": 0.9928,
+    "entity_f1": 0.9928,
+    "entity_f1_by_type": {
+     "DISH": 1.0,
+     "ING": 1.0,
+     "QTY": 0.9333,
+     "UNIT": 1.0,
+     "DATE": 0.9935
+    },
+    "sentences": 121,
+    "tokens": 768
+   },
+   "hmm_viterbi": {
+    "token_accuracy": 0.9792,
+    "entity_precision": 0.9338,
+    "entity_recall": 0.9137,
+    "entity_f1": 0.9236,
+    "entity_f1_by_type": {
+     "DISH": 0.8571,
+     "ING": 0.8525,
+     "QTY": 0.7692,
+     "UNIT": 0.8333,
+     "DATE": 0.987
+    },
+    "sentences": 121,
+    "tokens": 768
+   },
+   "hybrid_pipeline": {
+    "token_accuracy": 0.9948,
+    "entity_precision": 0.9857,
+    "entity_recall": 0.9928,
+    "entity_f1": 0.9892,
+    "entity_f1_by_type": {
+     "DISH": 1.0,
+     "ING": 0.9841,
+     "QTY": 0.9333,
+     "UNIT": 1.0,
+     "DATE": 0.9935
+    },
+    "sentences": 121,
+    "tokens": 768
+   }
+  },
+  "unseen_names": {
+   "rule_baseline": {
+    "token_accuracy": 0.8247,
+    "entity_precision": 1.0,
+    "entity_recall": 0.4607,
+    "entity_f1": 0.6308,
+    "entity_f1_by_type": {
+     "DISH": 0.0,
+     "ING": 0.0,
+     "QTY": 1.0,
+     "UNIT": 1.0,
+     "DATE": 1.0
+    },
+    "sentences": 48,
+    "tokens": 308
+   },
+   "hmm_viterbi": {
+    "token_accuracy": 0.8312,
+    "entity_precision": 0.9318,
+    "entity_recall": 0.4607,
+    "entity_f1": 0.6165,
+    "entity_f1_by_type": {
+     "DISH": 0.2105,
+     "ING": 0.1111,
+     "QTY": 0.8333,
+     "UNIT": 0.8333,
+     "DATE": 1.0
+    },
+    "sentences": 48,
+    "tokens": 308
+   },
+   "hybrid_pipeline": {
+    "token_accuracy": 0.8442,
+    "entity_precision": 1.0,
+    "entity_recall": 0.5056,
+    "entity_f1": 0.6716,
+    "entity_f1_by_type": {
+     "DISH": 0.2105,
+     "ING": 0.1212,
+     "QTY": 1.0,
+     "UNIT": 1.0,
+     "DATE": 1.0
+    },
+    "sentences": 48,
+    "tokens": 308
+   }
+  },
+  "hmm": {
+   "states": 11,
+   "observation_symbols": 394
+  }
+ },
+ "fsa": {
+  "precision": 0.9881,
+  "recall": 0.9881,
+  "f1": 0.9881
+ },
+ "lm": {
+  "1-gram": {
+   "mle": {
+    "perplexity": 75.8283,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "laplace": {
+    "perplexity": 77.2113,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "gt": {
+    "perplexity": 77.2113,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "vocab": 245
+  },
+  "2-gram": {
+   "mle": {
+    "perplexity": null,
+    "tokens": 889,
+    "zero_prob_tokens": 233
+   },
+   "laplace": {
+    "perplexity": 68.6276,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "gt": {
+    "perplexity": 29.9427,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "vocab": 245
+  },
+  "3-gram": {
+   "mle": {
+    "perplexity": null,
+    "tokens": 889,
+    "zero_prob_tokens": 489
+   },
+   "laplace": {
+    "perplexity": 118.5982,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "gt": {
+    "perplexity": 32.5175,
+    "tokens": 889,
+    "zero_prob_tokens": 0
+   },
+   "vocab": 245
+  }
+ },
+ "spelling": {
+  "accuracy": 0.8611,
+  "misspellings_fixed": "27/32",
+  "new_words_kept": "4/4",
+  "false_correction_rate_clean_test": 0.0052,
+  "lambda": 3.0,
+  "rows": [
+   {
+    "text": "how much panner should i order",
+    "wrong": "panner",
+    "expected": "paneer",
+    "got": "paneer",
+    "ok": true
+   },
+   {
+    "text": "show me the wastege report",
+    "wrong": "wastege",
+    "expected": "wastage",
+    "got": "waste",
+    "ok": false
+   },
+   {
+    "text": "forcast for tomorrow",
+    "wrong": "forcast",
+    "expected": "forecast",
+    "got": "forecast",
+    "ok": true
+   },
+   {
+    "text": "what is the demnd for biryani tomorrow",
+    "wrong": "demnd",
+    "expected": "demand",
+    "got": "demand",
+    "ok": true
+   },
+   {
+    "text": "how much tomatos do we have",
+    "wrong": "tomatos",
+    "expected": "tomatoes",
+    "got": "tomatoes",
+    "ok": true
+   },
+   {
+    "text": "how much onoins is left",
+    "wrong": "onoins",
+    "expected": "onions",
+    "got": "onions",
+    "ok": true
+   },
+   {
+    "text": "kal kitna paner chahiye",
+    "wrong": "paner",
+    "expected": "paneer",
+    "got": "paneer",
+    "ok": true
+   },
+   {
+    "text": "show the prep plann for tomorrow",
+    "wrong": "plann",
+    "expected": "plan",
+    "got": "plan",
+    "ok": true
+   },
+   {
+    "text": "which dish did we wast most last month",
+    "wrong": "wast",
+    "expected": "waste",
+    "got": "waste",
+    "ok": true
+   },
+   {
+    "text": "what were the saels yesterday",
+    "wrong": "saels",
+    "expected": "sales",
+    "got": "sales",
+    "ok": true
+   },
+   {
+    "text": "current inventry of rice",
+    "wrong": "inventry",
+    "expected": "inventory",
+    "got": "inventory",
+    "ok": true
+   },
+   {
+    "text": "how much chiken should we buy for saturday",
+    "wrong": "chiken",
+    "expected": "chicken",
+    "got": "chicken",
+    "ok": true
+   },
+   {
+    "text": "how many biriyani will we sell tomorrow",
+    "wrong": "biriyani",
+    "expected": "biryani",
+    "got": "biryani",
+    "ok": true
+   },
+   {
+    "text": "is the prep plan aproved",
+    "wrong": "aproved",
+    "expected": "approved",
+    "got": "approve",
+    "ok": false
+   },
+   {
+    "text": "how much mlik do we have",
+    "wrong": "mlik",
+    "expected": "milk",
+    "got": "milk",
+    "ok": true
+   },
+   {
+    "text": "what is our best seler this week",
+    "wrong": "seler",
+    "expected": "seller",
+    "got": "sell",
+    "ok": false
+   },
+   {
+    "text": "how much butterr is left",
+    "wrong": "butterr",
+    "expected": "butter",
+    "got": "butter",
+    "ok": true
+   },
+   {
+    "text": "predict sales of masala dossa",
+    "wrong": "dossa",
+    "expected": "dosa",
+    "got": "dosa",
+    "ok": true
+   },
+   {
+    "text": "what should we buy from the suplier",
+    "wrong": "suplier",
+    "expected": "supplier",
+    "got": "supplier",
+    "ok": true
+   },
+   {
+    "text": "how much did we sel last week",
+    "wrong": "sel",
+    "expected": "sell",
+    "got": "sell",
+    "ok": true
+   },
+   {
+    "text": "total revenu this month",
+    "wrong": "revenu",
+    "expected": "revenue",
+    "got": "revenue",
+    "ok": true
+   },
+   {
+    "text": "kitna waste hua yesterdy",
+    "wrong": "yesterdy",
+    "expected": "yesterday",
+    "got": "yesterday",
+    "ok": true
+   },
+   {
+    "text": "what do we expect to sell tommorow",
+    "wrong": "tommorow",
+    "expected": "tomorrow",
+    "got": "tomorrow",
+    "ok": true
+   },
+   {
+    "text": "how much chikpeas do we have",
+    "wrong": "chikpeas",
+    "expected": "chickpeas",
+    "got": "chikpeas",
+    "ok": false
+   },
+   {
+    "text": "kal kitna dudh mangwana hai",
+    "wrong": "dudh",
+    "expected": "doodh",
+    "got": "doodh",
+    "ok": true
+   },
+   {
+    "text": "check stok levels of rice",
+    "wrong": "stok",
+    "expected": "stock",
+    "got": "stock",
+    "ok": true
+   },
+   {
+    "text": "how much flour is lefft",
+    "wrong": "lefft",
+    "expected": "left",
+    "got": "left",
+    "ok": true
+   },
+   {
+    "text": "show the wastge for last week",
+    "wrong": "wastge",
+    "expected": "wastage",
+    "got": "waste",
+    "ok": false
+   },
+   {
+    "text": "how much shuld i order",
+    "wrong": "shuld",
+    "expected": "should",
+    "got": "should",
+    "ok": true
+   },
+   {
+    "text": "how many custmers are we expecting",
+    "wrong": "custmers",
+    "expected": "customers",
+    "got": "customers",
+    "ok": true
+   },
+   {
+    "text": "do we need to ordr onions",
+    "wrong": "ordr",
+    "expected": "order",
+    "got": "order",
+    "ok": true
+   },
+   {
+    "text": "is tomatto running low",
+    "wrong": "tomatto",
+    "expected": "tomato",
+    "got": "tomato",
+    "ok": true
+   },
+   {
+    "text": "order zomato packets for tomorrow",
+    "wrong": "zomato",
+    "expected": "zomato",
+    "got": "zomato",
+    "ok": true
+   },
+   {
+    "text": "how much did swiggy sell",
+    "wrong": "swiggy",
+    "expected": "swiggy",
+    "got": "swiggy",
+    "ok": true
+   },
+   {
+    "text": "what is the gst on paneer",
+    "wrong": "gst",
+    "expected": "gst",
+    "got": "gst",
+    "ok": true
+   },
+   {
+    "text": "how much amul butter is left",
+    "wrong": "amul",
+    "expected": "amul",
+    "got": "amul",
+    "ok": true
+   }
+  ]
+ },
+ "spelling_lambda": {
+  "1.0": 0.8056,
+  "2.0": 0.8056,
+  "3.0": 0.8611,
+  "4.0": 0.7778,
+  "5.0": 0.7222
+ },
+ "wsd": {
+  "accuracy": 0.9024,
+  "most_frequent_sense_baseline": 0.439,
+  "by_word": {
+   "plate": "8/10",
+   "order": "10/10",
+   "stock": "8/8",
+   "kal": "6/8",
+   "left": "5/5"
+  },
+  "n": 41,
+  "rows": [
+   {
+    "text": "how many plates of biryani did we sell",
+    "word": "plate",
+    "sense": "portion",
+    "pred": "dish",
+    "overlap": [
+     "biryani",
+     "sell"
+    ],
+    "ok": false
+   },
+   {
+    "text": "plate waste from customers is high",
+    "word": "plate",
+    "sense": "dish",
+    "pred": "dish",
+    "overlap": [
+     "custom",
+     "wast"
+    ],
+    "ok": true
+   },
+   {
+    "text": "which plate did customers waste the most",
+    "word": "plate",
+    "sense": "dish",
+    "pred": "dish",
+    "overlap": [
+     "custom",
+     "wast"
+    ],
+    "ok": true
+   },
+   {
+    "text": "the dishwasher broke ten steel plates",
+    "word": "plate",
+    "sense": "crockery",
+    "pred": "crockery",
+    "overlap": [
+     "dishwash",
+     "steel"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how many plates should we cook tomorrow",
+    "word": "plate",
+    "sense": "portion",
+    "pred": "portion",
+    "overlap": [
+     "cook"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kitni plate biryani banani hai",
+    "word": "plate",
+    "sense": "portion",
+    "pred": "dish",
+    "overlap": [
+     "biryani"
+    ],
+    "ok": false
+   },
+   {
+    "text": "we need to buy new ceramic plates for the tables",
+    "word": "plate",
+    "sense": "crockery",
+    "pred": "crockery",
+    "overlap": [
+     "ceram"
+    ],
+    "ok": true
+   },
+   {
+    "text": "which plate on the menu is wasted most",
+    "word": "plate",
+    "sense": "dish",
+    "pred": "dish",
+    "overlap": [
+     "menu",
+     "wast"
+    ],
+    "ok": true
+   },
+   {
+    "text": "expected plates per day next week",
+    "word": "plate",
+    "sense": "portion",
+    "pred": "portion",
+    "overlap": [
+     "dai",
+     "per"
+    ],
+    "ok": true
+   },
+   {
+    "text": "wash and stack the plates",
+    "word": "plate",
+    "sense": "crockery",
+    "pred": "crockery",
+    "overlap": [
+     "stack",
+     "wash"
+    ],
+    "ok": true
+   },
+   {
+    "text": "place a purchase order for onions with the supplier",
+    "word": "order",
+    "sense": "purchase",
+    "pred": "purchase",
+    "overlap": [
+     "purchas",
+     "supplier"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how many customer orders did we get yesterday",
+    "word": "order",
+    "sense": "customer",
+    "pred": "customer",
+    "overlap": [
+     "custom"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how much paneer should i order",
+    "word": "order",
+    "sense": "purchase",
+    "pred": "purchase",
+    "overlap": [],
+    "ok": true
+   },
+   {
+    "text": "kal kitne order aaye",
+    "word": "order",
+    "sense": "customer",
+    "pred": "customer",
+    "overlap": [
+     "aana"
+    ],
+    "ok": true
+   },
+   {
+    "text": "list dishes in order of waste",
+    "word": "order",
+    "sense": "sequence",
+    "pred": "sequence",
+    "overlap": [
+     "list"
+    ],
+    "ok": true
+   },
+   {
+    "text": "the delivery orders from guests were late",
+    "word": "order",
+    "sense": "customer",
+    "pred": "customer",
+    "overlap": [
+     "deliveri",
+     "guest"
+    ],
+    "ok": true
+   },
+   {
+    "text": "order 10 kg rice from the vendor",
+    "word": "order",
+    "sense": "purchase",
+    "pred": "purchase",
+    "overlap": [
+     "kg",
+     "vendor"
+    ],
+    "ok": true
+   },
+   {
+    "text": "sort in order of highest sales",
+    "word": "order",
+    "sense": "sequence",
+    "pred": "sequence",
+    "overlap": [
+     "highest",
+     "sort"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how many dine-in orders were served tonight",
+    "word": "order",
+    "sense": "customer",
+    "pred": "customer",
+    "overlap": [
+     "dine",
+     "serv"
+    ],
+    "ok": true
+   },
+   {
+    "text": "aloo ka order lagana hai supplier ko",
+    "word": "order",
+    "sense": "purchase",
+    "pred": "purchase",
+    "overlap": [
+     "supplier"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how much paneer is in stock",
+    "word": "stock",
+    "sense": "inventory",
+    "pred": "inventory",
+    "overlap": [],
+    "ok": true
+   },
+   {
+    "text": "make the veg stock for the curry base",
+    "word": "stock",
+    "sense": "broth",
+    "pred": "broth",
+    "overlap": [
+     "base",
+     "curri",
+     "make",
+     "veg"
+    ],
+    "ok": true
+   },
+   {
+    "text": "stock mein kitna aloo bacha hai",
+    "word": "stock",
+    "sense": "inventory",
+    "pred": "inventory",
+    "overlap": [
+     "bachna",
+     "kitna"
+    ],
+    "ok": true
+   },
+   {
+    "text": "simmer chicken stock for the soup",
+    "word": "stock",
+    "sense": "broth",
+    "pred": "broth",
+    "overlap": [
+     "chicken",
+     "simmer",
+     "soup"
+    ],
+    "ok": true
+   },
+   {
+    "text": "what is running low in stock",
+    "word": "stock",
+    "sense": "inventory",
+    "pred": "inventory",
+    "overlap": [
+     "low",
+     "run"
+    ],
+    "ok": true
+   },
+   {
+    "text": "buy stock cubes for the gravy",
+    "word": "stock",
+    "sense": "broth",
+    "pred": "broth",
+    "overlap": [
+     "cube",
+     "gravi"
+    ],
+    "ok": true
+   },
+   {
+    "text": "which stock items expire tomorrow",
+    "word": "stock",
+    "sense": "inventory",
+    "pred": "inventory",
+    "overlap": [
+     "expir"
+    ],
+    "ok": true
+   },
+   {
+    "text": "boil bones to make stock",
+    "word": "stock",
+    "sense": "broth",
+    "pred": "broth",
+    "overlap": [
+     "boil",
+     "bone",
+     "make"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal kitna waste hua",
+    "word": "kal",
+    "sense": "yesterday",
+    "pred": "yesterday",
+    "overlap": [
+     "wast"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal kitna paneer chahiye",
+    "word": "kal",
+    "sense": "tomorrow",
+    "pred": "tomorrow",
+    "overlap": [
+     "chahiye"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal kitni biryani biki",
+    "word": "kal",
+    "sense": "yesterday",
+    "pred": "tomorrow",
+    "overlap": [
+     "bikna"
+    ],
+    "ok": false
+   },
+   {
+    "text": "kal kitna bikega",
+    "word": "kal",
+    "sense": "tomorrow",
+    "pred": "tomorrow",
+    "overlap": [
+     "bikna"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal ka prep plan dikhao",
+    "word": "kal",
+    "sense": "tomorrow",
+    "pred": "tomorrow",
+    "overlap": [
+     "plan",
+     "prep"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal kitne order aaye the",
+    "word": "kal",
+    "sense": "yesterday",
+    "pred": "tomorrow",
+    "overlap": [],
+    "ok": false
+   },
+   {
+    "text": "kal ke liye kitna doodh mangwana hai",
+    "word": "kal",
+    "sense": "tomorrow",
+    "pred": "tomorrow",
+    "overlap": [
+     "mangwana"
+    ],
+    "ok": true
+   },
+   {
+    "text": "kal kitna khana phenka gaya",
+    "word": "kal",
+    "sense": "yesterday",
+    "pred": "yesterday",
+    "overlap": [
+     "jana",
+     "phenkna"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how much paneer is left",
+    "word": "left",
+    "sense": "remaining",
+    "pred": "remaining",
+    "overlap": [],
+    "ok": true
+   },
+   {
+    "text": "customers left a lot of rice on the plate",
+    "word": "left",
+    "sense": "uneaten",
+    "pred": "uneaten",
+    "overlap": [
+     "custom",
+     "plate"
+    ],
+    "ok": true
+   },
+   {
+    "text": "turn left at the cold store",
+    "word": "left",
+    "sense": "direction",
+    "pred": "direction",
+    "overlap": [
+     "turn"
+    ],
+    "ok": true
+   },
+   {
+    "text": "how much milk do we have left",
+    "word": "left",
+    "sense": "remaining",
+    "pred": "remaining",
+    "overlap": [],
+    "ok": true
+   },
+   {
+    "text": "food left uneaten by guests went in the bin",
+    "word": "left",
+    "sense": "uneaten",
+    "pred": "uneaten",
+    "overlap": [
+     "food",
+     "uneaten"
+    ],
+    "ok": true
+   }
+  ]
+ },
+ "langid": {
+  "sentence_accuracy_en_vs_hinglish": 0.9504,
+  "distribution": {
+   "en->en": 63,
+   "en->mixed": 6,
+   "hi-Latn->hi-Latn": 32,
+   "hi-Latn->mixed": 20
+  }
+ },
+ "embeddings": {
+  "seed_pairs": {
+   "p@1": 0.9333,
+   "p@5": 0.9556,
+   "pairs_in_vocab": 45
+  },
+  "held_out_pairs": {
+   "p@1": 0.0,
+   "p@5": 0.0857,
+   "pairs_in_vocab": 35
+  },
+  "examples": {
+   "chai": [
+    [
+     "tea",
+     0.986
+    ],
+    [
+     "curd",
+     0.564
+    ],
+    [
+     "sugar",
+     0.562
+    ],
+    [
+     "cooking",
+     0.544
+    ],
+    [
+     "filter",
+     0.522
+    ]
+   ],
+   "sabzi": [
+    [
+     "vegetable",
+     1.0
+    ],
+    [
+     "anda",
+     0.961
+    ],
+    [
+     "check",
+     0.829
+    ],
+    [
+     "please",
+     0.829
+    ],
+    [
+     "abhi",
+     0.728
+    ]
+   ],
+   "paneer": [
+    [
+     "curd",
+     0.598
+    ],
+    [
+     "sugar",
+     0.592
+    ],
+    [
+     "watch",
+     0.482
+    ],
+    [
+     "cooking",
+     0.476
+    ],
+    [
+     "madad",
+     0.471
+    ]
+   ],
+   "kal": [
+    [
+     "tomorrow",
+     0.971
+    ],
+    [
+     "plan",
+     0.616
+    ],
+    [
+     "footfall",
+     0.603
+    ],
+    [
+     "production",
+     0.559
+    ],
+    [
+     "predicted",
+     0.509
+    ]
+   ],
+   "bikna": [
+    [
+     "sell",
+     0.673
+    ],
+    [
+     "veg",
+     0.561
+    ],
+    [
+     "gulab",
+     0.524
+    ],
+    [
+     "was",
+     0.468
+    ],
+    [
+     "banana",
+     0.458
+    ]
+   ],
+   "waste": [
+    [
+     "cost",
+     0.585
+    ],
+    [
+     "kharcha",
+     0.577
+    ],
+    [
+     "itni",
+     0.539
+    ],
+    [
+     "coming",
+     0.489
+    ],
+    [
+     "show",
+     0.422
+    ]
+   ]
+  },
+  "similarity": {
+   "chai~tea": 0.986,
+   "sabzi~vegetable": 1.0,
+   "chai~onion": 0.428
+  },
+  "dim": 48,
+  "vocab": 377
+ },
+ "coref": {
+  "accuracy": 1.0,
+  "n": 25,
+  "without_history_accuracy": 0.24,
+  "rows": [
+   {
+    "history": [
+     "how much paneer do we have"
+    ],
+    "text": "how much of it should i order for the weekend",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Paneer"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "paneer",
+     "value": "Paneer"
+    },
+    "date": "weekend",
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 3,
+      "resolvedTo": "Paneer",
+      "type": "INGREDIENT",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much paneer do we have"
+    ],
+    "text": "and milk?",
+    "expect": {
+     "intent": "stock",
+     "INGREDIENT": "Milk"
+    },
+    "intent": "stock",
+    "dish": null,
+    "ingredient": {
+     "text": "milk",
+     "value": "Milk"
+    },
+    "date": null,
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "what do we expect to sell tomorrow"
+    ],
+    "text": "and day after tomorrow?",
+    "expect": {
+     "intent": "forecast",
+     "DATE": "day after tomorrow"
+    },
+    "intent": "forecast",
+    "dish": null,
+    "ingredient": null,
+    "date": "day after tomorrow",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much did we sell last week"
+    ],
+    "text": "what about last month",
+    "expect": {
+     "intent": "sales",
+     "DATE": "last month"
+    },
+    "intent": "sales",
+    "dish": null,
+    "ingredient": null,
+    "date": "last month",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how many chicken biryani will we sell tomorrow"
+    ],
+    "text": "how much of that did we waste last week",
+    "expect": {
+     "intent": "waste",
+     "DISH": "Chicken Biryani"
+    },
+    "intent": "waste",
+    "dish": {
+     "text": "chicken biryani",
+     "value": "Chicken Biryani"
+    },
+    "ingredient": null,
+    "date": "last week",
+    "antecedents": [
+     {
+      "anaphor": "that",
+      "index": 3,
+      "resolvedTo": "Chicken Biryani",
+      "type": "DISH",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "kal kitna waste hua"
+    ],
+    "text": "aur pichle hafte?",
+    "expect": {
+     "intent": "waste",
+     "DATE": "pichle hafte"
+    },
+    "intent": "waste",
+    "dish": null,
+    "ingredient": null,
+    "date": "pichle hafte",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "paneer kitna bacha hai"
+    ],
+    "text": "uska order kitna dena hai",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Paneer"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "paneer",
+     "value": "Paneer"
+    },
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "uska",
+      "index": 0,
+      "resolvedTo": "Paneer",
+      "type": "INGREDIENT",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "kal kitni biryani bikegi"
+    ],
+    "text": "aur parso?",
+    "expect": {
+     "intent": "forecast",
+     "DISH": "Biryani",
+     "DATE": "parso"
+    },
+    "intent": "forecast",
+    "dish": {
+     "text": "biryani",
+     "value": "Chicken Biryani"
+    },
+    "ingredient": null,
+    "date": "parso",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much dal makhani did we sell yesterday"
+    ],
+    "text": "and how much of it was wasted",
+    "expect": {
+     "intent": "waste",
+     "DISH": "Dal Makhani"
+    },
+    "intent": "waste",
+    "dish": {
+     "text": "dal makhani",
+     "value": "Dal Makhani"
+    },
+    "ingredient": null,
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 4,
+      "resolvedTo": "Dal Makhani",
+      "type": "DISH",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much onions should i order for tomorrow"
+    ],
+    "text": "and tomatoes?",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Tomato"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "tomatoes",
+     "value": "Tomato"
+    },
+    "date": "tomorrow",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "show the prep plan for tomorrow"
+    ],
+    "text": "what about saturday",
+    "expect": {
+     "intent": "prep",
+     "DATE": "saturday"
+    },
+    "intent": "prep",
+    "dish": null,
+    "ingredient": null,
+    "date": "saturday",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how many masala dosa will we sell tomorrow"
+    ],
+    "text": "how many should we cook then",
+    "expect": {
+     "intent": "prep",
+     "DISH": "Masala Dosa"
+    },
+    "intent": "prep",
+    "dish": {
+     "text": "masala dosa",
+     "value": "Masala Dosa"
+    },
+    "ingredient": null,
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "then",
+      "index": 5,
+      "resolvedTo": "Masala Dosa",
+      "type": "DISH",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "doodh kitna bacha hai"
+    ],
+    "text": "woh kab expire hoga",
+    "expect": {
+     "intent": "stock",
+     "INGREDIENT": "Milk"
+    },
+    "intent": "stock",
+    "dish": null,
+    "ingredient": {
+     "text": "doodh",
+     "value": "Milk"
+    },
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "woh",
+      "index": 0,
+      "resolvedTo": "Milk",
+      "type": "INGREDIENT",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much butter chicken was wasted last week"
+    ],
+    "text": "and the week before?",
+    "expect": {
+     "intent": "waste",
+     "DISH": "Butter Chicken"
+    },
+    "intent": "waste",
+    "dish": {
+     "text": "butter chicken",
+     "value": "Butter Chicken"
+    },
+    "ingredient": null,
+    "date": "last week",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "what were the sales yesterday"
+    ],
+    "text": "and today?",
+    "expect": {
+     "intent": "sales",
+     "DATE": "today"
+    },
+    "intent": "sales",
+    "dish": null,
+    "ingredient": null,
+    "date": "today",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much rice do we have",
+     "how much should i order for tomorrow"
+    ],
+    "text": "order it",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Basmati rice"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "rice",
+     "value": "Basmati rice"
+    },
+    "date": "tomorrow",
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 1,
+      "resolvedTo": "Basmati rice",
+      "type": "INGREDIENT",
+      "turnsBack": 2,
+      "salience": 0.5
+     }
+    ],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "kal kitna paneer chahiye"
+    ],
+    "text": "aur aloo?",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Potato"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "aloo",
+     "value": "Potato"
+    },
+    "date": "kal",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "which dish did we waste most last month"
+    ],
+    "text": "how much of it did we sell",
+    "expect": {
+     "intent": "sales"
+    },
+    "intent": "sales",
+    "dish": null,
+    "ingredient": null,
+    "date": null,
+    "antecedents": [],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much pav bhaji did we sell this week"
+    ],
+    "text": "will it sell well tomorrow",
+    "expect": {
+     "intent": "forecast",
+     "DISH": "Pav Bhaji"
+    },
+    "intent": "forecast",
+    "dish": {
+     "text": "pav bhaji",
+     "value": "Pav Bhaji"
+    },
+    "ingredient": null,
+    "date": "tomorrow",
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 1,
+      "resolvedTo": "Pav Bhaji",
+      "type": "DISH",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much tomatoes do we have",
+     "is chicken running low"
+    ],
+    "text": "order 5 kg of it",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Chicken"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "chicken",
+     "value": "Chicken"
+    },
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 4,
+      "resolvedTo": "Chicken",
+      "type": "INGREDIENT",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "vada pav kitna bika kal"
+    ],
+    "text": "uska forecast batao",
+    "expect": {
+     "intent": "forecast",
+     "DISH": "Vada Pav"
+    },
+    "intent": "forecast",
+    "dish": {
+     "text": "vada pav",
+     "value": "Vada Pav"
+    },
+    "ingredient": null,
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "uska",
+      "index": 0,
+      "resolvedTo": "Vada Pav",
+      "type": "DISH",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much fresh cream is left"
+    ],
+    "text": "when does it expire",
+    "expect": {
+     "intent": "stock",
+     "INGREDIENT": "Fresh cream"
+    },
+    "intent": "stock",
+    "dish": null,
+    "ingredient": {
+     "text": "fresh cream",
+     "value": "Fresh cream"
+    },
+    "date": null,
+    "antecedents": [
+     {
+      "anaphor": "it",
+      "index": 2,
+      "resolvedTo": "Fresh cream",
+      "type": "INGREDIENT",
+      "turnsBack": 1,
+      "salience": 1.0
+     }
+    ],
+    "ellipsis": false,
+    "ok": true
+   },
+   {
+    "history": [
+     "forecast for tomorrow"
+    ],
+    "text": "and for paneer tikka?",
+    "expect": {
+     "intent": "forecast",
+     "DISH": "Paneer Tikka"
+    },
+    "intent": "forecast",
+    "dish": {
+     "text": "paneer tikka",
+     "value": "Paneer Tikka"
+    },
+    "ingredient": null,
+    "date": "tomorrow",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much paneer should i order"
+    ],
+    "text": "what about next week",
+    "expect": {
+     "intent": "purchase",
+     "INGREDIENT": "Paneer",
+     "DATE": "next week"
+    },
+    "intent": "purchase",
+    "dish": null,
+    "ingredient": {
+     "text": "paneer",
+     "value": "Paneer"
+    },
+    "date": "next week",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   },
+   {
+    "history": [
+     "how much gulab jamun was wasted yesterday"
+    ],
+    "text": "why",
+    "expect": {
+     "intent": "waste",
+     "DISH": "Gulab Jamun"
+    },
+    "intent": "waste",
+    "dish": {
+     "text": "gulab jamun",
+     "value": "Gulab Jamun"
+    },
+    "ingredient": null,
+    "date": "yesterday",
+    "antecedents": [],
+    "ellipsis": true,
+    "ok": true
+   }
+  ]
+ },
+ "policy": {
+  "threshold": 0.4,
+  "minimal_zero_regression_threshold": 0.35,
+  "sweep_test": [
+   {
+    "threshold": 0.3,
+    "regressions": 1,
+    "combined_answer_accuracy": 0.9256,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": [
+     "show inventory levels"
+    ]
+   },
+   {
+    "threshold": 0.35,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.9008,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.4,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.8678,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.45,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.8595,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.5,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.7769,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.55,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.7438,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.6,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.7438,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.65,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.7355,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.7,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.686,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.75,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.6446,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.8,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.6116,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.85,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.5868,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.9,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.5868,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   {
+    "threshold": 0.95,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.5868,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   }
+  ],
+  "at_threshold": {
+   "test": {
+    "threshold": 0.4,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.8678,
+    "regex_answer_accuracy": 0.5868,
+    "regressed": []
+   },
+   "all": {
+    "threshold": 0.4,
+    "regressions": 0,
+    "combined_answer_accuracy": 0.9647,
+    "regex_answer_accuracy": 0.5643,
+    "regressed": []
+   }
+  }
+ },
+ "transcript": [
+  {
+   "question": "Which dish did we waste most last month?",
+   "history": [],
+   "intent": "waste",
+   "confidence": 0.7573,
+   "language": "en",
+   "normalized": "which dish did we waste most last month",
+   "corrections": [],
+   "entities": [
+    "DATE:last month"
+   ],
+   "resolved": {
+    "date": "last month"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "wasteSummary(days=30)"
+  },
+  {
+   "question": "kal kitna paneer chahiye",
+   "history": [],
+   "intent": "purchase",
+   "confidence": 0.7029,
+   "language": "hi-Latn",
+   "normalized": "kal kitna paneer chahiye",
+   "corrections": [],
+   "entities": [
+    "DATE:kal",
+    "INGREDIENT:paneer=Paneer"
+   ],
+   "resolved": {
+    "ingredient": "Paneer",
+    "date": "kal"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "orderSuggestion(\"Paneer\", days=1)"
+  },
+  {
+   "question": "aaj kitna waste hua",
+   "history": [],
+   "intent": "waste",
+   "confidence": 0.8696,
+   "language": "mixed",
+   "normalized": "aaj kitna waste hua",
+   "corrections": [],
+   "entities": [
+    "DATE:aaj"
+   ],
+   "resolved": {
+    "date": "aaj"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "wasteSummary(days=1)"
+  },
+  {
+   "question": "forcast for tomorrow",
+   "history": [],
+   "intent": "forecast",
+   "confidence": 0.8062,
+   "language": "en",
+   "normalized": "forecast for tomorrow",
+   "corrections": [
+    "forcast->forecast"
+   ],
+   "entities": [
+    "DATE:tomorrow"
+   ],
+   "resolved": {
+    "date": "tomorrow"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "forecastFor(start=2026-10-26, days=1)"
+  },
+  {
+   "question": "how much panner should I order for next friday?",
+   "history": [],
+   "intent": "purchase",
+   "confidence": 0.9056,
+   "language": "en",
+   "normalized": "how much paneer should i order for next friday",
+   "corrections": [
+    "panner->paneer"
+   ],
+   "entities": [
+    "INGREDIENT:panner=Paneer",
+    "DATE:next friday"
+   ],
+   "resolved": {
+    "ingredient": "Paneer",
+    "date": "next friday"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "orderSuggestion(\"Paneer\", days=5)"
+  },
+  {
+   "question": "and milk?",
+   "history": [
+    "how much paneer do we have"
+   ],
+   "intent": "stock",
+   "confidence": 0.7786,
+   "language": "en",
+   "normalized": "and milk",
+   "corrections": [],
+   "entities": [
+    "INGREDIENT:milk=Milk"
+   ],
+   "resolved": {
+    "ingredient": "Milk"
+   },
+   "antecedents": [],
+   "ellipsis": true,
+   "tool": "stockLevels(\"Milk\")"
+  },
+  {
+   "question": "how much of it should i order for the weekend",
+   "history": [
+    "how much paneer do we have"
+   ],
+   "intent": "purchase",
+   "confidence": 0.6852,
+   "language": "en",
+   "normalized": "how much of it should i order for the weekend",
+   "corrections": [],
+   "entities": [
+    "DATE:weekend"
+   ],
+   "resolved": {
+    "ingredient": "Paneer",
+    "date": "weekend"
+   },
+   "antecedents": [
+    {
+     "anaphor": "it",
+     "index": 3,
+     "resolvedTo": "Paneer",
+     "type": "INGREDIENT",
+     "turnsBack": 1,
+     "salience": 1.0
+    }
+   ],
+   "ellipsis": false,
+   "tool": "orderSuggestion(\"Paneer\", days=7)"
+  },
+  {
+   "question": "कल कितनी बिरयानी बिकेगी",
+   "history": [],
+   "intent": "forecast",
+   "confidence": 0.6305,
+   "language": "hi-Latn",
+   "normalized": "kal kitni biryani bikegi",
+   "corrections": [
+    "बिरयानी->biryani"
+   ],
+   "entities": [
+    "DATE:कल",
+    "DISH:बिरयानी=Chicken Biryani"
+   ],
+   "resolved": {
+    "dish": "Chicken Biryani",
+    "date": "kal"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "forecastFor(start=2026-10-26, days=1, dish=\"Chicken Biryani\")"
+  },
+  {
+   "question": "pichle hafte ki sales kitni thi",
+   "history": [],
+   "intent": "sales",
+   "confidence": 0.7653,
+   "language": "hi-Latn",
+   "normalized": "pichle hafte ki sales kitni thi",
+   "corrections": [],
+   "entities": [
+    "DATE:pichle hafte"
+   ],
+   "resolved": {
+    "date": "pichle hafte"
+   },
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "salesSummary(days=7)"
+  },
+  {
+   "question": "aur parso?",
+   "history": [
+    "kal kitni biryani bikegi"
+   ],
+   "intent": "forecast",
+   "confidence": 0.6305,
+   "language": "hi-Latn",
+   "normalized": "aur parso",
+   "corrections": [],
+   "entities": [
+    "DATE:parso"
+   ],
+   "resolved": {
+    "dish": "Chicken Biryani",
+    "date": "parso"
+   },
+   "antecedents": [],
+   "ellipsis": true,
+   "tool": "forecastFor(start=2026-10-27, days=1, dish=\"Chicken Biryani\")"
+  },
+  {
+   "question": "tell me a joke",
+   "history": [],
+   "intent": "waste",
+   "confidence": 0.2356,
+   "language": "mixed",
+   "normalized": "tell me a joke",
+   "corrections": [],
+   "entities": [],
+   "resolved": {},
+   "antecedents": [],
+   "ellipsis": false,
+   "tool": "keyword rules (NLP not used)"
+  }
+ ],
+ "footprint": {
+  "model_mb": 2.6,
+  "training_peak_mb": 13.6
+ },
+ "latency": {
+  "cold_start_ms_incl_training": 1783.0,
+  "requests": 363,
+  "p50_ms": 6.71,
+  "p95_ms": 36.16,
+  "max_ms": 64.79
+ },
+ "tests": {
+  "backend_suite": "67 passed, 1 warning in 27.53s",
+  "backend_counts": {
+   "passed": 67
+  },
+  "nlp_suite": "26 passed, 1 warning in 11.34s"
+ }
+}

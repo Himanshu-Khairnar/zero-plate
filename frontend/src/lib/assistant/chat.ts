@@ -30,7 +30,7 @@ function systemPrompt(ctx: ToolContext) {
 /** Answer the last user message of `history` (which must end with a user turn). */
 export async function askAssistant(ctx: ToolContext, history: ChatMessage[]): Promise<AssistantReply> {
   if (!process.env.ANTHROPIC_API_KEY) {
-    const answer = await answerOffline(ctx, history[history.length - 1].content);
+    const answer = await answerOffline(ctx, history[history.length - 1].content, history.slice(0, -1));
     return { reply: answer, mode: "offline", toolsUsed: [] };
   }
 

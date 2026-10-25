@@ -83,6 +83,15 @@ export async function prepPlanFor(ctx: ToolContext, date?: string) {
   return { date: d, status: plan.status, approvedBy: plan.approvedBy, items: plan.items.map((i) => ({ dish: i.dish.name, plates: i.plannedQty, likely: Math.round(i.forecastLikely) })) };
 }
 
+/** Dish and ingredient names of the outlet, sent to the NLP parser as its gazetteer. */
+export async function outletVocabulary(ctx: ToolContext): Promise<{ dishes: string[]; ingredients: string[] }> {
+  const [dishes, ingredients] = await Promise.all([
+    prisma.dish.findMany({ where: { outletId: ctx.outletId }, select: { name: true } }),
+    prisma.ingredient.findMany({ where: { outletId: ctx.outletId }, select: { name: true } }),
+  ]);
+  return { dishes: dishes.map((d) => d.name), ingredients: ingredients.map((i) => i.name) };
+}
+
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
 export const TOOL_DEFS: Anthropic.Tool[] = [
