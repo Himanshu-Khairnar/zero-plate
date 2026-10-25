@@ -15,7 +15,7 @@ export default function AppLayout() {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: space.xl, gap: space.md, backgroundColor: colors.background }}>
         <Text variant="heading">No outlets yet</Text>
         <Text variant="caption" tone="muted" style={{ textAlign: "center" }}>
-          Your account has no outlets. Create one in the WasteLess web app, then sign in again.
+          Your account has no outlets. Create one in the Zero Plate web app, then sign in again.
         </Text>
         <Button title="Log out" variant="outline" onPress={() => void logout()} />
       </View>

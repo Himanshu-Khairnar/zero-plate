@@ -168,9 +168,9 @@ export async function notify(alert: { id: string; outletId: string; type: AlertT
       method: "POST",
       headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
       body: JSON.stringify({
-        from: process.env.ALERT_EMAIL_FROM ?? "WasteLess <alerts@wasteless.local>",
+        from: process.env.ALERT_EMAIL_FROM ?? "Zero Plate <alerts@wasteless.local>",
         to: [to],
-        subject: `[WasteLess] ${alert.severity.toUpperCase()}: ${alert.type.replace("_", " ")}`,
+        subject: `[Zero Plate] ${alert.severity.toUpperCase()}: ${alert.type.replace("_", " ")}`,
         text: alert.message,
       }),
     });

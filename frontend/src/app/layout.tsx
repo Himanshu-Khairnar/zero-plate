@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "WasteLess", template: "%s · WasteLess" },
+  title: { default: "Zero Plate", template: "%s · Zero Plate" },
   description: "AI demand forecasting to cut restaurant food waste.",
 };
 

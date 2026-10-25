@@ -39,7 +39,7 @@ export default function LoginScreen() {
         <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: space.xl, gap: space.xl }} keyboardShouldPersistTaps="handled">
           <View style={{ gap: space.xs }}>
             <Text variant="label" tone="primary">
-              WasteLess
+              Zero Plate
             </Text>
             <Text variant="title" style={{ fontSize: 28, lineHeight: 34 }}>
               Cook what sells.{"\n"}Waste less.

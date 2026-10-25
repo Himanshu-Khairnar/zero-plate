@@ -23,7 +23,7 @@ export function OrganizationCard({ name, plan }: { name: string; plan: string })
     <Card>
       <CardHeader>
         <CardTitle>Organisation</CardTitle>
-        <CardDescription>The name shown to your team. Plans are managed by the WasteLess platform team.</CardDescription>
+        <CardDescription>The name shown to your team. Plans are managed by the Zero Plate platform team.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-end">
         <Field className="min-w-0">

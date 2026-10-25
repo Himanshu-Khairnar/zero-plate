@@ -23,7 +23,7 @@ export default function MoreScreen() {
   const { colors } = useTheme();
 
   return (
-    <Screen title="More" subtitle={user.organizationName ?? "WasteLess"}>
+    <Screen title="More" subtitle={user.organizationName ?? "Zero Plate"}>
       <Card padded={false} style={{ gap: 0 }}>
         {LINKS.map((l, i) => (
           <View key={l.title}>

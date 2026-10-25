@@ -48,7 +48,7 @@ export const GET = handle(async (req: Request) => {
 function renderXlsx(r: Report): Buffer {
   const wb = XLSX.utils.book_new();
   const summary = [
-    ["WasteLess report", r.outlet.name],
+    ["Zero Plate report", r.outlet.name],
     ["Period", `${r.period.start} to ${r.period.end}`],
     ["Generated", r.generatedAt],
     [],
@@ -132,7 +132,7 @@ async function renderPdf(r: Report): Promise<Uint8Array> {
   };
   const inr = (n: number) => `Rs ${Math.round(n).toLocaleString("en-IN")}`;
 
-  text("WasteLess report", 20, bold);
+  text("Zero Plate report", 20, bold);
   text(`${r.outlet.name} · ${r.outlet.city}`, 12);
   text(`Period ${r.period.start} to ${r.period.end} · generated ${r.generatedAt.slice(0, 16).replace("T", " ")} UTC`, 9);
   y -= 8;

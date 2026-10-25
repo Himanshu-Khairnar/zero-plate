@@ -47,7 +47,8 @@ export default auth((req) => {
     return NextResponse.next()
   }
 
-  if (isPublicRoute) {
+  // Signed-in users skip the landing page and auth screens.
+  if (isPublicRoute || pathname === "/") {
     return NextResponse.redirect(new URL(homeForRole(role), nextUrl))
   }
 

@@ -38,7 +38,7 @@ export default function PrepScreen() {
       ) : q.isError ? (
         <ErrorState error={q.error} onRetry={() => void q.refetch()} />
       ) : !plan ? (
-        <Empty title="No prep plan yet" hint="Tomorrow's plan hasn't been drafted. Generate it from the Prep page in the WasteLess web app." />
+        <Empty title="No prep plan yet" hint="Tomorrow's plan hasn't been drafted. Generate it from the Prep page in the Zero Plate web app." />
       ) : (
         <>
           {isDraft && canApprove ? (

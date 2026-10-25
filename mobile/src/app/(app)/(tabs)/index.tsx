@@ -18,7 +18,7 @@ export default function HomeScreen() {
   return (
     <Screen
       title={`Hi, ${user.name.split(" ")[0] || "there"}`}
-      subtitle={`${outlet.name} · ${q.data ? shortDate(q.data.date) : (user.organizationName ?? "WasteLess")}`}
+      subtitle={`${outlet.name} · ${q.data ? shortDate(q.data.date) : (user.organizationName ?? "Zero Plate")}`}
       refreshing={q.isRefetching}
       onRefresh={() => void q.refetch()}
     >

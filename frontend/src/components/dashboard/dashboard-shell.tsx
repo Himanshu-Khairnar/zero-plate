@@ -37,7 +37,7 @@ function BrandMark() {
         <Leaf className="size-5" aria-hidden="true" />
       </span>
       <span className="flex flex-col leading-tight">
-        <span className="font-semibold tracking-tight">WasteLess</span>
+        <span className="font-semibold tracking-tight">Zero Plate</span>
         <span className="text-xs text-muted-foreground">Zero-waste ops</span>
       </span>
     </Link>
@@ -99,7 +99,7 @@ function UserChip({ user }: { user: DashboardUser }) {
       </span>
       <div className="min-w-0">
         <p className="truncate text-sm font-medium">{user.name}</p>
-        <p className="truncate text-xs text-muted-foreground">{user.organizationName ?? "WasteLess"}</p>
+        <p className="truncate text-xs text-muted-foreground">{user.organizationName ?? "Zero Plate"}</p>
       </div>
     </div>
   )
@@ -143,7 +143,7 @@ export function DashboardShell({ user, alertCount = 0, children }: { user: Dashb
           </Button>
 
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold">{user.organizationName ?? "WasteLess"}</p>
+            <p className="truncate text-sm font-semibold">{user.organizationName ?? "Zero Plate"}</p>
             <p className="truncate text-xs text-muted-foreground">Signed in as {user.name}</p>
           </div>
 
@@ -156,7 +156,7 @@ export function DashboardShell({ user, alertCount = 0, children }: { user: Dashb
                   <LogOut data-icon="inline-start" aria-hidden="true" />
                   <span className="hidden sm:inline">Sign out</span>
                 </TooltipTrigger>
-                <TooltipContent>Sign out of WasteLess</TooltipContent>
+                <TooltipContent>Sign out of Zero Plate</TooltipContent>
               </Tooltip>
             </form>
           </div>

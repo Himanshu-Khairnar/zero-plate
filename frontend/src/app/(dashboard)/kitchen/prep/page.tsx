@@ -96,7 +96,7 @@ async function Sheet({ searchParams }: { searchParams: Search }) {
       </table>
 
       {plan.notes ? <p className="mt-6 rounded border p-3 text-sm">Notes: {plan.notes}</p> : null}
-      <p className="mt-6 text-xs text-muted-foreground">Total {plan.items.reduce((s, i) => s + i.plannedQty, 0)} plates · WasteLess</p>
+      <p className="mt-6 text-xs text-muted-foreground">Total {plan.items.reduce((s, i) => s + i.plannedQty, 0)} plates · Zero Plate</p>
     </div>
   );
 }
