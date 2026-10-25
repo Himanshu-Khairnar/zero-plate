@@ -1,0 +1,32 @@
+# Render Blueprint: the Next.js app (web UI + /api/mobile for the Expo and Flutter apps).
+# The FastAPI ML service already runs at https://wasteless-ml.onrender.com and shares the same database.
+services:
+  - type: web
+    name: wasteless-web
+    runtime: node
+    plan: free
+    rootDir: frontend
+    branch: feat/mobile-app
+    buildCommand: npm ci && npx prisma generate && npx prisma db push --skip-generate && npm run build
+    startCommand: npm start
+    healthCheckPath: /login
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Same Postgres the ML service uses (postgresql://… form, without +psycopg).
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_POOL_MAX
+        value: "5"
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: AUTH_TRUST_HOST
+        value: "true"
+      - key: ML_SERVICE_URL
+        value: https://wasteless-ml.onrender.com
+      - key: NEXT_PUBLIC_API_URL
+        value: https://wasteless-ml.onrender.com
+      - key: POS_API_KEY
+        generateValue: true
+      - key: ANTHROPIC_API_KEY
+        sync: false

@@ -168,13 +168,27 @@ export async function notify(alert: { id: string; outletId: string; type: AlertT
       method: "POST",
       headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
       body: JSON.stringify({
-        from: process.env.ALERT_EMAIL_FROM ?? "WasteLess <alerts@wasteless.local>",
+        from: process.env.ALERT_EMAIL_FROM ?? "Zero Plate <alerts@wasteless.local>",
         to: [to],
-        subject: `[WasteLess] ${alert.severity.toUpperCase()}: ${alert.type.replace("_", " ")}`,
+        subject: `[Zero Plate] ${alert.severity.toUpperCase()}: ${alert.type.replace("_", " ")}`,
         text: alert.message,
       }),
     });
   } catch (err) {
     console.error("alert email failed", err);
   }
+}
+
+/** Short headline per alert type (mirrors the labels in the web alerts panel). */
+export const ALERT_TITLE: Record<string, string> = {
+  anomaly: "Unusual sales",
+  low_stock: "Low stock",
+  expiry: "Expiry",
+  shortage: "Shortage",
+  plan_pending: "Plan pending",
+};
+
+/** Mark one alert of an outlet as read. Throws if it does not belong to the outlet. */
+export async function setAlertRead(outletId: string, alertId: string) {
+  await prisma.alert.update({ where: { id: alertId, outletId }, data: { isRead: true, readAt: new Date() } });
 }

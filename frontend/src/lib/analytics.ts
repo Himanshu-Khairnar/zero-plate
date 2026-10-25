@@ -28,7 +28,7 @@ export type AccuracyPoint = { date: string; actual: number; likely: number; low:
 export type ReasonSlice = { reason: string; plates: number; cost: number };
 export type HeatCell = { dishId: string; dishName: string; weekday: number; plates: number; cost: number };
 
-async function dishCostMap(outletId: string) {
+export async function dishCostMap(outletId: string) {
   const dishes = await prisma.dish.findMany({ where: { outletId }, include: { recipeItems: { include: { ingredient: true } } } });
   const cost = new Map<string, number>();
   const name = new Map<string, string>();

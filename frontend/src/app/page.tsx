@@ -1,19 +1,7 @@
-import { redirect } from "next/navigation"
+import { Landing } from "@/components/landing/landing"
 
-import { auth } from "@/auth"
-
-export const instant = false
-
-export default async function RootPage() {
-  const session = await auth()
-
-  if (!session?.user) {
-    redirect("/login")
-  }
-
-  if (session.user.role === "KITCHEN_STAFF") {
-    redirect("/kitchen")
-  }
-
-  redirect("/dashboard")
+// Signed-in users are sent to their home page by src/middleware.ts,
+// so this route only ever renders the static landing page.
+export default function RootPage() {
+  return <Landing />
 }

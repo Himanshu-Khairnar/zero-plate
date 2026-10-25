@@ -107,7 +107,7 @@ export async function createSuggestedOrders(outletId: string) {
           supplierId: s.supplierId,
           status: "SUGGESTED",
           expectedDate: s.expectedDate,
-          createdBy: "WasteLess forecast",
+          createdBy: "Zero Plate forecast",
           note: `Covers ${s.leadTimeDays + 1} days of forecast demand`,
           items: { create: s.items.map((i) => ({ ingredientId: i.ingredientId, qty: i.qty, unitPrice: i.unitPrice })) },
         },

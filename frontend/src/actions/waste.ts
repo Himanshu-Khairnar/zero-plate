@@ -9,6 +9,7 @@ import { z } from "zod";
 import { audit, guarded, GuardError, requireOutletActor } from "@/lib/guard";
 import { prisma } from "@/lib/prisma";
 import { WASTE_REASONS } from "@/lib/waste";
+import { recordWaste } from "@/lib/waste-log";
 
 const WASTE_ROLES = ["OWNER", "MANAGER", "KITCHEN_STAFF"] as const;
 const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
@@ -77,28 +78,14 @@ export async function logWaste(input: FormData | z.input<typeof logSchema>) {
       if (!ing) throw new GuardError("Ingredient not found for this outlet.");
     }
 
+    // Validate the dish/ingredient before storing a photo, so a bad request leaves no orphan file.
     let photoUrl: string | undefined;
     if (input instanceof FormData) {
       const photo = input.get("photo");
       if (photo instanceof File && photo.size > 0) photoUrl = await storePhoto(photo);
     }
 
-    const row = await prisma.wasteLog.create({
-      data: {
-        outletId: data.outletId,
-        dishId: data.dishId ?? null,
-        ingredientId: data.ingredientId ?? null,
-        date: data.date,
-        qty: data.qty,
-        reason: data.reason,
-        note: data.note ?? null,
-        photoUrl: photoUrl ?? null,
-        aiLabel: data.aiLabel ?? null,
-        aiConfidence: data.aiConfidence ?? null,
-        loggedBy: viewer.name,
-      },
-    });
-    await audit(viewer, "waste.log", { outletId: data.outletId, entity: "WasteLog", entityId: row.id, detail: `${data.qty} ${data.reason}` });
+    const row = await recordWaste(viewer, { ...data, photoUrl });
     revalidatePath("/waste-log");
     revalidatePath("/kitchen/waste");
     revalidatePath("/donations");

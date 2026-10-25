@@ -39,7 +39,7 @@ async function Sales({ searchParams }: { searchParams: Search }) {
 
   return (
     <>
-      <PageHeader title="Sales data" description="Get historical and daily sales into WasteLess cleanly: upload a file, type a day in, or let the POS push it.">
+      <PageHeader title="Sales data" description="Get historical and daily sales into Zero Plate cleanly: upload a file, type a day in, or let the POS push it.">
         <OutletPicker outlets={outlets} value={outlet.id} />
       </PageHeader>
 

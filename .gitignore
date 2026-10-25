@@ -16,3 +16,4 @@ Thumbs.db
 backend/venv/
 # Model artifacts written by the ML service
 backend/models/
+*.apk
