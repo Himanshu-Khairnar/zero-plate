@@ -1,17 +1,13 @@
 "use server"
 
-import { randomBytes } from "node:crypto"
 import bcrypt from "bcryptjs"
 import { AuthError } from "next-auth"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
 import { auth, signIn } from "@/auth"
+import { createInvitation } from "@/lib/invites"
 import { prisma } from "@/lib/prisma"
-
-const INVITE_TTL_MS = 48 * 60 * 60 * 1000
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
 
 const inviteStaffSchema = z.object({
   email: z.email().trim(),
@@ -65,29 +61,17 @@ export async function inviteStaff(
 
   const { email, role, outletId } = parsed.data
 
-  const existingUser = await prisma.user.findUnique({ where: { email } })
-  if (existingUser) {
+  const result = await createInvitation({
+    organizationId: session.user.organizationId,
+    email,
+    role,
+    outletId,
+  })
+  if (!result.ok) {
     return { fieldErrors: { email: "A user with this email already exists." } }
   }
 
-  const token = randomBytes(32).toString("hex")
-
-  const invitation = await prisma.invitation.create({
-    data: {
-      email,
-      role,
-      token,
-      outletId,
-      organizationId: session.user.organizationId,
-      expiresAt: new Date(Date.now() + INVITE_TTL_MS),
-    },
-  })
-
-  const inviteUrl = `${APP_URL}/accept-invite?token=${invitation.token}`
-
-  console.log(`[invite-staff] Invitation for ${email}: ${inviteUrl}`)
-
-  return { inviteUrl }
+  return { inviteUrl: result.inviteUrl }
 }
 
 const acceptInviteSchema = z.object({

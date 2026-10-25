@@ -6,7 +6,18 @@ import { canAccessOutlet, type Viewer } from "@/lib/outlets";
 
 export type ActionResult<T = undefined> = { ok: true; data?: T } | { ok: false; error: string };
 
-export class GuardError extends Error {}
+/**
+ * Expected failure with a user-facing message. Server actions show the message;
+ * the mobile API turns it into a JSON error with `status` (default 400).
+ */
+export class GuardError extends Error {
+  constructor(
+    message?: string,
+    public status = 400,
+  ) {
+    super(message);
+  }
+}
 
 /** Signed-in viewer for a server action, or throw. */
 export async function requireActor(): Promise<Viewer> {

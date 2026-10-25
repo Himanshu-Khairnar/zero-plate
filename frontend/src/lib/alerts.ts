@@ -3,6 +3,8 @@ import "server-only";
 import { prisma } from "@/lib/prisma";
 import { addDays, today, tomorrow } from "@/lib/dates";
 import { qtyWithUnit } from "@/lib/format";
+import { audit, GuardError } from "@/lib/guard";
+import type { Viewer } from "@/lib/outlets";
 
 /**
  * Module K: operational alerts (low stock, expiry, forecast shortage, plan
@@ -191,4 +193,35 @@ export const ALERT_TITLE: Record<string, string> = {
 /** Mark one alert of an outlet as read. Throws if it does not belong to the outlet. */
 export async function setAlertRead(outletId: string, alertId: string) {
   await prisma.alert.update({ where: { id: alertId, outletId }, data: { isRead: true, readAt: new Date() } });
+}
+
+/** Mark every unread alert of an outlet as read; returns how many changed. */
+export async function markAllAlertsRead(outletId: string): Promise<number> {
+  const res = await prisma.alert.updateMany({ where: { outletId, isRead: false }, data: { isRead: true, readAt: new Date() } });
+  return res.count;
+}
+
+const ML = process.env.ML_SERVICE_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+/**
+ * Ask the ML service to scan recent sales and write anomaly alerts. Service
+ * unreachable or failing → GuardError 503. Callers check access and role.
+ */
+export async function scanAnomalies(viewer: Viewer, outletId: string, days = 14): Promise<{ flagged: number; created: number }> {
+  let res: Response;
+  try {
+    res = await fetch(`${ML}/api/anomaly/scan`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ outletId, days }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(60_000),
+    });
+  } catch {
+    throw new GuardError(`ML service unreachable at ${ML}. Start it with "fastapi dev app/main.py" in backend/.`, 503);
+  }
+  const body = (await res.json().catch(() => ({}))) as { detail?: string; flagged?: unknown[]; alertsCreated?: number };
+  if (!res.ok) throw new GuardError(`ML service: ${body.detail ?? res.statusText}`, res.status >= 500 ? 503 : 422);
+  await audit(viewer, "alerts.anomaly_scan", { outletId, detail: `${body.alertsCreated ?? 0} new, ${body.flagged?.length ?? 0} flagged` });
+  return { flagged: body.flagged?.length ?? 0, created: body.alertsCreated ?? 0 };
 }

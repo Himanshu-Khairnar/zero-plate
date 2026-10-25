@@ -18,7 +18,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { addDays, formatDate, today } from "@/lib/dates";
 import { inr, num, signed } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import type { WhatIfLine, WhatIfTotals } from "@/app/api/whatif/route";
+import type { WhatIfLine, WhatIfTotals } from "@/lib/whatif";
 
 type Dish = { id: string; name: string; category: string };
 

@@ -97,3 +97,9 @@ export function pickOutlet<T extends { id: string }>(visible: T[], requested: st
 export function hasRole(role: MobileRole, allowed: readonly MobileRole[]): boolean {
   return allowed.includes(role);
 }
+
+/** Whole number from a query value, clamped to [min, max]; `fallback` when absent or not a number. */
+export function clampInt(raw: string | null | undefined, min: number, max: number, fallback: number): number {
+  const n = raw == null || raw.trim() === "" ? NaN : Math.round(Number(raw));
+  return Math.min(max, Math.max(min, Number.isFinite(n) ? n : fallback));
+}

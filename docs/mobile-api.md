@@ -65,3 +65,53 @@ Shapes above are unchanged; these pin down values the table leaves open.
 - `donations`: `mealsDonated` = all-time collected meals; `items` = latest 50; `ngoName` may be `null`;
   `status` ∈ `PLANNED | COLLECTED | CANCELLED`.
 - `assistant`: single turn (no history); uses Claude when `ANTHROPIC_API_KEY` is set, else the offline rule-based answers.
+
+## v2 endpoints (mobile feature parity)
+
+Same auth, outlet and error rules as above. Where a response says "= `TypeName`", it is exactly the
+JSON of that TypeScript type from the web app (single source of truth, read it there):
+`PlanView` (`frontend/src/lib/prep-plans.ts`), `StockRow` / `SuggestedOrder` (`src/lib/stock.ts`),
+`SurplusEstimate` (`src/actions/donations.ts`), `VisionResult` (`src/actions/waste.ts`), the what-if
+response (`src/app/api/whatif/route.ts`). Roles in brackets; others get 403.
+
+| Method | Path | Body / query | Response |
+| --- | --- | --- | --- |
+| GET | `/api/mobile/prep-plan/full?outletId=&date=` | date defaults to tomorrow | `{ plan: PlanView \| null }` (read-only, never drafts) |
+| POST | `/api/mobile/prep-plan/generate` [OWNER, MANAGER] | `{ outletId, date }` | `{ plan: PlanView }` — get-or-create; regenerates if still DRAFT |
+| POST | `/api/mobile/prep-plan/:id/adjust` [OWNER, MANAGER] | `{ changes: [{ dishId, plannedQty, reason? }] }` | `{ plan: PlanView }`; LOCKED → 409 |
+| POST | `/api/mobile/prep-plan/:id/approve` | (existing) optional `{ notes? }` | `{ ok: true }` |
+| POST | `/api/mobile/kitchen/leftovers` [OWNER, MANAGER, KITCHEN_STAFF] | `{ outletId, date }` | `{ ok: true, logged: number }` — leftovers → overproduction waste (same as web) |
+| POST | `/api/mobile/kitchen/lock` [OWNER, MANAGER] | `{ outletId, date }` | `{ ok: true }`; already locked → 409 |
+| POST | `/api/mobile/waste/recognize` [OWNER, MANAGER, KITCHEN_STAFF] | multipart: `outletId`, `photo` (jpeg/png/webp/heic, ≤ 5 MB) | `VisionResult` |
+| DELETE | `/api/mobile/waste/:id?outletId=` [OWNER, MANAGER] | | `{ ok: true }` |
+| POST | `/api/mobile/alerts/read-all` | `{ outletId }` | `{ ok: true, updated: number }` |
+| POST | `/api/mobile/alerts/scan` [OWNER, MANAGER] | `{ outletId }` | `{ ok: true, created: number }` (ML service down → 503 with message) |
+| GET | `/api/mobile/donations/suggest?outletId=&date=` | date defaults to today | `SurplusEstimate` |
+| GET | `/api/mobile/donations/ngos?outletId=` | | `{ items: [{ id, name, city, contact, acceptsCooked }] }` |
+| POST | `/api/mobile/donations` [OWNER, MANAGER, KITCHEN_STAFF] | `{ outletId, ngoId?, date, meals, dishNames?, note? }` | `{ ok: true, id }` |
+| POST | `/api/mobile/donations/:id/status` [OWNER, MANAGER, KITCHEN_STAFF] | `{ outletId, status: PLANNED\|COLLECTED\|CANCELLED }` | `{ ok: true }` |
+| GET | `/api/mobile/analytics?outletId=&days=30` | | `{ sales: DayPoint[], accuracy: AccuracyPoint[], waste: { byReason: ReasonSlice[], totalPlates, totalCost }, savings: <savingsEstimate()>, explanations: <nextDayExplanations()> }` (types in `src/lib/analytics.ts`) |
+| GET | `/api/mobile/waste-heatmap?outletId=&days=56` | | `{ cells: HeatCell[] }` |
+| GET | `/api/mobile/inventory?outletId=` | | `{ rows: StockRow[], suggestedOrders: SuggestedOrder[] }` (read-only) |
+| POST | `/api/mobile/whatif` | same body as `/api/whatif` | same response as `/api/whatif` |
+| POST | `/api/mobile/staff/invite` [OWNER, MANAGER] | `{ email, role: MANAGER\|KITCHEN_STAFF, outletIds: string[] }` | `{ ok: true, inviteUrl }` (same rules as the web invite form; managers cannot invite managers if the web forbids it) |
+
+All new routes reuse the web's server logic (extract from `src/actions/*` into `src/lib/*` where an
+action is tied to the Auth.js session, keeping the web actions calling the shared function).
+
+### v2 implementation notes (server)
+
+- Dates are `YYYY-MM-DD`; malformed → 400. Unknown plan/waste entry/donation/NGO in the outlet → 404.
+- `prep-plan/generate`: no plan → draft from forecasts; DRAFT → rebuilt; APPROVED/LOCKED → returned unchanged.
+  Needs the ML service when forecasts are missing (down → 503; no active dishes → 422).
+- `prep-plan/:id/approve`: body is optional; `notes` (string) is stored on the plan.
+- `kitchen/lock`: already locked, no entries for that day, or sold > prepared → 409.
+- `waste/recognize`: missing/invalid photo or non-multipart body → 400; ML service down or failing → 503;
+  image rejected by the service (4xx) → 422.
+- `alerts/scan`: scans the last 14 days. ML down/failing → 503.
+- `analytics`: `days` clamped to 7–90, all series up to yesterday; `accuracy` is the per-day series.
+- `waste-heatmap`: `days` clamped to 7–365; `weekday` 0 = Monday.
+- `donations` POST: JSON `null` fields are treated as absent; `dishNames` is a free-text string.
+- `staff/invite`: every id in `outletIds` must be visible to the inviter (403). An invitation carries a single
+  outlet, so **only the first id is attached** (more can be assigned on the web Staff page). Existing user → 409.
+- CORS now also allows `DELETE`.

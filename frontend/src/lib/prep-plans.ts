@@ -146,6 +146,18 @@ export async function regenerateDraft(outletId: string, date: string): Promise<P
   return toView(await createDraft(outletId, date));
 }
 
+/**
+ * Get-or-create for a day, refreshing a plan that is still a draft: no plan →
+ * draft from forecasts; DRAFT → rebuilt from fresh forecasts; APPROVED/LOCKED →
+ * returned unchanged.
+ */
+export async function generatePlan(outletId: string, date: string): Promise<PlanView> {
+  const existing = await prisma.prepPlan.findUnique({ where: { outletId_date: { outletId, date } }, select: { status: true } });
+  if (!existing) return getOrCreatePlan(outletId, date);
+  if (existing.status === "DRAFT") return regenerateDraft(outletId, date);
+  return getOrCreatePlan(outletId, date);
+}
+
 export async function adjustPlan(
   id: string,
   adjustedBy: string,
